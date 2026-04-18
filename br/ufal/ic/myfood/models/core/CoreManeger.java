@@ -24,7 +24,8 @@ public class CoreManeger {
         enterpriseManager.saveData();
     }
 
-    public String getAtributoUsuario(String id, String atributo) throws UsuarioNaoExisteException {
+    public String getAtributoUsuario(String id, String atributo)
+            throws UsuarioNaoExisteException,AtributoInvalido {
         return userManager.getAtributebyId(id,atributo);
     }
 

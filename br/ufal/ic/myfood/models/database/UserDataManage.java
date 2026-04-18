@@ -1,7 +1,10 @@
 package br.ufal.ic.myfood.models.database;
+import br.ufal.ic.myfood.exceptions.AtributoInvalido;
 import br.ufal.ic.myfood.exceptions.FileError;
 import br.ufal.ic.myfood.exceptions.SaveError;
 import br.ufal.ic.myfood.exceptions.UsuarioNaoExisteException;
+import br.ufal.ic.myfood.models.users.Client;
+import br.ufal.ic.myfood.models.users.Owner;
 import br.ufal.ic.myfood.models.users.User;
 
 import java.util.Map;
@@ -32,22 +35,14 @@ public class UserDataManage extends DataManger<User> {
     }
 
     public String getAtributeById(String id, String atribute)
-    throws UsuarioNaoExisteException{
+    throws UsuarioNaoExisteException,AtributoInvalido{
 
        if(!userbyIDList.containsKey(id)){
            throw new UsuarioNaoExisteException();
        }
 
        User user = userbyIDList.get(id);
-
-        return switch (atribute.toLowerCase()) {
-            case "nome"     -> user.getName();
-            case "email"    -> user.getEmail();
-            case "endereco" -> user.getAdress();
-            case "cpf"      -> user.getCpf();
-            case "senha"    -> user.getPassword();
-            default -> null;
-        };
+       return user.getAtribute(atribute);
     }
 
     public String getIdByEmail(String email) throws UsuarioNaoExisteException{

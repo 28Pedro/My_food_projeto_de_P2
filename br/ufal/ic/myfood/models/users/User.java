@@ -1,22 +1,33 @@
 package br.ufal.ic.myfood.models.users;
 
+import br.ufal.ic.myfood.exceptions.AtributoInvalido;
+
 public abstract class User {
     private String id;
     private String name;
     private String email;
     private String password;
     private String adress;
-    private String cpf;
 
     public User(){}
 
-    public User(String id, String name, String email, String password, String adress, String cpf) {
+    public User(String id, String name, String email, String password, String adress) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.adress = adress;
-        this.cpf = cpf;
+    }
+
+    public String getAtribute(String atribute) throws AtributoInvalido {
+
+        return switch (atribute.toLowerCase()) {
+            case "nome"     -> getName();
+            case "email"    -> getEmail();
+            case "endereco" -> getAdress();
+            case "senha"    -> getPassword();
+            default -> throw new AtributoInvalido();
+        };
     }
 
     public String getId() {
@@ -57,14 +68,6 @@ public abstract class User {
 
     public void setAdress(String adress) {
         this.adress = adress;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
     }
 
     @Override

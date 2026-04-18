@@ -1,23 +1,38 @@
 package br.ufal.ic.myfood.models.enterprise;
 
+import br.ufal.ic.myfood.exceptions.AtributoInvalido;
+
 public abstract class Enterprise {
-    private String entreprisetype;
+
+    private String type;
     private String name;
     private String adress;
     private String ownerId;
     private String id;
-    private String kitchenType;
+
 
     public Enterprise() {
     }
 
-    public Enterprise(String entreprisetype, String ownerId, String name, String adress, String kitchenType, String id) {
-        this.entreprisetype = entreprisetype;
+    public Enterprise(String type,String ownerId, String name, String adress, String id) {
+
+        this.type = type;
         this.name = name;
         this.adress = adress;
         this.ownerId = ownerId;
         this.id = id;
-        this.kitchenType = kitchenType;
+
+    }
+
+    public String getAtribute(String atribute) throws AtributoInvalido{
+        return switch (atribute.toLowerCase()) {
+            case "nome" -> this.getName();
+            case "endereco" -> this.getAdress();
+            case "dono" -> this.getOwnerId();
+            case "tipoEmpresa" -> this.getType();
+
+            default -> throw new AtributoInvalido();
+        };
     }
 
     public String getName() {
@@ -52,20 +67,12 @@ public abstract class Enterprise {
         this.id = id;
     }
 
-    public void setEntreprisetype(String entreprisetype) {
-        this.entreprisetype = entreprisetype;
+    public String getType() {
+        return type;
     }
 
-    public String getEntreprisetype() {
-        return entreprisetype;
-    }
-
-    public String getKitchenType() {
-        return kitchenType;
-    }
-
-    public void setKitchenType(String kitchenType) {
-        this.kitchenType = kitchenType;
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override
