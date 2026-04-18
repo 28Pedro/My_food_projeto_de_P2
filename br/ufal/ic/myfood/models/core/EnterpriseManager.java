@@ -4,6 +4,7 @@ import br.ufal.ic.myfood.exceptions.*;
 import br.ufal.ic.myfood.models.database.EnterpriseDataManeger;
 import br.ufal.ic.myfood.models.enterprise.Enterprise;
 import br.ufal.ic.myfood.models.enterprise.Restaurant;
+import br.ufal.ic.myfood.models.validator.EnterpriseValidator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,25 +14,19 @@ public class EnterpriseManager {
 
     EnterpriseDataManeger enterpriseDataManeger;
     UserIntegrator userIntegrator;
+    EnterpriseValidator enterpriseValidator;
 
     public EnterpriseManager( UserIntegrator userIntegrator) throws FileError {
         enterpriseDataManeger = new EnterpriseDataManeger();
         this.userIntegrator = userIntegrator;
+        this.enterpriseValidator = new EnterpriseValidator(enterpriseDataManeger,userIntegrator);
     }
 
     public String createEnterprise(String entrepriseType, String ownerId, String name, String adress,
                                  String kitchenType) throws UsuarioNaoPodeCriarEmpresa, NomeDeEmpresaJaExiste,
-                                EmpresaComMesmoNomeeLocal, NomeInvalido, UsuarioNaoExisteException {
+                                EmpresaComMesmoNomeeLocal, NomeInvalido{
 
-        if(!userIntegrator.userIsOwner(ownerId)){
-            throw new UsuarioNaoPodeCriarEmpresa();
-        }
-        if(!isNameValid(name, ownerId)){
-            throw new NomeDeEmpresaJaExiste();
-        }
-        if(enterpriseDataManeger.idbyNameAdressExists(name, adress)){
-            throw new EmpresaComMesmoNomeeLocal();
-        }
+       enterpriseValidator.validateCreateEnterprise(ownerId, name, adress);
 
         String enterpiseId = generateId();
         Enterprise newRestaurant = new Restaurant(entrepriseType,ownerId,name,adress,kitchenType,enterpiseId);
@@ -44,9 +39,7 @@ public class EnterpriseManager {
     public String getEntrepriseListByOwner(String ownerId) throws EmpresanaoCadastrada,
             UsuarioNaoPodeCriarEmpresa, UsuarioNaoExisteException { // erá aqui que aquele erro maldito tava acontecendo
 
-        if(!userIntegrator.userIsOwner(ownerId)){
-            throw new UsuarioNaoPodeCriarEmpresa();
-        }
+        enterpriseValidator.validateUser(ownerId);
 
         List<String> entrepriseList;
         try {
@@ -133,15 +126,6 @@ public class EnterpriseManager {
         }
 
         return empresasComNome.get(indice);
-    }
-
-    private boolean isNameValid(String name, String ownerId) throws NomeInvalido {
-
-        if(enterpriseDataManeger.nameExists(name)) {
-            return (enterpriseDataManeger.getIdbyName(name).equals(ownerId));
-        }
-
-        return true;
     }
 
     private String generateId() {
