@@ -28,7 +28,12 @@ public class UserDataManage extends DataManger<User> {
 
     }
 
-    public String getAtributeById(String id, String atribute) {
+    public String getAtributeById(String id, String atribute)
+    throws UsuarioNaoExisteException{
+
+       if(!userbyIDList.containsKey(id)){
+           throw new UsuarioNaoExisteException();
+       }
 
        User user = userbyIDList.get(id);
 

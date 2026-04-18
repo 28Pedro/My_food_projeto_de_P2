@@ -1,9 +1,14 @@
 package br.ufal.ic.myfood.models.validator;
 import br.ufal.ic.myfood.exceptions.*;
+import br.ufal.ic.myfood.models.database.UserDataManage;
 
-public class UserValidator extends Validator{
+public class UserValidator extends Validator<UserDataManage> {
 
     private final int CPF_SIZE = 14;
+
+     public UserValidator(UserDataManage database){
+        super(database);
+    }
 
     public void ValidateComunUserRuler(String name, String email,String password,String adress)
             throws NomeInvalido, EnderecoInvalido, SenhaInvalida, EmailInvalido{
@@ -31,8 +36,24 @@ public class UserValidator extends Validator{
 
     }
 
-    public boolean validatepassworld(String typePassworld, String expectedPassworld) {
-        return (typePassworld.equals(expectedPassworld));
+    public String validateLogin(String email, String recivedPassworld)
+            throws LoginError {
+            try {
+                String id = dataBase.getIdByEmail(email);
+                String storedPassword = dataBase.getAtributeById(id, "senha");
+                if(storedPassword.equals(recivedPassworld)){
+                    return id;
+                }
+            } catch (UsuarioNaoExisteException e) {
+                throw new LoginError();
+            }
+        throw new LoginError();
+    }
+
+    public void validateEmailExists(String email) throws UsuarioJaExisteException {
+        if(dataBase.emailExists(email)){
+            throw new UsuarioJaExisteException();
+        }
     }
 
     @Override
