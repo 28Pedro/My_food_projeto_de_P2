@@ -56,12 +56,6 @@ public class UserValidator extends Validator<UserDataManage> {
         }
     }
 
-    @Override
-    protected boolean FildExists(String Fild)
-    {
-        return Fild != null && !Fild.isBlank();
-    }
-
     private boolean validateEmail(String email){
         return  (FildExists(email) &&
               email.matches("^[\\w.-]+@[\\w.-]+\\.[a-z]{2,}$")

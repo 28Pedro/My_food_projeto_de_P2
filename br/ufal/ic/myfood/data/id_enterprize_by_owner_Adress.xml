@@ -4,13 +4,13 @@
   <void method="put">
    <object class="br.ufal.ic.myfood.records.PairKey">
     <void property="first">
-     <string>10f664f5-5b85-4d45-8143-7f27ed98e82d</string>
+     <string>c72c5279-c81e-4355-b739-473405be0bf3</string>
     </void>
     <void property="second">
      <string>Rua Segura N 987</string>
     </void>
    </object>
-   <string>5c7441fd-be1f-4fe8-aeed-25790cb1e507</string>
+   <string>c451dd88-7c93-4031-a0be-6a92cad2dec2</string>
   </void>
  </object>
 </java>

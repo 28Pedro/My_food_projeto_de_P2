@@ -10,5 +10,9 @@ public abstract class Validator<D> {
          this.dataBase = dataBase;
      }
 
-    protected abstract boolean FildExists(String item);
+     protected boolean FildExists(String Fild)
+     {
+         return Fild != null && !Fild.isBlank();
+     }
+
 }
