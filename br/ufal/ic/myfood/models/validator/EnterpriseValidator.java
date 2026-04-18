@@ -26,6 +26,21 @@ public class EnterpriseValidator extends Validator<EnterpriseDataManeger>{
         }
     }
 
+    public void validateRequestGetIdEnterprise(String ownerId, String name, int index)
+    throws NomeInvalido, IndiceInvalido, UsuarioNaoPodeCriarEmpresa{
+
+        if(!fildExists(name)){
+            throw new NomeInvalido();
+        }
+
+        if(index < 0){
+            throw new IndiceInvalido();
+        }
+
+        validateUser(ownerId);
+
+    }
+
     public void validateUser(String ownerId) throws UsuarioNaoPodeCriarEmpresa{
 
         try {
@@ -34,6 +49,12 @@ public class EnterpriseValidator extends Validator<EnterpriseDataManeger>{
             }
         } catch (Exception e) {
             throw new UsuarioNaoPodeCriarEmpresa();
+        }
+    }
+
+    public void  validateAtribute(String atribute) throws AtributoInvalido{
+        if(!fildExists(atribute)){
+            throw new AtributoInvalido();
         }
     }
 

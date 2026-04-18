@@ -23,8 +23,11 @@ public class UserDataManage extends DataManger<User> {
     @Override
     public void saveObject(User user)
     {
-        userbyIDList.put(user.getId(), user);
-        idbyEmailList.put(user.getEmail(), user.getId());
+        String id = user.getId();
+        String email = user.getEmail();
+
+        userbyIDList.put(id, user);
+        idbyEmailList.put(email, id);
 
     }
 

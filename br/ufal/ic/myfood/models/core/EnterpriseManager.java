@@ -6,7 +6,6 @@ import br.ufal.ic.myfood.models.enterprise.Enterprise;
 import br.ufal.ic.myfood.models.enterprise.Restaurant;
 import br.ufal.ic.myfood.models.validator.EnterpriseValidator;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,13 +36,14 @@ public class EnterpriseManager {
     }
 
     public String getEntrepriseListByOwner(String ownerId) throws EmpresanaoCadastrada,
-            UsuarioNaoPodeCriarEmpresa, UsuarioNaoExisteException { // erá aqui que aquele erro maldito tava acontecendo
+            UsuarioNaoPodeCriarEmpresa {
 
         enterpriseValidator.validateUser(ownerId);
 
         List<String> entrepriseList;
         try {
             entrepriseList = enterpriseDataManeger.getEnterprizeListByOwner(ownerId);
+
         } catch (EmpresanaoCadastrada e) {
             return "{[]}";
         }
@@ -66,6 +66,15 @@ public class EnterpriseManager {
         return sb.toString();
     }
 
+    public String getIdEmpresa(String ownerId, String name, int index)
+            throws NomeInvalido, IndiceMaiorQueEsperado,
+            UsuarioNaoPodeCriarEmpresa, IndiceInvalido, NaoExisteEmpresaComEsseNome {
+
+        enterpriseValidator.validateRequestGetIdEnterprise(ownerId,name,index);
+
+        return enterpriseDataManeger.getIdEnterpriseByOwnerNameIndex(ownerId,name,index);
+    }
+
     public void saveData() throws SaveError {
         enterpriseDataManeger.saveData();
     }
@@ -74,58 +83,28 @@ public class EnterpriseManager {
         enterpriseDataManeger.resetData();
     }
 
-    public String getAtributoEmpresa(String empresaId, String atributo) throws EmpresanaoCadastrada, AtributoInvalido, UsuarioNaoExisteException {
+    public String getAtributoEmpresa(String id, String atribute)
+            throws EmpresanaoCadastrada, AtributoInvalido {
 
-        Enterprise empresa = enterpriseDataManeger.getEnterpriseByID(empresaId);
+        Enterprise enterprise = enterpriseDataManeger.getEnterpriseByID(id);
+        enterpriseValidator.validateAtribute(atribute);
 
-        if(atributo == null || atributo.trim().isEmpty()){
-            throw new AtributoInvalido();
-        }
+        return switch (atribute.toLowerCase()) {
+            case "nome" -> enterprise.getName();
+            case "endereco" -> enterprise.getAdress();
+            case "tipocozinha" -> enterprise.getKitchenType();
 
-        return switch (atributo.toLowerCase()) {
-            case "nome" -> empresa.getName();
-            case "endereco" -> empresa.getAdress();
-            case "tipocozinha" -> empresa.getKitchenType();
-            case "dono" -> userIntegrator.getUserNameById(empresa.getOwnerId());
+            case "dono" -> {
+                try {
+                    yield userIntegrator.getUserNameById(enterprise.getOwnerId());
+                } catch (Exception e) {
+                    throw new EmpresanaoCadastrada();
+                }
+            }
+
             default -> throw new AtributoInvalido();
         };
-    }
 
-    public String getIdEmpresa(String ownerId, String nome, int indice)
-            throws EmpresanaoCadastrada, NomeInvalido, IndiceMaiorQueEsperado,
-            UsuarioNaoExisteException, UsuarioNaoPodeCriarEmpresa, IndiceInvalido,
-            NaoExisteEmpresaComEsseNome {
-
-        if(nome == null || nome.trim().isEmpty()){
-            throw new NomeInvalido();
-        }
-
-        if(indice < 0){
-            throw new IndiceInvalido();
-        }
-
-        if(!userIntegrator.userIsOwner(ownerId)){
-            throw new UsuarioNaoPodeCriarEmpresa();
-        }
-
-        List<String> empresas = enterpriseDataManeger.getEnterprizeListByOwner(ownerId); // parece gambiarra tem que arrumar esse bagulho
-
-        List<String> empresasComNome = new ArrayList<>();
-        for(String id : empresas){
-            if(enterpriseDataManeger.getEnterpriseByID(id).getName().equals(nome)){
-                empresasComNome.add(id);
-            }
-        }
-
-        if(empresasComNome.isEmpty()){
-            throw new NaoExisteEmpresaComEsseNome();
-        }
-
-        if(indice >= empresasComNome.size()){
-            throw new IndiceMaiorQueEsperado();
-        }
-
-        return empresasComNome.get(indice);
     }
 
     private String generateId() {

@@ -13,16 +13,16 @@ public class UserValidator extends Validator<UserDataManage> {
     public void ValidateComunUserRuler(String name, String email,String password,String adress)
             throws NomeInvalido, EnderecoInvalido, SenhaInvalida, EmailInvalido{
 
-            if(!FildExists(name)){
+            if(!fildExists(name)){
                 throw new NomeInvalido();
             }
             if(!validateEmail(email)){
                 throw new EmailInvalido();
             }
-            if(!FildExists(password)){
+            if(!fildExists(password)){
                 throw new SenhaInvalida();
             }
-            if(!FildExists(adress)){
+            if(!fildExists(adress)){
                 throw new EnderecoInvalido();
         }
     }
@@ -57,7 +57,7 @@ public class UserValidator extends Validator<UserDataManage> {
     }
 
     private boolean validateEmail(String email){
-        return  (FildExists(email) &&
+        return  (fildExists(email) &&
               email.matches("^[\\w.-]+@[\\w.-]+\\.[a-z]{2,}$")
         );
     }
