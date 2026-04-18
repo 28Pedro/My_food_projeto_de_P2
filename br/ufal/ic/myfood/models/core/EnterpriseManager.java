@@ -33,15 +33,16 @@ public class EnterpriseManager {
             throw new EmpresaComMesmoNomeeLocal();
         }
 
-        String empresaId = generateId();
-        Enterprise newRestaurant = new Restaurant(entrepriseType,ownerId,name,adress,kitchenType,empresaId);
+        String enterpiseId = generateId();
+        Enterprise newRestaurant = new Restaurant(entrepriseType,ownerId,name,adress,kitchenType,enterpiseId);
 
         enterpriseDataManeger.saveObject(newRestaurant);
 
-        return empresaId;
+        return enterpiseId;
     }
 
-    public String getEntrepriseListByOwner(String ownerId) throws EmpresanaoCadastrada, UsuarioNaoPodeCriarEmpresa, UsuarioNaoExisteException {
+    public String getEntrepriseListByOwner(String ownerId) throws EmpresanaoCadastrada,
+            UsuarioNaoPodeCriarEmpresa, UsuarioNaoExisteException { // erá aqui que aquele erro maldito tava acontecendo
 
         if(!userIntegrator.userIsOwner(ownerId)){
             throw new UsuarioNaoPodeCriarEmpresa();
@@ -70,15 +71,6 @@ public class EnterpriseManager {
         sb.append("]}");
 
         return sb.toString();
-    }
-
-    private boolean isNameValid(String name, String ownerId) throws NomeInvalido {
-
-        if(enterpriseDataManeger.nameExists(name)) {
-            return (enterpriseDataManeger.getIdbyName(name).equals(ownerId));
-        }
-
-        return true;
     }
 
     public void saveData() throws SaveError {
@@ -123,7 +115,7 @@ public class EnterpriseManager {
             throw new UsuarioNaoPodeCriarEmpresa();
         }
 
-        List<String> empresas = enterpriseDataManeger.getEnterprizeListByOwner(ownerId);
+        List<String> empresas = enterpriseDataManeger.getEnterprizeListByOwner(ownerId); // parece gambiarra tem que arrumar esse bagulho
 
         List<String> empresasComNome = new ArrayList<>();
         for(String id : empresas){
@@ -141,6 +133,15 @@ public class EnterpriseManager {
         }
 
         return empresasComNome.get(indice);
+    }
+
+    private boolean isNameValid(String name, String ownerId) throws NomeInvalido {
+
+        if(enterpriseDataManeger.nameExists(name)) {
+            return (enterpriseDataManeger.getIdbyName(name).equals(ownerId));
+        }
+
+        return true;
     }
 
     private String generateId() {

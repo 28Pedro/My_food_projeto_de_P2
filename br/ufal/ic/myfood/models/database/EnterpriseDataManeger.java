@@ -39,7 +39,7 @@ public class EnterpriseDataManeger extends DataManger<Enterprise> {
     }
 
     public boolean idbyOwnerAdressExists(String ownerId, String adress){
-        return iDenterpriseByOwnerAdress.containsKey(makeKey(ownerId,adress));
+        return iDenterpriseByOwnerAdress.containsKey(makeKeyOwnerAdress(ownerId,adress));
     }
 
     public boolean idbyNameAdressExists(String name, String adress){
@@ -81,7 +81,7 @@ public class EnterpriseDataManeger extends DataManger<Enterprise> {
         enterpriseById.put(enterprise.getId(), enterprise);
 
         iDenterpriseByOwnerAdress.put(
-                makeKey(enterprise.getOwnerId(), enterprise.getAdress()),
+                makeKeyOwnerAdress(enterprise.getOwnerId(), enterprise.getAdress()),
                 enterprise.getId()
         );
 
@@ -129,7 +129,7 @@ public class EnterpriseDataManeger extends DataManger<Enterprise> {
         Idlist.add(entrepriseId);
     }
 
-    private PairKey<String,String> makeKey(String OwnerId, String adress){
+    private PairKey<String,String> makeKeyOwnerAdress(String OwnerId, String adress){
         return new PairKey<String,String>(OwnerId,adress);
     }
 
