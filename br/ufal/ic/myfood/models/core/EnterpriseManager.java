@@ -28,7 +28,8 @@ public class EnterpriseManager {
        enterpriseValidator.validateCreateEnterprise(ownerId, name, adress);
 
         String enterpiseId = generateId();
-        Enterprise newRestaurant = new Restaurant(entrepriseType,ownerId,name,adress,kitchenType,enterpiseId);
+
+        Enterprise newRestaurant = new Restaurant(entrepriseType,ownerId,name,adress,enterpiseId,kitchenType);
 
         enterpriseDataManeger.saveObject(newRestaurant);
 
@@ -89,25 +90,19 @@ public class EnterpriseManager {
         Enterprise enterprise = enterpriseDataManeger.getEnterpriseByID(id);
         enterpriseValidator.validateAtribute(atribute);
 
-        return switch (atribute.toLowerCase()) {
-            case "nome" -> enterprise.getName();
-            case "endereco" -> enterprise.getAdress();
-            case "tipocozinha" -> enterprise.getKitchenType();
-
-            case "dono" -> {
-                try {
-                    yield userIntegrator.getUserNameById(enterprise.getOwnerId());
-                } catch (Exception e) {
-                    throw new EmpresanaoCadastrada();
-                }
+        if(atribute.equalsIgnoreCase("dono")) {
+            try {
+                return userIntegrator.getUserNameById(enterprise.getAtribute(atribute));
+            } catch (Exception e) {
+                throw new EmpresanaoCadastrada();
             }
-
-            default -> throw new AtributoInvalido();
-        };
-
+        }else{
+            return enterprise.getAtribute(atribute);
+        }
     }
 
     private String generateId() {
         return UUID.randomUUID().toString();
     }
 }
+

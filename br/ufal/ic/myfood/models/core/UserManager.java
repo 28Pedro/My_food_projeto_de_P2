@@ -26,7 +26,7 @@ public class UserManager {
         userDataValidation.ValidateComunUserRuler(name,email,password,adress);
         userDataValidation.validateEmailExists(email);
 
-        User newClient = new Client(generateId(),name,email,password,adress,null);
+        User newClient = new Client(generateId(),name,email,password,adress);
         userDataManage.saveObject(newClient);
     }
 
@@ -46,7 +46,8 @@ public class UserManager {
         return userDataValidation.validateLogin(email, password);
     }
 
-    public String getAtributebyId(String id, String atribute) throws UsuarioNaoExisteException{
+    public String getAtributebyId(String id, String atribute)
+            throws UsuarioNaoExisteException, AtributoInvalido{
 
         return userDataManage.getAtributeById(id, atribute);
     }

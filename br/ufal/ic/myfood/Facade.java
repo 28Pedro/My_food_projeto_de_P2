@@ -22,7 +22,8 @@ public class Facade {
 
     }
 
-    public String getAtributoUsuario(String id, String atributo) throws UsuarioNaoExisteException {
+    public String getAtributoUsuario(String id, String atributo)
+            throws UsuarioNaoExisteException,AtributoInvalido {
 
         return coreManeger.getAtributoUsuario(id,atributo);
     }

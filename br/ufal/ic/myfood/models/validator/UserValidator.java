@@ -44,7 +44,7 @@ public class UserValidator extends Validator<UserDataManage> {
                 if(storedPassword.equals(recivedPassworld)){
                     return id;
                 }
-            } catch (UsuarioNaoExisteException e) {
+            } catch (Exception e) {
                 throw new LoginError();
             }
         throw new LoginError();

@@ -1,5 +1,6 @@
 package br.ufal.ic.myfood.models.core;
 
+import br.ufal.ic.myfood.exceptions.AtributoInvalido;
 import br.ufal.ic.myfood.exceptions.UsuarioNaoExisteException;
 
 public class UserIntegrator {
@@ -14,7 +15,9 @@ public class UserIntegrator {
        return userManager.userIsOwner(id);
     }
 
-    public String getUserNameById(String id) throws UsuarioNaoExisteException {
+    public String getUserNameById(String id)
+            throws UsuarioNaoExisteException, AtributoInvalido {
+
         return userManager.getAtributebyId(id, "nome");
     }
 
