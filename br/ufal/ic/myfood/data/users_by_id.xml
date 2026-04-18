@@ -2,7 +2,7 @@
 <java version="25.0.2" class="java.beans.XMLDecoder">
  <object class="java.util.HashMap">
   <void method="put">
-   <string>50a7e815-ee01-49dc-8e3d-6009fbd77961</string>
+   <string>ae37b1e6-8ec6-46db-b11a-77d41e9daee7</string>
    <object class="br.ufal.ic.myfood.models.users.Owner">
     <void property="adress">
      <string>Rua Exemplo N 321</string>
@@ -14,7 +14,7 @@
      <string>roberto@ufal.com.br</string>
     </void>
     <void property="id">
-     <string>50a7e815-ee01-49dc-8e3d-6009fbd77961</string>
+     <string>ae37b1e6-8ec6-46db-b11a-77d41e9daee7</string>
     </void>
     <void property="name">
      <string>RobertoDono</string>

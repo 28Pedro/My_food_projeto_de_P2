@@ -10,7 +10,7 @@
      <string>Rua Segura N 987</string>
     </void>
    </object>
-   <string>222e3e06-3ad8-44e4-b2ea-81be947c254e</string>
+   <string>678c9770-d7f4-4160-a34a-1ac962d946ab</string>
   </void>
   <void method="put">
    <object class="br.ufal.ic.myfood.records.PairKey">
@@ -21,7 +21,7 @@
      <string>Rua Segura N 987</string>
     </void>
    </object>
-   <string>ea391f5c-017e-478d-80af-9c0540d9ebae</string>
+   <string>062e551d-dd9c-4168-8a35-091b0ec66b58</string>
   </void>
   <void method="put">
    <object class="br.ufal.ic.myfood.records.PairKey">
@@ -32,7 +32,7 @@
      <string>Rua Segura N 987</string>
     </void>
    </object>
-   <string>f709adfe-9e64-409a-abf8-fed2ff4b500c</string>
+   <string>3771daa6-ff04-4c30-ab55-2487c96bfe4d</string>
   </void>
  </object>
 </java>

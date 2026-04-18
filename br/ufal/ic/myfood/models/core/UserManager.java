@@ -16,15 +16,15 @@ public class UserManager {
 
     public UserManager() throws FileError {
         this.userDataManage = new UserDataManage();
-        this.userDataValidation = new UserValidator();
-
+        this.userDataValidation = new UserValidator(userDataManage);
     }
 
     public void createUser(String name, String email,String password,String adress)
             throws UsuarioJaExisteException, NomeInvalido, EmailInvalido, EnderecoInvalido,
             SenhaInvalida {
 
-        ValidateComunUserRules(name,email,password,adress);
+        userDataValidation.ValidateComunUserRuler(name,email,password,adress);
+        userDataValidation.validateEmailExists(email);
 
         User newClient = new Client(generateId(),name,email,password,adress,null);
         userDataManage.saveObject(newClient);
@@ -35,38 +35,18 @@ public class UserManager {
             SenhaInvalida {
 
         userDataValidation.isCPFValid(CPF);
-
-        ValidateComunUserRules(name,email,password,adress);
+        userDataValidation.ValidateComunUserRuler(name,email,password,adress);
+        userDataValidation.validateEmailExists(email);
 
         User newOwner = new Owner(generateId(),name,email,password,adress,CPF);
         userDataManage.saveObject(newOwner);
     }
 
     public String login(String email, String password) throws LoginError{
-        if(userDataManage.emailExists(email)){
-
-            try {
-                String id = userDataManage.getIdByEmail(email);
-
-                User curent = userDataManage.getUserById(id);
-
-                if (userDataValidation.validatepassworld(curent.getPassword(),
-                        password)) {
-                    return curent.toString();
-                }
-            } catch (UsuarioNaoExisteException e) {
-                throw new LoginError();
-            }
-        }
-        throw new LoginError();
+        return userDataValidation.validateLogin(email, password);
     }
 
     public String getAtributebyId(String id, String atribute) throws UsuarioNaoExisteException{
-
-        if(!userDataManage.idExists(id))
-        {
-            throw new UsuarioNaoExisteException();
-        }
 
         return userDataManage.getAtributeById(id, atribute);
     }
@@ -88,17 +68,6 @@ public class UserManager {
 
     public void resetData(){
         userDataManage.resetData();
-    }
-
-    private void ValidateComunUserRules(String name, String email,String password,String adress)
-            throws UsuarioJaExisteException, NomeInvalido, EmailInvalido, EnderecoInvalido,
-            SenhaInvalida {
-
-        userDataValidation.ValidateComunUserRuler(name,email,password,adress);
-
-        if(userDataManage.emailExists(email)){
-            throw new UsuarioJaExisteException();
-        }
     }
 
     private String generateId() {

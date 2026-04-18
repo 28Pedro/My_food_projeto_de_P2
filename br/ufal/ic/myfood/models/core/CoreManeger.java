@@ -48,21 +48,28 @@ public class CoreManeger {
 
     public String createEnterprise(String enterpriseType, String ownerId, String name,
                                  String adress, String kitchenType) throws UsuarioNaoPodeCriarEmpresa,
-                                NomeDeEmpresaJaExiste, EmpresaComMesmoNomeeLocal,
-                                NomeInvalido, UsuarioNaoExisteException {
+                                NomeDeEmpresaJaExiste, EmpresaComMesmoNomeeLocal, NomeInvalido {
+
         return enterpriseManager.createEnterprise(enterpriseType,ownerId,name,adress,kitchenType);
     }
 
-    public String getEnterprizesOfUser(String ownerId) throws EmpresanaoCadastrada, UsuarioNaoPodeCriarEmpresa, UsuarioNaoExisteException {
+    public String getEnterprizesOfUser(String ownerId) throws EmpresanaoCadastrada,
+            UsuarioNaoPodeCriarEmpresa{
+
        return enterpriseManager.getEntrepriseListByOwner(ownerId);
     }
 
-    public String getAtributoEmpresa(String empresaId, String atributo) throws EmpresanaoCadastrada, AtributoInvalido, UsuarioNaoExisteException {
-        return enterpriseManager.getAtributoEmpresa(empresaId, atributo);
+    public String getAtributoEmpresa(String enterpriseId, String atribute) throws EmpresanaoCadastrada,
+            AtributoInvalido {
+
+        return enterpriseManager.getAtributoEmpresa(enterpriseId, atribute);
     }
 
-    public String getIdEmpresa(String ownerId, String nome, int indice) throws EmpresanaoCadastrada, NomeInvalido, IndiceMaiorQueEsperado, UsuarioNaoExisteException, UsuarioNaoPodeCriarEmpresa, IndiceInvalido, NaoExisteEmpresaComEsseNome {
-        return enterpriseManager.getIdEmpresa(ownerId, nome, indice);
+    public String getIdEmpresa(String ownerId, String name, int index) throws NomeInvalido,
+            IndiceMaiorQueEsperado, UsuarioNaoPodeCriarEmpresa, IndiceInvalido,
+            NaoExisteEmpresaComEsseNome {
+
+        return enterpriseManager.getIdEmpresa(ownerId, name, index);
     }
 
 }

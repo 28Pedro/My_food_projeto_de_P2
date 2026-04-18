@@ -23,12 +23,20 @@ public class UserDataManage extends DataManger<User> {
     @Override
     public void saveObject(User user)
     {
-        userbyIDList.put(user.getId(), user);
-        idbyEmailList.put(user.getEmail(), user.getId());
+        String id = user.getId();
+        String email = user.getEmail();
+
+        userbyIDList.put(id, user);
+        idbyEmailList.put(email, id);
 
     }
 
-    public String getAtributeById(String id, String atribute) {
+    public String getAtributeById(String id, String atribute)
+    throws UsuarioNaoExisteException{
+
+       if(!userbyIDList.containsKey(id)){
+           throw new UsuarioNaoExisteException();
+       }
 
        User user = userbyIDList.get(id);
 

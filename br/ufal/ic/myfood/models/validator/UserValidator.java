@@ -1,23 +1,28 @@
 package br.ufal.ic.myfood.models.validator;
 import br.ufal.ic.myfood.exceptions.*;
+import br.ufal.ic.myfood.models.database.UserDataManage;
 
-public class UserValidator extends Validator{
+public class UserValidator extends Validator<UserDataManage> {
 
     private final int CPF_SIZE = 14;
+
+     public UserValidator(UserDataManage database){
+        super(database);
+    }
 
     public void ValidateComunUserRuler(String name, String email,String password,String adress)
             throws NomeInvalido, EnderecoInvalido, SenhaInvalida, EmailInvalido{
 
-            if(!FildExists(name)){
+            if(!fildExists(name)){
                 throw new NomeInvalido();
             }
             if(!validateEmail(email)){
                 throw new EmailInvalido();
             }
-            if(!FildExists(password)){
+            if(!fildExists(password)){
                 throw new SenhaInvalida();
             }
-            if(!FildExists(adress)){
+            if(!fildExists(adress)){
                 throw new EnderecoInvalido();
         }
     }
@@ -31,18 +36,28 @@ public class UserValidator extends Validator{
 
     }
 
-    public boolean validatepassworld(String typePassworld, String expectedPassworld) {
-        return (typePassworld.equals(expectedPassworld));
+    public String validateLogin(String email, String recivedPassworld)
+            throws LoginError {
+            try {
+                String id = dataBase.getIdByEmail(email);
+                String storedPassword = dataBase.getAtributeById(id, "senha");
+                if(storedPassword.equals(recivedPassworld)){
+                    return id;
+                }
+            } catch (UsuarioNaoExisteException e) {
+                throw new LoginError();
+            }
+        throw new LoginError();
     }
 
-    @Override
-    protected boolean FildExists(String Fild)
-    {
-        return Fild != null && !Fild.isBlank();
+    public void validateEmailExists(String email) throws UsuarioJaExisteException {
+        if(dataBase.emailExists(email)){
+            throw new UsuarioJaExisteException();
+        }
     }
 
     private boolean validateEmail(String email){
-        return  (FildExists(email) &&
+        return  (fildExists(email) &&
               email.matches("^[\\w.-]+@[\\w.-]+\\.[a-z]{2,}$")
         );
     }
