@@ -64,4 +64,23 @@ public class Facade {
         return coreManeger.getIdEmpresa(ownerId, nome, indice);
     }
 
+    public String criarProduto(String empresa, String nome, float valor, String categoria)
+            throws NomeInvalido, ValorInvalido, CategoriaInvalido, JaExisteUmProdutoComEsseNomeParaEssaEmpresa {
+        return coreManeger.createProduct(empresa, nome, valor, categoria);
+    }
+
+    public void editarProduto(String produto, String nome, float valor, String categoria)
+            throws ProdutoNaoCadastrado, NomeInvalido, ValorInvalido, CategoriaInvalido {
+        coreManeger.editProduct(produto, nome, valor, categoria);
+    }
+
+    public String getProduto(String nome, String empresa, String atributo)
+            throws ProdutoNaoEncontrado, AtributoNaoExiste {
+        return coreManeger.getProductAtribute(nome, empresa, atributo);
+    }
+
+    public String listarProdutos(String empresa) throws EmpresaNaoEncontrada {
+        return coreManeger.getProductListByEnterprise(empresa);
+    }
+
 }

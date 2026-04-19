@@ -101,6 +101,15 @@ public class EnterpriseManager {
         }
     }
 
+    public String getEnterpriseNameById(String id)
+        throws EmpresanaoCadastrada {
+        try {
+           return getAtributoEmpresa(id,"nome");
+        }catch (Exception e){
+            throw  new EmpresanaoCadastrada();
+        }
+    }
+
     private String generateId() {
         return UUID.randomUUID().toString();
     }
