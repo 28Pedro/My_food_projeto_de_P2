@@ -10,18 +10,7 @@
      <string>Rua Segura N 987</string>
     </void>
    </object>
-   <string>43593d79-a97f-4d33-8380-2f5e4565c35e</string>
-  </void>
-  <void method="put">
-   <object class="br.ufal.ic.myfood.records.PairKey">
-    <void property="first">
-     <string>Churrascaria do Roberto</string>
-    </void>
-    <void property="second">
-     <string>Rua Segura N 987</string>
-    </void>
-   </object>
-   <string>11bc6b56-4f76-4b32-8818-c95d9874cfcf</string>
+   <string>d3a48938-b864-490d-a01d-8b4e84c0d91a</string>
   </void>
   <void method="put">
    <object class="br.ufal.ic.myfood.records.PairKey">
@@ -32,7 +21,7 @@
      <string>Rua Segura N 987</string>
     </void>
    </object>
-   <string>6a5dbfc5-b52c-4768-b622-10accf29b80a</string>
+   <string>939f9ce7-4b64-4f11-83a9-cec624481818</string>
   </void>
  </object>
 </java>

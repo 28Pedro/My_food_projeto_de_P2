@@ -83,4 +83,29 @@ public class Facade {
         return coreManeger.getProductListByEnterprise(empresa);
     }
 
+    public String criarPedido(String cliente, String empresa)
+            throws DoisPedidosMesmaEmpresa, DonoNaoPodeFazerPedido {
+        return coreManeger.createOrder(cliente, empresa);
+    }
+
+    public void adicionarProduto(String numero, String produto) throws Exception {
+        coreManeger.addProductToOrder(numero, produto);
+    }
+
+    public String getPedidos(String pedido, String atributo) throws Exception {
+        return coreManeger.getOrderAttribute(pedido, atributo);
+    }
+
+    public void fecharPedido(String numero) throws Exception {
+        coreManeger.closeOrder(numero);
+    }
+
+    public void removerProduto(String pedido, String produto) throws Exception {
+        coreManeger.removeProductFromOrder(pedido, produto);
+    }
+
+    public String getNumeroPedido(String cliente, String empresa, int indice) throws Exception {
+        return coreManeger.getOrderNumber(cliente, empresa, indice);
+    }
+
 }

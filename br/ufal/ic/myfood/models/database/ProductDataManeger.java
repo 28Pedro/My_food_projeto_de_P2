@@ -18,8 +18,8 @@ public class ProductDataManeger extends DataManger<Product> {
 
     private Map<String, Product> productById;
     private Map<String, PairKey<String,Integer>> enterprisePosicionByProdutId;
-    private Map<String, List<String>> nameListByEnterprise;
-    private Map<PairKey<String,String>, String> productByNameEnterprise;
+    private Map<String, List<String>> nameListByEnterprise; // aqui que contém os produtos da empresa
+    private Map<PairKey<String,String>, String> productByNameEnterprise; // isso também será usado para obter informações do produto
 
     public ProductDataManeger() throws FileError {
         productById = loadMapFromXML(PRODUCT_BY_ID_FILE);

@@ -4,11 +4,14 @@ import br.ufal.ic.myfood.exceptions.*;
 
 public class CoreManeger {
 
-    UserManager userManager;
-    EnterpriseManager enterpriseManager;
-    UserIntegrator userIntegrator;
-    EnterpriseIntegrator enterpriseIntegrator;
-    ProductManager productManager;
+    private UserManager userManager;
+    private EnterpriseManager enterpriseManager;
+    private UserIntegrator userIntegrator;
+    private EnterpriseIntegrator enterpriseIntegrator;
+    private ProductManager productManager;
+    private ProductIntegrator productIntegrator;
+    private ShopingCartManeger shopingCartManeger;
+
 
     public CoreManeger() throws FileError{
         this.userManager = new UserManager();
@@ -16,18 +19,22 @@ public class CoreManeger {
         this.enterpriseManager = new EnterpriseManager(userIntegrator);
         this.enterpriseIntegrator = new EnterpriseIntegrator(enterpriseManager);
         this.productManager = new ProductManager(enterpriseIntegrator);
+        this.productIntegrator = new ProductIntegrator(productManager);
+        this.shopingCartManeger = new ShopingCartManeger(userIntegrator, productIntegrator, enterpriseIntegrator);
     }
 
     public void zerarSistema(){
        userManager.resetData();
        enterpriseManager.resetData();
        productManager.resetData();
+       shopingCartManeger.resetData();
     }
 
     public void encerrarSistema() throws SaveError {
         userManager.saveData();
         enterpriseManager.saveData();
         productManager.saveData();
+        shopingCartManeger.saveData();
     }
 
     public String getAtributoUsuario(String id, String atributo)
@@ -96,6 +103,31 @@ public class CoreManeger {
 
     public String getProductListByEnterprise(String empresa) throws EmpresaNaoEncontrada {
         return productManager.getProductListByEnterprise(empresa);
+    }
+
+    public String createOrder(String clientId, String enterpise)
+            throws DoisPedidosMesmaEmpresa, DonoNaoPodeFazerPedido {
+        return shopingCartManeger.createOrder(clientId,enterpise);
+    }
+
+    public void addProductToOrder(String orderId, String productId) throws Exception {
+        shopingCartManeger.addProduct(orderId, productId);
+    }
+
+    public String getOrderAttribute(String orderId, String atributo) throws Exception {
+        return shopingCartManeger.getOrder(orderId, atributo);
+    }
+
+    public void closeOrder(String orderId) throws Exception {
+        shopingCartManeger.closeOrder(orderId);
+    }
+
+    public void removeProductFromOrder(String orderId, String productName) throws Exception {
+        shopingCartManeger.removeProduct(orderId, productName);
+    }
+
+    public String getOrderNumber(String clientId, String enterpriseId, int index) throws Exception {
+        return shopingCartManeger.getOrderNumber(clientId, enterpriseId, index);
     }
 
 }

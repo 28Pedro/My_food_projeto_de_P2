@@ -6,6 +6,7 @@ import br.ufal.ic.myfood.models.database.ProductDataManeger;
 import br.ufal.ic.myfood.models.products.Product;
 import br.ufal.ic.myfood.models.products.RestaurantProduct;
 import br.ufal.ic.myfood.models.validator.ProductValidator;
+import br.ufal.ic.myfood.records.PairKey;
 
 import java.util.List;
 import java.util.UUID;
@@ -26,22 +27,22 @@ public class ProductManager {
              throws NomeInvalido, ValorInvalido, CategoriaInvalido,
              JaExisteUmProdutoComEsseNomeParaEssaEmpresa {
 
-        productValidator.validateCreateProduct(name, value, category, entrepiseId);
+         productValidator.validateCreateProduct(name, value, category, entrepiseId);
 
-         String productId = generateId();
-         RestaurantProduct restaurantProduct = new RestaurantProduct(productId, name, value, category, entrepiseId);
-         productDataManeger.saveObject(restaurantProduct);
+          String productId = generateId();
+          RestaurantProduct restaurantProduct = new RestaurantProduct(productId, name, value, category, entrepiseId);
+          productDataManeger.saveObject(restaurantProduct);
 
-         return productId;
+          return productId;
 
-     }
+      }
 
      public void editProduct(String id, String name, float value, String category) throws ProdutoNaoCadastrado,
-             NomeInvalido, ValorInvalido, CategoriaInvalido {
+              NomeInvalido, ValorInvalido, CategoriaInvalido {
 
-         productValidator.validateGeneralProductOperation(name, value, category);
-         productDataManeger.modifyProduct(id, name, value, category);
-     }
+          productValidator.validateGeneralProductOperation(name, value, category);
+          productDataManeger.modifyProduct(id, name, value, category);
+      }
 
     public String getProductAtribute(String name, String enterpiseId, String atribute)
         throws ProdutoNaoEncontrado, AtributoNaoExiste{
@@ -91,12 +92,36 @@ public class ProductManager {
         return sb.toString();
     }
 
+    public PairKey<String,Float> getProductNameAndValueById(String name, String enterpiseId)
+            throws ProdutoNaoEncontrado {
+
+        Product product = productDataManeger.getProductById(
+                productDataManeger.getProductIDbyNameEnterpise(name, enterpiseId));
+
+        return new PairKey<String,Float>(product.getName(), product.getValue());
+    }
+
     public void saveData() throws SaveError {
         productDataManeger.saveData();
     }
 
     public void resetData(){
         productDataManeger.resetData();
+    }
+
+    public String getProductEnterpriseId(String productId) throws Exception {
+        Product product = productDataManeger.getProductById(productId);
+        return product.getAtribute("empresa");
+    }
+
+    public String getProductNameById(String productId) throws Exception {
+        Product product = productDataManeger.getProductById(productId);
+        return product.getName();
+    }
+
+    public float getProductPriceById(String productId) throws Exception {
+        Product product = productDataManeger.getProductById(productId);
+        return product.getValue();
     }
 
     private String generateId() {
