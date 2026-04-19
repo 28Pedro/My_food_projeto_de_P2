@@ -118,7 +118,7 @@ public class CoreManeger {
     }
 
     public String getOrderAttribute(String orderId, String atributo) throws Exception {
-        return shopingCartManeger.getOrder(orderId, atributo);
+        return shopingCartManeger.getOrderAtribute(orderId, atributo);
     }
 
     public void closeOrder(String orderId) throws Exception {

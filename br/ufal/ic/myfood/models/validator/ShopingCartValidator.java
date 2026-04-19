@@ -18,10 +18,6 @@ public class ShopingCartValidator extends Validator<ShopingCartDataManeger> {
         this.productIntegrator = productIntegrator;
     }
 
-    //expectError "Dono de empresa nao pode fazer um pedido" criarPedido cliente=${id1} empresa=${e1}
-    //expectError "Nao existe pedido em aberto" adicionarProduto numero=9999 produto=${p1}
-    //expectError "Nao e permitido ter dois pedidos em aberto para a mesma empresa" criarPedido cliente=${id2} empresa=${e1}
-
     public void validateOrder(String clientId, String enterpriseId)
     throws DoisPedidosMesmaEmpresa, DonoNaoPodeFazerPedido {
 
@@ -63,5 +59,27 @@ public class ShopingCartValidator extends Validator<ShopingCartDataManeger> {
         }
     }
 
+    public void validadateGetAtribute(String orderId, String atribute)
+        throws AtributoInvalido,PedidoNaoEncontrado,AtributoNaoExiste{
+
+        if(!fildExists(atribute)) {
+            throw new AtributoInvalido();
+        }
+
+        if(!isValidAttribute(atribute)) {
+            throw new AtributoNaoExiste();
+        }
+
+        if(!dataBase.orderExists(orderId)){
+            throw new PedidoNaoEncontrado();
+        }
+
+    }
+
+    private boolean isValidAttribute(String atribute) {
+        String lower = atribute.toLowerCase();
+        return lower.equals("cliente") || lower.equals("empresa") ||
+                lower.equals("estado") || lower.equals("produtos") || lower.equals("valor");
+    }
 
 }

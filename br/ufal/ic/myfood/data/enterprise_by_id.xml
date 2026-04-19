@@ -2,13 +2,13 @@
 <java version="25.0.2" class="java.beans.XMLDecoder">
  <object class="java.util.HashMap">
   <void method="put">
-   <string>3dcf0099-f7d4-4eb0-9cf1-7f7df724baf5</string>
+   <string>2b60bff2-72fc-4684-8d38-1055960fc1a0</string>
    <object class="br.ufal.ic.myfood.models.enterprise.Restaurant">
     <void property="adress">
      <string>Rua Segura N 987</string>
     </void>
     <void property="id">
-     <string>3dcf0099-f7d4-4eb0-9cf1-7f7df724baf5</string>
+     <string>2b60bff2-72fc-4684-8d38-1055960fc1a0</string>
     </void>
     <void property="kitchenType">
      <string>brasileira</string>
@@ -17,7 +17,7 @@
      <string>Sorveteria do Roberto</string>
     </void>
     <void property="ownerId">
-     <string>3c15a63b-9f0f-4f70-aad0-192c4a9e69c8</string>
+     <string>553603a9-474a-480e-96ee-b3d8bdb62f55</string>
     </void>
     <void property="type">
      <string>restaurante</string>
@@ -25,13 +25,13 @@
    </object>
   </void>
   <void method="put">
-   <string>91f0d1c7-f1f7-473b-a6d4-3162de609851</string>
+   <string>8b6ec6e3-4f96-4c7d-af20-cb9af46bab8c</string>
    <object class="br.ufal.ic.myfood.models.enterprise.Restaurant">
     <void property="adress">
      <string>Rua Segura N 987</string>
     </void>
     <void property="id">
-     <string>91f0d1c7-f1f7-473b-a6d4-3162de609851</string>
+     <string>8b6ec6e3-4f96-4c7d-af20-cb9af46bab8c</string>
     </void>
     <void property="kitchenType">
      <string>brasileira</string>
@@ -40,7 +40,7 @@
      <string>Pastelaria do Roberto</string>
     </void>
     <void property="ownerId">
-     <string>3c15a63b-9f0f-4f70-aad0-192c4a9e69c8</string>
+     <string>553603a9-474a-480e-96ee-b3d8bdb62f55</string>
     </void>
     <void property="type">
      <string>restaurante</string>

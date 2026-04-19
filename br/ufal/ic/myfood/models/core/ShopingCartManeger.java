@@ -57,42 +57,31 @@ public class ShopingCartManeger {
 
     }
 
-    public String getOrder(String orderId, String atributo) throws Exception {
-        if(atributo == null || atributo.trim().isEmpty()) {
-            throw new AtributoInvalido();
-        }
+    public String getOrderAtribute(String orderId, String atribute) throws Exception {
 
-        Order order = shopingCartDataManeger.getOrderById(orderId);
-        if(order == null) {
-            throw new Exception("Pedido nao encontrado");
-        }
+        shopingCartValidator.validadateGetAtribute(orderId, atribute);
 
-        // Validar se atributo existe
-        if(!isValidOrderAttribute(atributo)) {
+        try {
+            String result = "";
+
+            Order order = shopingCartDataManeger.getOrderById(orderId);
+            if("cliente".equalsIgnoreCase(atribute)) {
+                result = userIntegrator.getUserNameById(order.getClientId());
+            } else if("empresa".equalsIgnoreCase(atribute)) {
+                result = enterpriseIntegrator.getEnterpiseNameById(order.getEnterpriseId());
+            } else {
+                result = order.getAtribute(atribute);
+            }
+
+            if(result.isBlank()){
+                throw new AtributoNaoExiste();
+            };
+
+            return result;
+
+        }catch (PedidoNaoEncontrado e){
             throw new AtributoNaoExiste();
         }
-
-        String result = "";
-
-        if("cliente".equalsIgnoreCase(atributo)) {
-            result = userIntegrator.getUserNameById(order.getClientId());
-        } else if("empresa".equalsIgnoreCase(atributo)) {
-            result = enterpriseIntegrator.getEnterpiseNameById(order.getEnterpriseId());
-        } else {
-            result = order.getAtribute(atributo);
-        }
-
-        if(result == null) {
-            throw new AtributoNaoExiste();
-        }
-
-        return result;
-    }
-
-    private boolean isValidOrderAttribute(String atributo) {
-        String lower = atributo.toLowerCase();
-        return lower.equals("cliente") || lower.equals("empresa") ||
-               lower.equals("estado") || lower.equals("produtos") || lower.equals("valor");
     }
 
     public void closeOrder(String orderId) throws Exception {
@@ -102,7 +91,6 @@ public class ShopingCartManeger {
         }
         order.setState("preparando");
         shopingCartDataManeger.changeOrderState(order.getClientId(), order.getEnterpriseId());
-        shopingCartDataManeger.saveData();
     }
 
     public void removeProduct(String orderId, String productName) throws Exception {
