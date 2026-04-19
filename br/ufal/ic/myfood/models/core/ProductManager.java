@@ -3,10 +3,10 @@ package br.ufal.ic.myfood.models.core;
 
 import br.ufal.ic.myfood.exceptions.*;
 import br.ufal.ic.myfood.models.database.ProductDataManeger;
+import br.ufal.ic.myfood.models.integrators.EnterpriseIntegrator;
 import br.ufal.ic.myfood.models.products.Product;
 import br.ufal.ic.myfood.models.products.RestaurantProduct;
 import br.ufal.ic.myfood.models.validator.ProductValidator;
-import br.ufal.ic.myfood.records.PairKey;
 
 import java.util.List;
 import java.util.UUID;
@@ -90,15 +90,6 @@ public class ProductManager {
         sb.append("]}");
 
         return sb.toString();
-    }
-
-    public PairKey<String,Float> getProductNameAndValueById(String name, String enterpiseId)
-            throws ProdutoNaoEncontrado {
-
-        Product product = productDataManeger.getProductById(
-                productDataManeger.getProductIDbyNameEnterpise(name, enterpiseId));
-
-        return new PairKey<String,Float>(product.getName(), product.getValue());
     }
 
     public void saveData() throws SaveError {

@@ -4,6 +4,7 @@ import br.ufal.ic.myfood.exceptions.*;
 import br.ufal.ic.myfood.models.database.EnterpriseDataManeger;
 import br.ufal.ic.myfood.models.enterprise.Enterprise;
 import br.ufal.ic.myfood.models.enterprise.Restaurant;
+import br.ufal.ic.myfood.models.integrators.UserIntegrator;
 import br.ufal.ic.myfood.models.validator.EnterpriseValidator;
 
 import java.util.List;

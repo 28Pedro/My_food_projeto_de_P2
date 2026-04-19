@@ -1,6 +1,9 @@
 package br.ufal.ic.myfood.models.core;
 
 import br.ufal.ic.myfood.exceptions.*;
+import br.ufal.ic.myfood.models.integrators.EnterpriseIntegrator;
+import br.ufal.ic.myfood.models.integrators.ProductIntegrator;
+import br.ufal.ic.myfood.models.integrators.UserIntegrator;
 
 public class CoreManeger {
 

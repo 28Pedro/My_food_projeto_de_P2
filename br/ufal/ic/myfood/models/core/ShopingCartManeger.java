@@ -2,6 +2,9 @@ package br.ufal.ic.myfood.models.core;
 
 import br.ufal.ic.myfood.exceptions.*;
 import br.ufal.ic.myfood.models.database.ShopingCartDataManeger;
+import br.ufal.ic.myfood.models.integrators.EnterpriseIntegrator;
+import br.ufal.ic.myfood.models.integrators.ProductIntegrator;
+import br.ufal.ic.myfood.models.integrators.UserIntegrator;
 import br.ufal.ic.myfood.models.shopingCart.Order;
 import br.ufal.ic.myfood.models.validator.ShopingCartValidator;
 import br.ufal.ic.myfood.records.PairKey;
@@ -25,7 +28,8 @@ public class ShopingCartManeger {
         this.userIntegrator = userIntegrator;
         this.enterpriseIntegrator = enterpriseIntegrator;
         shopingCartDataManeger = new ShopingCartDataManeger();
-        shopingCartValidator = new ShopingCartValidator(shopingCartDataManeger, userIntegrator);
+        shopingCartValidator = new ShopingCartValidator(shopingCartDataManeger, userIntegrator,
+                productIntegrator);
     }
 
     public String createOrder(String ClientId, String enterpiseId)
@@ -35,35 +39,22 @@ public class ShopingCartManeger {
         String id = generateId();
         Order order = new Order(id, ClientId, enterpiseId, "aberto", new ArrayList<>());
         shopingCartDataManeger.saveObject(order);
-//        try {
-//            shopingCartDataManeger.saveData();
-//        } catch (SaveError e) {
-//            throw new RuntimeException(e);
-//        }
+
         return id;
     }
 
     public void addProduct(String orderId, String productId) throws Exception {
-        Order order = shopingCartDataManeger.getOrderById(orderId);
 
-        if(order == null) {
+        shopingCartValidator.validateAddProduct(orderId,productId);
+
+        try {
+            Order order = shopingCartDataManeger.getOrderById(orderId);
+            PairKey<String,Float> key = productIntegrator.getProductInfo(productId);
+            order.addProduct(key);
+        }catch (Exception e){
             throw new NaoExistePedidoEmAberto();
         }
 
-        if(order.isState().equals("preparando")) {
-            throw new Exception("Nao e possivel adcionar produtos a um pedido fechado");
-        }
-
-        String productEnterprise = productIntegrator.getProductEnterpriseId(productId);
-        if(!productEnterprise.equals(order.getEnterpriseId())) {
-            throw new Exception("O produto nao pertence a essa empresa");
-        }
-
-        String productName = productIntegrator.getProductNameById(productId);
-        float productPrice = productIntegrator.getProductPriceById(productId);
-
-        order.addProduct(new PairKey<>(productName, productPrice));
-        shopingCartDataManeger.saveData();
     }
 
     public String getOrder(String orderId, String atributo) throws Exception {

@@ -1,7 +1,7 @@
 package br.ufal.ic.myfood.models.validator;
 
 import br.ufal.ic.myfood.exceptions.*;
-import br.ufal.ic.myfood.models.core.UserIntegrator;
+import br.ufal.ic.myfood.models.integrators.UserIntegrator;
 import br.ufal.ic.myfood.models.database.EnterpriseDataManeger;
 
 public class EnterpriseValidator extends Validator<EnterpriseDataManeger>{

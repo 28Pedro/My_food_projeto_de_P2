@@ -1,6 +1,7 @@
-package br.ufal.ic.myfood.models.core;
+package br.ufal.ic.myfood.models.integrators;
 
 import br.ufal.ic.myfood.exceptions.ProdutoNaoEncontrado;
+import br.ufal.ic.myfood.models.core.ProductManager;
 import br.ufal.ic.myfood.records.PairKey;
 
 public class ProductIntegrator {
@@ -11,20 +12,21 @@ public class ProductIntegrator {
         this.productManager = productManager;
     }
 
-    public PairKey<String,Float> getProductInfo(String name, String enterpriseId)
-    throws ProdutoNaoEncontrado {
-        return productManager.getProductNameAndValueById(name, enterpriseId);
+    public PairKey<String,Float> getProductInfo(String prodouctId)
+    throws Exception {
+        return new PairKey<String,Float>
+                (getProductNameById(prodouctId),getProductPriceById(prodouctId));
     }
 
     public String getProductEnterpriseId(String productId) throws Exception {
         return productManager.getProductEnterpriseId(productId);
     }
 
-    public String getProductNameById(String productId) throws Exception {
+    private String getProductNameById(String productId) throws Exception {
         return productManager.getProductNameById(productId);
     }
 
-    public float getProductPriceById(String productId) throws Exception {
+    private float getProductPriceById(String productId) throws Exception {
         return productManager.getProductPriceById(productId);
     }
 

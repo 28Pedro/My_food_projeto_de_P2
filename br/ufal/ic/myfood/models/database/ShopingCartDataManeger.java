@@ -12,22 +12,19 @@ import java.util.Map;
 
 public class ShopingCartDataManeger extends DataManger<Order> {
 
-    private final String SHOPING_CART_BY_ID_FILE = getFILE_PATH() + "shoping_cart_by_Id.xml";
-    private final String OPEN_SHOPING_ID_BY_CLIENT_ENTERPIRSE_FILE = getFILE_PATH() + "open_shoping_cart_by_client_enterprise.xml";
-    private final String CLOSE_SHOPING_ID_BY_CLIENT_ENTERPIRSE = getFILE_PATH() + "close_shoping_cart_by_client_enterprise.xml";
-    private final String ALL_SHOPING_ID_BY_CLIENT_ENTERPIRSE_FILE = getFILE_PATH() + "all_shoping_cart_by_client_enterprise.xml";
+    private final String ORDER_BY_ID_FILE = getFILE_PATH() + "shoping_cart_by_Id.xml";
+    private final String OPEN_ORDER_ID_BY_CLIENT_ENTERPIRSE_FILE = getFILE_PATH() + "open_shoping_cart_by_client_enterprise.xml";
+    private final String ALL_ORDER_ID_BY_CLIENT_ENTERPIRSE_FILE = getFILE_PATH() + "all_shoping_cart_by_client_enterprise.xml";
 
-    private Map<String, Order> shopingCartById;
-    private Map<PairKey<String,String>, String> openShopingCartIdByClientEnterprise;
-    private Map<PairKey<String,String>, String> closeShopingCartIdByClientEnterprise;
-    private Map<PairKey<String,String>, java.util.List<String>> allShopingCartIdByClientEnterprise;
+    private Map<String, Order> orderById;
+    private Map<PairKey<String,String>, String> openOrderIdByClientEnterprise;
+    private Map<PairKey<String,String>, java.util.List<String>> allordersIdsByClientEnterprise;
 
     public ShopingCartDataManeger() throws FileError {
 
-        shopingCartById = loadMapFromXML(SHOPING_CART_BY_ID_FILE);
-        openShopingCartIdByClientEnterprise = loadMapFromXML(OPEN_SHOPING_ID_BY_CLIENT_ENTERPIRSE_FILE);
-        closeShopingCartIdByClientEnterprise = loadMapFromXML(CLOSE_SHOPING_ID_BY_CLIENT_ENTERPIRSE);
-        allShopingCartIdByClientEnterprise = loadMapFromXML(ALL_SHOPING_ID_BY_CLIENT_ENTERPIRSE_FILE);
+        orderById = loadMapFromXML(ORDER_BY_ID_FILE);
+        openOrderIdByClientEnterprise = loadMapFromXML(OPEN_ORDER_ID_BY_CLIENT_ENTERPIRSE_FILE);
+        allordersIdsByClientEnterprise = loadMapFromXML(ALL_ORDER_ID_BY_CLIENT_ENTERPIRSE_FILE);
     }
 
     public void saveObject(Order order){
@@ -40,68 +37,88 @@ public class ShopingCartDataManeger extends DataManger<Order> {
         fillAllShopingCartList(clientId, enterpiseId, id);
 
     }
-    
-    public Order getShopingCartById(String id)
-        throws Exception {
-        if(!shopingCartById.containsKey(id)){
-            throw new Exception("Pedido nao encontrado");
+
+    public boolean orderExists(String id){
+        return orderById.containsKey(id);
+    }
+
+    public boolean orderisOpen(String id)
+        throws PedidoNaoEncontrado{
+
+        if(!orderExists(id)){
+            throw new PedidoNaoEncontrado();
         }
-        return shopingCartById.get(id);
+
+        Order order = getOrderById(id);
+
+        return openOrderIdByClientEnterprise.containsKey(
+                makeKey(order.getClientId(),order.getEnterpriseId()));
+    }
+
+    public Order getOrderById(String id)
+        throws PedidoNaoEncontrado {
+
+        if(!orderExists(id)){
+            throw new PedidoNaoEncontrado();
+        }
+        return orderById.get(id);
+    }
+
+    public String getOrderEnterprise(String id)
+        throws PedidoNaoEncontrado{
+
+        Order order = getOrderById(id);
+
+        return order.getEnterpriseId();
     }
     
     public void changeOrderState(String clientId, String enterpiseId){
-       String id = openShopingCartIdByClientEnterprise.remove(makeKey(clientId, enterpiseId));
-         closeShopingCartIdByClientEnterprise.put(makeKey(clientId, enterpiseId), id);
+       openOrderIdByClientEnterprise.remove(makeKey(clientId, enterpiseId));
+
     }
 
     public boolean OrderByNameEnterpriseExists(String clientId, String enterpriseId){
-        return openShopingCartIdByClientEnterprise.containsKey(makeKey(clientId, enterpriseId));
+        return openOrderIdByClientEnterprise.containsKey(makeKey(clientId, enterpriseId));
     }
 
     @Override
     public void saveData() throws SaveError {
 
-        saveMapToXML(shopingCartById, SHOPING_CART_BY_ID_FILE);
-        saveMapToXML(openShopingCartIdByClientEnterprise, OPEN_SHOPING_ID_BY_CLIENT_ENTERPIRSE_FILE);
-        saveMapToXML(closeShopingCartIdByClientEnterprise,CLOSE_SHOPING_ID_BY_CLIENT_ENTERPIRSE);
-        saveMapToXML(allShopingCartIdByClientEnterprise, ALL_SHOPING_ID_BY_CLIENT_ENTERPIRSE_FILE);
+        saveMapToXML(orderById, ORDER_BY_ID_FILE);
+        saveMapToXML(openOrderIdByClientEnterprise, OPEN_ORDER_ID_BY_CLIENT_ENTERPIRSE_FILE);
+        saveMapToXML(allordersIdsByClientEnterprise, ALL_ORDER_ID_BY_CLIENT_ENTERPIRSE_FILE);
     }
 
     @Override
     public void resetData(){
-        shopingCartById.clear();
-        openShopingCartIdByClientEnterprise.clear();
-        closeShopingCartIdByClientEnterprise.clear();
-        allShopingCartIdByClientEnterprise.clear();
+        orderById.clear();
+        openOrderIdByClientEnterprise.clear();
+        allordersIdsByClientEnterprise.clear();
 
-        resetFiles(SHOPING_CART_BY_ID_FILE, OPEN_SHOPING_ID_BY_CLIENT_ENTERPIRSE_FILE,
-                CLOSE_SHOPING_ID_BY_CLIENT_ENTERPIRSE, ALL_SHOPING_ID_BY_CLIENT_ENTERPIRSE_FILE);
+        resetFiles(ORDER_BY_ID_FILE, OPEN_ORDER_ID_BY_CLIENT_ENTERPIRSE_FILE,
+                ALL_ORDER_ID_BY_CLIENT_ENTERPIRSE_FILE);
     }
 
     private void fillShopingCartById(Order order, String Id){
-        shopingCartById.put(Id, order);
+        orderById.put(Id, order);
     }
 
     private void fillShopingCartIdByClientEnterprise(String clientId,
                   String enterpriseId, String shopingCartId){
-         openShopingCartIdByClientEnterprise.put(makeKey(clientId, enterpriseId), shopingCartId);
+         openOrderIdByClientEnterprise.put(makeKey(clientId, enterpriseId), shopingCartId);
      }
 
     private void fillAllShopingCartList(String clientId, String enterpriseId, String orderId) {
         PairKey<String,String> key = makeKey(clientId, enterpriseId);
-        if (!allShopingCartIdByClientEnterprise.containsKey(key)) {
-            allShopingCartIdByClientEnterprise.put(key, new ArrayList<>());
+        if (!allordersIdsByClientEnterprise.containsKey(key)) {
+            allordersIdsByClientEnterprise.put(key, new ArrayList<>());
         }
-        allShopingCartIdByClientEnterprise.get(key).add(orderId);
+        allordersIdsByClientEnterprise.get(key).add(orderId);
     }
-
-     public Order getOrderById(String id){
-         return shopingCartById.get(id);
-     }
 
     public List<String> getAllOrdersByClientEnterprise(String clientId, String enterpriseId){
         PairKey<String,String> key = makeKey(clientId, enterpriseId);
-        List<String> orders = allShopingCartIdByClientEnterprise.getOrDefault(key, new java.util.ArrayList<>());
+        List<String> orders = allordersIdsByClientEnterprise.getOrDefault(key, new java.util.ArrayList<>());
         return new java.util.ArrayList<>(orders);
     }
 
