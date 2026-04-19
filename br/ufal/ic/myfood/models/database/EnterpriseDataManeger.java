@@ -173,8 +173,4 @@ public class EnterpriseDataManeger extends DataManger<Enterprise> {
         list.add(id);
     }
 
-    private PairKey<String,String> makeKey(String name, String address){
-        return new PairKey<String,String>(name, address);
-    }
-
 }

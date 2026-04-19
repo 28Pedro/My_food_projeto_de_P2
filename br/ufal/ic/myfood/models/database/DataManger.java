@@ -2,6 +2,7 @@ package br.ufal.ic.myfood.models.database;
 
 import br.ufal.ic.myfood.exceptions.FileError;
 import br.ufal.ic.myfood.exceptions.SaveError;
+import br.ufal.ic.myfood.records.PairKey;
 
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
@@ -49,6 +50,10 @@ public abstract class DataManger<O> {
 
     public String getFILE_PATH(){
         return FILE_PATH;
+    }
+
+    protected PairKey<String,String> makeKey(String str1, String str2){
+        return new PairKey<String,String>(str1, str2);
     }
 
     public abstract void saveData() throws Exception;
