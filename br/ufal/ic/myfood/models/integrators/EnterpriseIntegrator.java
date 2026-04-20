@@ -1,6 +1,7 @@
-package br.ufal.ic.myfood.models.core;
+package br.ufal.ic.myfood.models.integrators;
 
 import br.ufal.ic.myfood.exceptions.EmpresanaoCadastrada;
+import br.ufal.ic.myfood.models.manageres.EnterpriseManager;
 
 public class EnterpriseIntegrator {
 

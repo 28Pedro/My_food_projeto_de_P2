@@ -1,8 +1,9 @@
-package br.ufal.ic.myfood.models.core;
+package br.ufal.ic.myfood.models.manageres;
 
 
 import br.ufal.ic.myfood.exceptions.*;
 import br.ufal.ic.myfood.models.database.ProductDataManeger;
+import br.ufal.ic.myfood.models.integrators.EnterpriseIntegrator;
 import br.ufal.ic.myfood.models.products.Product;
 import br.ufal.ic.myfood.models.products.RestaurantProduct;
 import br.ufal.ic.myfood.models.validator.ProductValidator;
@@ -26,22 +27,22 @@ public class ProductManager {
              throws NomeInvalido, ValorInvalido, CategoriaInvalido,
              JaExisteUmProdutoComEsseNomeParaEssaEmpresa {
 
-        productValidator.validateCreateProduct(name, value, category, entrepiseId);
+         productValidator.validateCreateProduct(name, value, category, entrepiseId);
 
-         String productId = generateId();
-         RestaurantProduct restaurantProduct = new RestaurantProduct(productId, name, value, category, entrepiseId);
-         productDataManeger.saveObject(restaurantProduct);
+          String productId = generateId();
+          RestaurantProduct restaurantProduct = new RestaurantProduct(productId, name, value, category, entrepiseId);
+          productDataManeger.saveObject(restaurantProduct);
 
-         return productId;
+          return productId;
 
-     }
+      }
 
      public void editProduct(String id, String name, float value, String category) throws ProdutoNaoCadastrado,
-             NomeInvalido, ValorInvalido, CategoriaInvalido {
+              NomeInvalido, ValorInvalido, CategoriaInvalido {
 
-         productValidator.validateGeneralProductOperation(name, value, category);
-         productDataManeger.modifyProduct(id, name, value, category);
-     }
+          productValidator.validateGeneralProductOperation(name, value, category);
+          productDataManeger.modifyProduct(id, name, value, category);
+      }
 
     public String getProductAtribute(String name, String enterpiseId, String atribute)
         throws ProdutoNaoEncontrado, AtributoNaoExiste{
@@ -97,6 +98,21 @@ public class ProductManager {
 
     public void resetData(){
         productDataManeger.resetData();
+    }
+
+    public String getProductEnterpriseId(String productId) throws Exception {
+        Product product = productDataManeger.getProductById(productId);
+        return product.getAtribute("empresa");
+    }
+
+    public String getProductNameById(String productId) throws Exception {
+        Product product = productDataManeger.getProductById(productId);
+        return product.getName();
+    }
+
+    public float getProductPriceById(String productId) throws Exception {
+        Product product = productDataManeger.getProductById(productId);
+        return product.getValue();
     }
 
     private String generateId() {

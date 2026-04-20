@@ -1,7 +1,7 @@
 package br.ufal.ic.myfood.models.products;
 
-import br.ufal.ic.myfood.exceptions.AtributoInvalido;
 import br.ufal.ic.myfood.exceptions.AtributoNaoExiste;
+import java.util.Locale;
 
 public abstract class Product {
 
@@ -29,7 +29,7 @@ public abstract class Product {
             throws AtributoNaoExiste {
 
         return switch (atribute.toLowerCase()) {
-            case "valor"     -> String.format(java.util.Locale.US, "%.2f",this.getValue());
+            case "valor"     -> String.format(Locale.US, "%.2f",this.getValue());
             case "empresa"    -> getEnterpriseId();
             default -> throw new AtributoNaoExiste();
         };
