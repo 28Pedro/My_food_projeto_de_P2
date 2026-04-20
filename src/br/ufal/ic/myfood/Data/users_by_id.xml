@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="25.0.2" class="java.beans.XMLDecoder">
+ <object class="java.util.HashMap">
+  <void method="put">
+   <string>f771e111-17f8-4952-a2fa-8f089cbe4d72</string>
+   <object class="br.ufal.ic.myfood.models.users.Client">
+    <void property="adress">
+     <string>Rua Exemplo N 123</string>
+    </void>
+    <void property="email">
+     <string>carlos@ufal.com.br</string>
+    </void>
+    <void property="id">
+     <string>f771e111-17f8-4952-a2fa-8f089cbe4d72</string>
+    </void>
+    <void property="name">
+     <string>Carlos</string>
+    </void>
+    <void property="password">
+     <string>123senha</string>
+    </void>
+   </object>
+  </void>
+  <void method="put">
+   <string>7828aed6-67c4-4af4-a53c-6eb01c78676f</string>
+   <object class="br.ufal.ic.myfood.models.users.Owner">
+    <void property="adress">
+     <string>Rua Exemplo N 321</string>
+    </void>
+    <void property="cpf">
+     <string>544.732.410-68</string>
+    </void>
+    <void property="email">
+     <string>roberto@ufal.com.br</string>
+    </void>
+    <void property="id">
+     <string>7828aed6-67c4-4af4-a53c-6eb01c78676f</string>
+    </void>
+    <void property="name">
+     <string>RobertoDono</string>
+    </void>
+    <void property="password">
+     <string>123senha</string>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>

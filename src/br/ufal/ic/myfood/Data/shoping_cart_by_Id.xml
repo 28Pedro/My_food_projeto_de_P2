@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="25.0.2" class="java.beans.XMLDecoder">
+ <object class="java.util.HashMap">
+  <void method="put">
+   <string>3e3b5031-d7f3-4d80-be54-eaef38f9bc91</string>
+   <object class="br.ufal.ic.myfood.models.shopingCart.Order">
+    <void property="clientId">
+     <string>f771e111-17f8-4952-a2fa-8f089cbe4d72</string>
+    </void>
+    <void property="enterpriseId">
+     <string>5e573f84-f1f0-4311-9451-71b6464ee96b</string>
+    </void>
+    <void property="id">
+     <string>3e3b5031-d7f3-4d80-be54-eaef38f9bc91</string>
+    </void>
+    <void property="products">
+     <object class="java.util.ArrayList">
+      <void method="add">
+       <object class="br.ufal.ic.myfood.records.PairKey">
+        <void property="first">
+         <string>Pastel de queijo</string>
+        </void>
+        <void property="second">
+         <float>5.0</float>
+        </void>
+       </object>
+      </void>
+      <void method="add">
+       <object class="br.ufal.ic.myfood.records.PairKey">
+        <void property="first">
+         <string>Pastel de queijo</string>
+        </void>
+        <void property="second">
+         <float>5.0</float>
+        </void>
+       </object>
+      </void>
+     </object>
+    </void>
+    <void property="state">
+     <string>aberto</string>
+    </void>
+    <void property="subtotal">
+     <float>10.0</float>
+    </void>
+   </object>
+  </void>
+  <void method="put">
+   <string>54a39e72-05db-4e77-bdca-755028864049</string>
+   <object class="br.ufal.ic.myfood.models.shopingCart.Order">
+    <void property="clientId">
+     <string>f771e111-17f8-4952-a2fa-8f089cbe4d72</string>
+    </void>
+    <void property="enterpriseId">
+     <string>f1e16a25-50fc-438d-b90e-53f2ee5ca4e1</string>
+    </void>
+    <void property="id">
+     <string>54a39e72-05db-4e77-bdca-755028864049</string>
+    </void>
+    <void property="products">
+     <object class="java.util.ArrayList"/>
+    </void>
+    <void property="state">
+     <string>aberto</string>
+    </void>
+   </object>
+  </void>
+  <void method="put">
+   <string>7478f828-4853-41c9-96e9-7beb548cd4b2</string>
+   <object class="br.ufal.ic.myfood.models.shopingCart.Order">
+    <void property="clientId">
+     <string>f771e111-17f8-4952-a2fa-8f089cbe4d72</string>
+    </void>
+    <void property="enterpriseId">
+     <string>f1e16a25-50fc-438d-b90e-53f2ee5ca4e1</string>
+    </void>
+    <void property="id">
+     <string>7478f828-4853-41c9-96e9-7beb548cd4b2</string>
+    </void>
+    <void property="products">
+     <object class="java.util.ArrayList">
+      <void method="add">
+       <object class="br.ufal.ic.myfood.records.PairKey">
+        <void property="first">
+         <string>Sorvete morango</string>
+        </void>
+        <void property="second">
+         <float>1.4</float>
+        </void>
+       </object>
+      </void>
+      <void method="add">
+       <object class="br.ufal.ic.myfood.records.PairKey">
+        <void property="first">
+         <string>Sorvete chocolate</string>
+        </void>
+        <void property="second">
+         <float>1.4</float>
+        </void>
+       </object>
+      </void>
+      <void method="add">
+       <object class="br.ufal.ic.myfood.records.PairKey">
+        <void property="first">
+         <string>Refrigerante</string>
+        </void>
+        <void property="second">
+         <float>3.4</float>
+        </void>
+       </object>
+      </void>
+     </object>
+    </void>
+    <void property="state">
+     <string>preparando</string>
+    </void>
+    <void property="subtotal">
+     <float>6.2</float>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>

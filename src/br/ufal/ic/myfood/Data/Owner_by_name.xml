@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="25.0.2" class="java.beans.XMLDecoder">
+ <object class="java.util.HashMap">
+  <void method="put">
+   <string>Sorveteria do Roberto</string>
+   <string>7828aed6-67c4-4af4-a53c-6eb01c78676f</string>
+  </void>
+  <void method="put">
+   <string>Pastelaria do Roberto</string>
+   <string>7828aed6-67c4-4af4-a53c-6eb01c78676f</string>
+  </void>
+ </object>
+</java>

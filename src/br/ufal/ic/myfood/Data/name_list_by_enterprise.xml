@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="25.0.2" class="java.beans.XMLDecoder">
+ <object class="java.util.HashMap">
+  <void method="put">
+   <string>5e573f84-f1f0-4311-9451-71b6464ee96b</string>
+   <object class="java.util.ArrayList">
+    <void method="add">
+     <string>Pastel de queijo</string>
+    </void>
+   </object>
+  </void>
+  <void method="put">
+   <string>f1e16a25-50fc-438d-b90e-53f2ee5ca4e1</string>
+   <object class="java.util.ArrayList">
+    <void method="add">
+     <string>Sorvete morango</string>
+    </void>
+    <void method="add">
+     <string>Sorvete chocolate</string>
+    </void>
+    <void method="add">
+     <string>Refrigerante</string>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>
