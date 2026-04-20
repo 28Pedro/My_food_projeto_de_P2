@@ -1,115 +1,115 @@
 package br.ufal.ic.myfood;
 
 import br.ufal.ic.myfood.exceptions.*;
-import br.ufal.ic.myfood.models.core.CoreManeger;
+import br.ufal.ic.myfood.core.Core;
 
 
 public class Facade {
 
-    CoreManeger coreManeger;
+    Core core;
 
     public Facade() throws FileError{
-        coreManeger = new CoreManeger();
+        core = new Core();
     }
 
     public void zerarSistema(){
-        coreManeger.zerarSistema();
+        core.zerarSistema();
     }
 
     public void encerrarSistema() throws SaveError{
 
-        coreManeger.encerrarSistema();
+        core.encerrarSistema();
 
     }
 
     public String getAtributoUsuario(String id, String atributo)
             throws UsuarioNaoExisteException,AtributoInvalido {
 
-        return coreManeger.getAtributoUsuario(id,atributo);
+        return core.getAtributoUsuario(id,atributo);
     }
 
     public void criarUsuario(String nome, String email, String senha, String endereco)
             throws UsuarioJaExisteException, NomeInvalido, EmailInvalido, EnderecoInvalido,
             SenhaInvalida{
 
-        coreManeger.criarUsuario(nome,email,senha,endereco);
+        core.criarUsuario(nome,email,senha,endereco);
     }
 
     public void criarUsuario(String nome, String email, String senha, String endereco, String cpf)
             throws CPFinvalido,UsuarioJaExisteException, NomeInvalido, EmailInvalido, EnderecoInvalido,
             SenhaInvalida {
 
-        coreManeger.criarUsuario(nome,email,senha,endereco,cpf);
+        core.criarUsuario(nome,email,senha,endereco,cpf);
     }
 
     public String login(String email, String senha) throws LoginError {
-       return coreManeger.login(email, senha);
+       return core.login(email, senha);
     }
 
     public String criarEmpresa (String tipoEmpresa, String dono, String nome, String endereco, String tipoCozinha)
                             throws UsuarioNaoPodeCriarEmpresa, NomeDeEmpresaJaExiste,
                             EmpresaComMesmoNomeeLocal, NomeInvalido, UsuarioNaoExisteException{
-        return coreManeger.createEnterprise(tipoEmpresa,dono,nome,endereco,tipoCozinha);
+        return core.createEnterprise(tipoEmpresa,dono,nome,endereco,tipoCozinha);
     }
 
     public String getEmpresasDoUsuario(String IdDono) throws EmpresanaoCadastrada, UsuarioNaoPodeCriarEmpresa, UsuarioNaoExisteException {
-        return coreManeger.getEnterprizesOfUser(IdDono);
+        return core.getEnterprizesOfUser(IdDono);
     }
 
     public String getAtributoEmpresa(String empresaId, String atributo) throws EmpresanaoCadastrada, AtributoInvalido, UsuarioNaoExisteException {
-        return coreManeger.getAtributoEmpresa(empresaId, atributo);
+        return core.getAtributoEmpresa(empresaId, atributo);
     }
 
     public String getIdEmpresa(String ownerId, String nome, int indice) throws EmpresanaoCadastrada, NomeInvalido, IndiceMaiorQueEsperado, UsuarioNaoExisteException, UsuarioNaoPodeCriarEmpresa, IndiceInvalido, NaoExisteEmpresaComEsseNome {
-        return coreManeger.getIdEmpresa(ownerId, nome, indice);
+        return core.getIdEmpresa(ownerId, nome, indice);
     }
 
     public String criarProduto(String empresa, String nome, float valor, String categoria)
             throws NomeInvalido, ValorInvalido, CategoriaInvalido, JaExisteUmProdutoComEsseNomeParaEssaEmpresa {
-        return coreManeger.createProduct(empresa, nome, valor, categoria);
+        return core.createProduct(empresa, nome, valor, categoria);
     }
 
     public void editarProduto(String produto, String nome, float valor, String categoria)
             throws ProdutoNaoCadastrado, NomeInvalido, ValorInvalido, CategoriaInvalido {
-        coreManeger.editProduct(produto, nome, valor, categoria);
+        core.editProduct(produto, nome, valor, categoria);
     }
 
     public String getProduto(String nome, String empresa, String atributo)
             throws ProdutoNaoEncontrado, AtributoNaoExiste {
-        return coreManeger.getProductAtribute(nome, empresa, atributo);
+        return core.getProductAtribute(nome, empresa, atributo);
     }
 
     public String listarProdutos(String empresa) throws EmpresaNaoEncontrada {
-        return coreManeger.getProductListByEnterprise(empresa);
+        return core.getProductListByEnterprise(empresa);
     }
 
     public String criarPedido(String cliente, String empresa)
             throws DoisPedidosMesmaEmpresa, DonoNaoPodeFazerPedido {
-        return coreManeger.createOrder(cliente, empresa);
+        return core.createOrder(cliente, empresa);
     }
 
     public void adicionarProduto(String numero, String produto) throws NaoExistePedidoEmAberto, AdicionarEmPedidoFechado, ProdutoNaoPertenceAEmpresa, PedidoNaoEncontrado {
-        coreManeger.addProductToOrder(numero, produto);
+        core.addProductToOrder(numero, produto);
     }
 
     public String getPedidos(String pedido, String atributo) throws AtributoInvalido,
             PedidoNaoEncontrado, AtributoNaoExiste,
             UsuarioNaoExisteException, EmpresanaoCadastrada {
-        return coreManeger.getOrderAttribute(pedido, atributo);
+        return core.getOrderAttribute(pedido, atributo);
     }
 
     public void fecharPedido(String numero) throws PedidoNaoEncontrado {
-        coreManeger.closeOrder(numero);
+        core.closeOrder(numero);
     }
 
     public void removerProduto(String pedido, String produto) throws ProdutoInvalido,
             RemoverEmPedidoFechado, ProdutoNaoEncontrado, PedidoNaoEncontrado {
-        coreManeger.removeProductFromOrder(pedido, produto);
+        core.removeProductFromOrder(pedido, produto);
     }
 
     public String getNumeroPedido(String cliente, String empresa, int indice)
             throws IndiceMaiorQueEsperado {
-        return coreManeger.getOrderNumber(cliente, empresa, indice);
+        return core.getOrderNumber(cliente, empresa, indice);
     }
 
 }

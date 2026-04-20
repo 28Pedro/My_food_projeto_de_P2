@@ -1,7 +1,6 @@
 package br.ufal.ic.myfood.models.integrators;
 
-import br.ufal.ic.myfood.exceptions.ProdutoNaoEncontrado;
-import br.ufal.ic.myfood.models.core.ProductManager;
+import br.ufal.ic.myfood.models.manageres.ProductManager;
 import br.ufal.ic.myfood.records.PairKey;
 
 public class ProductIntegrator {

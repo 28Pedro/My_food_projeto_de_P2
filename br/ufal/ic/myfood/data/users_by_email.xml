@@ -3,11 +3,11 @@
  <object class="java.util.HashMap">
   <void method="put">
    <string>carlos@ufal.com.br</string>
-   <string>50b7bf78-d900-435f-a247-8d2105d6e0a4</string>
+   <string>25c2270d-0f0e-450b-8cde-7c62f3db29c3</string>
   </void>
   <void method="put">
    <string>roberto@ufal.com.br</string>
-   <string>c89245c9-088b-4586-8866-11fe9eb857ca</string>
+   <string>dc7b8f2e-c266-4c6b-8ace-57f34b2a4ddd</string>
   </void>
  </object>
 </java>

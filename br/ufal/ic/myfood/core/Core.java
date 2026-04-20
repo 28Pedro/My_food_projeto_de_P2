@@ -1,11 +1,15 @@
-package br.ufal.ic.myfood.models.core;
+package br.ufal.ic.myfood.core;
 
 import br.ufal.ic.myfood.exceptions.*;
 import br.ufal.ic.myfood.models.integrators.EnterpriseIntegrator;
 import br.ufal.ic.myfood.models.integrators.ProductIntegrator;
 import br.ufal.ic.myfood.models.integrators.UserIntegrator;
+import br.ufal.ic.myfood.models.manageres.EnterpriseManager;
+import br.ufal.ic.myfood.models.manageres.ProductManager;
+import br.ufal.ic.myfood.models.manageres.ShopingCartManeger;
+import br.ufal.ic.myfood.models.manageres.UserManager;
 
-public class CoreManeger {
+public class Core {
 
     private UserManager userManager;
     private EnterpriseManager enterpriseManager;
@@ -16,7 +20,7 @@ public class CoreManeger {
     private ShopingCartManeger shopingCartManeger;
 
 
-    public CoreManeger() throws FileError{
+    public Core() throws FileError{
         this.userManager = new UserManager();
         this.userIntegrator = new UserIntegrator(userManager);
         this.enterpriseManager = new EnterpriseManager(userIntegrator);

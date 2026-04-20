@@ -3,11 +3,11 @@
  <object class="java.util.HashMap">
   <void method="put">
    <string>Sorveteria do Roberto</string>
-   <string>c89245c9-088b-4586-8866-11fe9eb857ca</string>
+   <string>dc7b8f2e-c266-4c6b-8ace-57f34b2a4ddd</string>
   </void>
   <void method="put">
    <string>Pastelaria do Roberto</string>
-   <string>c89245c9-088b-4586-8866-11fe9eb857ca</string>
+   <string>dc7b8f2e-c266-4c6b-8ace-57f34b2a4ddd</string>
   </void>
  </object>
 </java>

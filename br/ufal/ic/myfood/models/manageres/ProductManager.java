@@ -1,4 +1,4 @@
-package br.ufal.ic.myfood.models.core;
+package br.ufal.ic.myfood.models.manageres;
 
 
 import br.ufal.ic.myfood.exceptions.*;

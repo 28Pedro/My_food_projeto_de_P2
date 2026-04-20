@@ -2,7 +2,7 @@ package br.ufal.ic.myfood.models.integrators;
 
 import br.ufal.ic.myfood.exceptions.AtributoInvalido;
 import br.ufal.ic.myfood.exceptions.UsuarioNaoExisteException;
-import br.ufal.ic.myfood.models.core.UserManager;
+import br.ufal.ic.myfood.models.manageres.UserManager;
 
 public class UserIntegrator {
 
