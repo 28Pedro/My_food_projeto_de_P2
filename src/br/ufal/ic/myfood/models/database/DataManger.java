@@ -7,12 +7,15 @@ import br.ufal.ic.myfood.records.PairKey;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class DataManger<O> {
 
-    private final String FILE_PATH = "src/br/ufal/ic/myfood/data/";
+  Path path = Paths.get("src", "br", "ufal", "ic", "myfood", "data");
+  private final  String FILE_PATH = path.toString();
 
     public <K, V> void saveMapToXML(Map<K, V> map, String filePath)
     throws SaveError{
