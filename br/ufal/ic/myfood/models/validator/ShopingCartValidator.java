@@ -4,7 +4,8 @@ import br.ufal.ic.myfood.exceptions.*;
 import br.ufal.ic.myfood.models.integrators.ProductIntegrator;
 import br.ufal.ic.myfood.models.integrators.UserIntegrator;
 import br.ufal.ic.myfood.models.database.ShopingCartDataManeger;
-import br.ufal.ic.myfood.models.shopingCart.Order;
+
+import java.util.List;
 
 public class ShopingCartValidator extends Validator<ShopingCartDataManeger> {
 
@@ -35,7 +36,7 @@ public class ShopingCartValidator extends Validator<ShopingCartDataManeger> {
     }
 
     public void validateAddProduct(String orderId, String productId)
-    throws NaoExistePedidoEmAberto, PedidoFechado, ProdutoNaoPertenceAEmpresa {
+    throws NaoExistePedidoEmAberto, AdicionarEmPedidoFechado, ProdutoNaoPertenceAEmpresa {
 
         if(!dataBase.orderExists(orderId)) {
             throw new NaoExistePedidoEmAberto();
@@ -43,10 +44,10 @@ public class ShopingCartValidator extends Validator<ShopingCartDataManeger> {
 
         try {
             if(!dataBase.orderisOpen(orderId)) {
-                throw new PedidoFechado();
+                throw new AdicionarEmPedidoFechado();
             }
         }catch (PedidoNaoEncontrado e){
-            throw new PedidoFechado();
+            throw new AdicionarEmPedidoFechado();
         }
 
         try {
@@ -74,6 +75,29 @@ public class ShopingCartValidator extends Validator<ShopingCartDataManeger> {
             throw new PedidoNaoEncontrado();
         }
 
+    }
+
+    public void validateRemoveProduct(String orderId,String prouctName)
+            throws ProdutoInvalido,RemoverEmPedidoFechado{
+        if(!fildExists(prouctName)){
+            throw new ProdutoInvalido();
+        }
+
+        try {
+            if(!dataBase.orderisOpen(orderId)){
+                throw new RemoverEmPedidoFechado();
+            }
+        } catch (PedidoNaoEncontrado e) {
+            throw new RemoverEmPedidoFechado();
+        }
+
+    }
+
+    public void getOrderNumberValidator(List<String> allOrders, int index)
+        throws IndiceMaiorQueEsperado{
+        if(allOrders == null || index >= allOrders.size()) {
+            throw new IndiceMaiorQueEsperado();
+        }
     }
 
     private boolean isValidAttribute(String atribute) {

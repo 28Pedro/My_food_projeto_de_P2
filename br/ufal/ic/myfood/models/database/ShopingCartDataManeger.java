@@ -50,9 +50,7 @@ public class ShopingCartDataManeger extends DataManger<Order> {
         }
 
         Order order = getOrderById(id);
-
-        return openOrderIdByClientEnterprise.containsKey(
-                makeKey(order.getClientId(),order.getEnterpriseId()));
+        return "aberto".equals(order.isState());
     }
 
     public Order getOrderById(String id)

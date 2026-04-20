@@ -10,7 +10,7 @@
      <string>Rua Segura N 987</string>
     </void>
    </object>
-   <string>8b6ec6e3-4f96-4c7d-af20-cb9af46bab8c</string>
+   <string>b1508436-e73a-4717-84c6-37199044c0c6</string>
   </void>
   <void method="put">
    <object class="br.ufal.ic.myfood.records.PairKey">
@@ -21,7 +21,7 @@
      <string>Rua Segura N 987</string>
     </void>
    </object>
-   <string>2b60bff2-72fc-4684-8d38-1055960fc1a0</string>
+   <string>0f76e0d3-e81a-499a-8eec-bfe1b32b1595</string>
   </void>
  </object>
 </java>

@@ -65,6 +65,24 @@ public class Order {
 
     }
 
+    public void removeProductByName(String productName) throws ProdutoNaoEncontrado {
+        boolean found = false;
+
+        for(int i = 0; i < products.size(); i++) {
+            if(products.get(i).getFirst().equals(productName)) {
+                float price = products.get(i).getSecond();
+                products.remove(i);
+                subtotal -= price;
+                found = true;
+                break;
+            }
+        }
+
+        if(!found) {
+            throw new ProdutoNaoEncontrado();
+        }
+    }
+
     public String getId() {
         return id;
     }

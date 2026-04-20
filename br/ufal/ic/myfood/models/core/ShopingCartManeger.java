@@ -86,52 +86,24 @@ public class ShopingCartManeger {
 
     public void closeOrder(String orderId) throws Exception {
         Order order = shopingCartDataManeger.getOrderById(orderId);
-        if(order == null) {
-            throw new Exception("Pedido nao encontrado");
-        }
+
         order.setState("preparando");
         shopingCartDataManeger.changeOrderState(order.getClientId(), order.getEnterpriseId());
     }
 
     public void removeProduct(String orderId, String productName) throws Exception {
-        if(productName == null || productName.trim().isEmpty()) {
-            throw new Exception("Produto invalido");
-        }
+
+        shopingCartValidator.validateRemoveProduct(orderId,productName);
 
         Order order = shopingCartDataManeger.getOrderById(orderId);
-        if(order == null) {
-            throw new Exception("Pedido nao encontrado");
-        }
-
-        if(order.isState().equals("preparando")) {
-            throw new Exception("Nao e possivel remover produtos de um pedido fechado");
-        }
-
-        List<PairKey<String,Float>> products = order.getProducts();
-        boolean found = false;
-
-        for(int i = 0; i < products.size(); i++) {
-            if(products.get(i).getFirst().equals(productName)) {
-                float price = products.get(i).getSecond();
-                products.remove(i);
-                order.setSubtotal(order.getSubtotal() - price);
-                found = true;
-                break;
-            }
-        }
-
-        if(!found) {
-            throw new Exception("Produto nao encontrado");
-        }
+        order.removeProductByName(productName);
 
         shopingCartDataManeger.saveData();
     }
 
     public String getOrderNumber(String clientId, String enterpriseId, int index) throws Exception {
         List<String> allOrders = shopingCartDataManeger.getAllOrdersByClientEnterprise(clientId, enterpriseId);
-        if(allOrders == null || index >= allOrders.size()) {
-            throw new IndiceMaiorQueEsperado();
-        }
+        shopingCartValidator.getOrderNumberValidator(allOrders,index);
         return allOrders.get(index);
     }
 
