@@ -14,8 +14,8 @@ import java.util.Map;
 
 public abstract class DataManger<O> {
 
-  Path path = Paths.get("src", "br", "ufal", "ic", "myfood", "data");
-  private final  String FILE_PATH = path.toString();
+  Path path = Paths.get(System.getProperty("user.dir"), "src", "br", "ufal", "ic", "myfood", "data");
+  private final  String FILE_PATH = path.toString() + File.separator;
 
     public <K, V> void saveMapToXML(Map<K, V> map, String filePath)
     throws SaveError{
