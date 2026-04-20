@@ -43,7 +43,8 @@ public class ShopingCartManeger {
         return id;
     }
 
-    public void addProduct(String orderId, String productId) throws Exception {
+    public void addProduct(String orderId, String productId) throws NaoExistePedidoEmAberto,
+            AdicionarEmPedidoFechado, ProdutoNaoPertenceAEmpresa{
 
         shopingCartValidator.validateAddProduct(orderId,productId);
 
@@ -57,7 +58,9 @@ public class ShopingCartManeger {
 
     }
 
-    public String getOrderAtribute(String orderId, String atribute) throws Exception {
+    public String getOrderAtribute(String orderId, String atribute) throws AtributoInvalido,
+            PedidoNaoEncontrado, AtributoNaoExiste, UsuarioNaoExisteException,
+            EmpresanaoCadastrada {
 
         shopingCartValidator.validadateGetAtribute(orderId, atribute);
 
@@ -84,24 +87,24 @@ public class ShopingCartManeger {
         }
     }
 
-    public void closeOrder(String orderId) throws Exception {
+    public void closeOrder(String orderId) throws PedidoNaoEncontrado {
         Order order = shopingCartDataManeger.getOrderById(orderId);
 
         order.setState("preparando");
         shopingCartDataManeger.changeOrderState(order.getClientId(), order.getEnterpriseId());
     }
 
-    public void removeProduct(String orderId, String productName) throws Exception {
+    public void removeProduct(String orderId, String productName) throws ProdutoInvalido,
+            RemoverEmPedidoFechado, ProdutoNaoEncontrado, PedidoNaoEncontrado {
 
         shopingCartValidator.validateRemoveProduct(orderId,productName);
 
         Order order = shopingCartDataManeger.getOrderById(orderId);
         order.removeProductByName(productName);
 
-        shopingCartDataManeger.saveData();
     }
 
-    public String getOrderNumber(String clientId, String enterpriseId, int index) throws Exception {
+    public String getOrderNumber(String clientId, String enterpriseId, int index) throws IndiceMaiorQueEsperado {
         List<String> allOrders = shopingCartDataManeger.getAllOrdersByClientEnterprise(clientId, enterpriseId);
         shopingCartValidator.getOrderNumberValidator(allOrders,index);
         return allOrders.get(index);

@@ -2,36 +2,13 @@
 <java version="25.0.2" class="java.beans.XMLDecoder">
  <object class="java.util.HashMap">
   <void method="put">
-   <string>b1508436-e73a-4717-84c6-37199044c0c6</string>
+   <string>aacfaa45-9bed-4133-ab1c-13c45c6de5ad</string>
    <object class="br.ufal.ic.myfood.models.enterprise.Restaurant">
     <void property="adress">
      <string>Rua Segura N 987</string>
     </void>
     <void property="id">
-     <string>b1508436-e73a-4717-84c6-37199044c0c6</string>
-    </void>
-    <void property="kitchenType">
-     <string>brasileira</string>
-    </void>
-    <void property="name">
-     <string>Pastelaria do Roberto</string>
-    </void>
-    <void property="ownerId">
-     <string>5805a268-48ba-49c5-93dd-bc72c4963309</string>
-    </void>
-    <void property="type">
-     <string>restaurante</string>
-    </void>
-   </object>
-  </void>
-  <void method="put">
-   <string>0f76e0d3-e81a-499a-8eec-bfe1b32b1595</string>
-   <object class="br.ufal.ic.myfood.models.enterprise.Restaurant">
-    <void property="adress">
-     <string>Rua Segura N 987</string>
-    </void>
-    <void property="id">
-     <string>0f76e0d3-e81a-499a-8eec-bfe1b32b1595</string>
+     <string>aacfaa45-9bed-4133-ab1c-13c45c6de5ad</string>
     </void>
     <void property="kitchenType">
      <string>brasileira</string>
@@ -40,7 +17,30 @@
      <string>Sorveteria do Roberto</string>
     </void>
     <void property="ownerId">
-     <string>5805a268-48ba-49c5-93dd-bc72c4963309</string>
+     <string>c89245c9-088b-4586-8866-11fe9eb857ca</string>
+    </void>
+    <void property="type">
+     <string>restaurante</string>
+    </void>
+   </object>
+  </void>
+  <void method="put">
+   <string>7b7659a1-856f-4fc4-abf2-ed93c5cc45ee</string>
+   <object class="br.ufal.ic.myfood.models.enterprise.Restaurant">
+    <void property="adress">
+     <string>Rua Segura N 987</string>
+    </void>
+    <void property="id">
+     <string>7b7659a1-856f-4fc4-abf2-ed93c5cc45ee</string>
+    </void>
+    <void property="kitchenType">
+     <string>brasileira</string>
+    </void>
+    <void property="name">
+     <string>Pastelaria do Roberto</string>
+    </void>
+    <void property="ownerId">
+     <string>c89245c9-088b-4586-8866-11fe9eb857ca</string>
     </void>
     <void property="type">
      <string>restaurante</string>

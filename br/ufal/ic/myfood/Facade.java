@@ -88,23 +88,27 @@ public class Facade {
         return coreManeger.createOrder(cliente, empresa);
     }
 
-    public void adicionarProduto(String numero, String produto) throws Exception {
+    public void adicionarProduto(String numero, String produto) throws NaoExistePedidoEmAberto, AdicionarEmPedidoFechado, ProdutoNaoPertenceAEmpresa, PedidoNaoEncontrado {
         coreManeger.addProductToOrder(numero, produto);
     }
 
-    public String getPedidos(String pedido, String atributo) throws Exception {
+    public String getPedidos(String pedido, String atributo) throws AtributoInvalido,
+            PedidoNaoEncontrado, AtributoNaoExiste,
+            UsuarioNaoExisteException, EmpresanaoCadastrada {
         return coreManeger.getOrderAttribute(pedido, atributo);
     }
 
-    public void fecharPedido(String numero) throws Exception {
+    public void fecharPedido(String numero) throws PedidoNaoEncontrado {
         coreManeger.closeOrder(numero);
     }
 
-    public void removerProduto(String pedido, String produto) throws Exception {
+    public void removerProduto(String pedido, String produto) throws ProdutoInvalido,
+            RemoverEmPedidoFechado, ProdutoNaoEncontrado, PedidoNaoEncontrado {
         coreManeger.removeProductFromOrder(pedido, produto);
     }
 
-    public String getNumeroPedido(String cliente, String empresa, int indice) throws Exception {
+    public String getNumeroPedido(String cliente, String empresa, int indice)
+            throws IndiceMaiorQueEsperado {
         return coreManeger.getOrderNumber(cliente, empresa, indice);
     }
 

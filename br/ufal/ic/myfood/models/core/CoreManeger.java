@@ -113,23 +113,28 @@ public class CoreManeger {
         return shopingCartManeger.createOrder(clientId,enterpise);
     }
 
-    public void addProductToOrder(String orderId, String productId) throws Exception {
+    public void addProductToOrder(String orderId, String productId) throws NaoExistePedidoEmAberto,
+            AdicionarEmPedidoFechado, ProdutoNaoPertenceAEmpresa{
         shopingCartManeger.addProduct(orderId, productId);
     }
 
-    public String getOrderAttribute(String orderId, String atributo) throws Exception {
+    public String getOrderAttribute(String orderId, String atributo) throws AtributoInvalido,
+            PedidoNaoEncontrado, AtributoNaoExiste, UsuarioNaoExisteException,
+            EmpresanaoCadastrada {
         return shopingCartManeger.getOrderAtribute(orderId, atributo);
     }
 
-    public void closeOrder(String orderId) throws Exception {
+    public void closeOrder(String orderId) throws PedidoNaoEncontrado {
         shopingCartManeger.closeOrder(orderId);
     }
 
-    public void removeProductFromOrder(String orderId, String productName) throws Exception {
+    public void removeProductFromOrder(String orderId, String productName) throws ProdutoInvalido,
+            RemoverEmPedidoFechado, ProdutoNaoEncontrado,
+            PedidoNaoEncontrado {
         shopingCartManeger.removeProduct(orderId, productName);
     }
 
-    public String getOrderNumber(String clientId, String enterpriseId, int index) throws Exception {
+    public String getOrderNumber(String clientId, String enterpriseId, int index) throws IndiceMaiorQueEsperado {
         return shopingCartManeger.getOrderNumber(clientId, enterpriseId, index);
     }
 
