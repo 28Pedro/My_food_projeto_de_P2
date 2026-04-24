@@ -61,14 +61,10 @@ public class ShopingCartValidator extends Validator<ShopingCartDataManeger> {
     }
 
     public void validadateGetAtribute(String orderId, String atribute)
-        throws AtributoInvalido,PedidoNaoEncontrado,AtributoNaoExiste{
+        throws AtributoInvalido,PedidoNaoEncontrado{
 
         if(!fildExists(atribute)) {
             throw new AtributoInvalido();
-        }
-
-        if(!isValidAttribute(atribute)) {
-            throw new AtributoNaoExiste();
         }
 
         if(!dataBase.orderExists(orderId)){
@@ -98,12 +94,6 @@ public class ShopingCartValidator extends Validator<ShopingCartDataManeger> {
         if(allOrders == null || index >= allOrders.size()) {
             throw new IndiceMaiorQueEsperado();
         }
-    }
-
-    private boolean isValidAttribute(String atribute) {
-        String lower = atribute.toLowerCase();
-        return lower.equals("cliente") || lower.equals("empresa") ||
-                lower.equals("estado") || lower.equals("produtos") || lower.equals("valor");
     }
 
 }
