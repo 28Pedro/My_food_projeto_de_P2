@@ -48,9 +48,20 @@ public class Facade {
 
     public String criarEmpresa (String tipoEmpresa, String dono, String nome, String endereco, String tipoCozinha)
                             throws UsuarioNaoPodeCriarEmpresa, NomeDeEmpresaJaExiste,
-                            EmpresaComMesmoNomeeLocal, NomeInvalido, UsuarioNaoExisteException{
+                            EmpresaComMesmoNomeeLocal, NomeInvalido, EnderecoEmpresaInvalido,
+                            TipoEmpresaInvalido{
+
         return core.createEnterprise(tipoEmpresa,dono,nome,endereco,tipoCozinha);
     }
+
+    public String  criarEmpresa(String tipoEmpresa, String dono, String nome, String endereco,
+                                String abre, String fecha, String tipoMercado)  throws UsuarioNaoPodeCriarEmpresa, NomeDeEmpresaJaExiste,
+            EmpresaComMesmoNomeeLocal, FormatoDeHoraInvalido, HorarioInvalido, NomeInvalido,
+            TipoEmpresaInvalido,EnderecoEmpresaInvalido,TipoMercadoInvalido {
+
+        return core.createEnterprise(tipoEmpresa,dono,nome,endereco,abre,fecha,tipoMercado);
+    }
+
 
     public String getEmpresasDoUsuario(String IdDono) throws EmpresanaoCadastrada, UsuarioNaoPodeCriarEmpresa, UsuarioNaoExisteException {
         return core.getEnterprizesOfUser(IdDono);
@@ -63,6 +74,13 @@ public class Facade {
     public String getIdEmpresa(String ownerId, String nome, int indice) throws EmpresanaoCadastrada, NomeInvalido, IndiceMaiorQueEsperado, UsuarioNaoExisteException, UsuarioNaoPodeCriarEmpresa, IndiceInvalido, NaoExisteEmpresaComEsseNome {
         return core.getIdEmpresa(ownerId, nome, indice);
     }
+
+    public void alterarFuncionamento(String mercado, String abre, String fecha)
+    throws MercadoInvalido,HorarioInvalido,FormatoDeHoraInvalido{
+        core.supermarketChangeOperation(mercado,abre,fecha);
+    }
+//# descrição: Altera o horario de funcionamento do Mercado.
+//# retorno: Sem retorno
 
     public String criarProduto(String empresa, String nome, float valor, String categoria)
             throws NomeInvalido, ValorInvalido, CategoriaInvalido, JaExisteUmProdutoComEsseNomeParaEssaEmpresa {

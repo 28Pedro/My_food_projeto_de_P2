@@ -4,6 +4,7 @@ import br.ufal.ic.myfood.exceptions.*;
 import br.ufal.ic.myfood.models.database.EnterpriseDataManeger;
 import br.ufal.ic.myfood.models.enterprise.Enterprise;
 import br.ufal.ic.myfood.models.enterprise.Restaurant;
+import br.ufal.ic.myfood.models.enterprise.SuperMarket;
 import br.ufal.ic.myfood.models.integrators.UserIntegrator;
 import br.ufal.ic.myfood.models.validator.EnterpriseValidator;
 
@@ -24,13 +25,33 @@ public class EnterpriseManager {
 
     public String createEnterprise(String entrepriseType, String ownerId, String name, String adress,
                                  String kitchenType) throws UsuarioNaoPodeCriarEmpresa, NomeDeEmpresaJaExiste,
-                                EmpresaComMesmoNomeeLocal, NomeInvalido{
+                                EmpresaComMesmoNomeeLocal, NomeInvalido, EnderecoEmpresaInvalido,
+                                TipoEmpresaInvalido{
 
-       enterpriseValidator.validateCreateEnterprise(ownerId, name, adress);
+       enterpriseValidator.validateCreateEnterprise(ownerId, name, adress,entrepriseType);
 
         String enterpiseId = generateId();
 
         Enterprise newRestaurant = new Restaurant(entrepriseType,ownerId,name,adress,enterpiseId,kitchenType);
+
+        enterpriseDataManeger.saveObject(newRestaurant);
+
+        return enterpiseId;
+    }
+
+    public String createEnterprise(String entrepriseType, String ownerId, String name, String adress,
+                                   String open, String closes, String supermarketType)
+            throws UsuarioNaoPodeCriarEmpresa, NomeDeEmpresaJaExiste, EmpresaComMesmoNomeeLocal,
+            NomeInvalido,EnderecoEmpresaInvalido,TipoEmpresaInvalido, FormatoDeHoraInvalido,
+            HorarioInvalido,TipoMercadoInvalido{
+
+        enterpriseValidator.validateSupermarketRequests(ownerId, name, adress,entrepriseType,open,closes,
+                                                        supermarketType);
+
+        String enterpiseId = generateId();
+
+        Enterprise newRestaurant = new SuperMarket(entrepriseType,ownerId,name,adress,
+                enterpiseId,closes,open,supermarketType); // ateção ao horário invertido
 
         enterpriseDataManeger.saveObject(newRestaurant);
 
@@ -77,6 +98,27 @@ public class EnterpriseManager {
         return enterpriseDataManeger.getIdEnterpriseByOwnerNameIndex(ownerId,name,index);
     }
 
+    public void supermarketChangeOperation(String id, String open, String closes)
+    throws FormatoDeHoraInvalido, HorarioInvalido, MercadoInvalido{
+
+        enterpriseValidator.GeneralTimeValidation(open,closes);
+
+        try {
+            Enterprise supermarket = enterpriseDataManeger.getEnterpriseByID(id);
+
+            if (!(supermarket instanceof SuperMarket)) {
+                throw new MercadoInvalido();
+            }
+
+            ((SuperMarket) supermarket).setOpen(open);
+            ((SuperMarket) supermarket).setCloses(closes);
+
+        }catch (EmpresanaoCadastrada e){
+            throw new MercadoInvalido();
+        }
+
+    }
+
     public void saveData() throws SaveError {
         enterpriseDataManeger.saveData();
     }
@@ -89,14 +131,15 @@ public class EnterpriseManager {
             throws EmpresanaoCadastrada, AtributoInvalido {
 
         Enterprise enterprise = enterpriseDataManeger.getEnterpriseByID(id);
-        enterpriseValidator.validateAtribute(atribute);
+        enterpriseValidator.validateAtribute(atribute); // precisa para garantir que não será null
 
-        if(atribute.equalsIgnoreCase("dono")) {
+        if(atribute.equals("dono")) {
             try {
                 return userIntegrator.getUserNameById(enterprise.getAtribute(atribute));
-            } catch (Exception e) {
+            } catch (UsuarioNaoExisteException | AtributoInvalido e){
                 throw new EmpresanaoCadastrada();
             }
+
         }else{
             return enterprise.getAtribute(atribute);
         }

@@ -25,7 +25,7 @@ public abstract class Enterprise {
     }
 
     public String getAtribute(String atribute) throws AtributoInvalido{
-        return switch (atribute.toLowerCase()) {
+        return switch (atribute) {
             case "nome" -> this.getName();
             case "endereco" -> this.getAdress();
             case "dono" -> this.getOwnerId();

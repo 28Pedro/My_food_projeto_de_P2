@@ -69,9 +69,20 @@ public class Core {
 
     public String createEnterprise(String enterpriseType, String ownerId, String name,
                                  String adress, String kitchenType) throws UsuarioNaoPodeCriarEmpresa,
-                                NomeDeEmpresaJaExiste, EmpresaComMesmoNomeeLocal, NomeInvalido {
+                                NomeDeEmpresaJaExiste, EmpresaComMesmoNomeeLocal, NomeInvalido,
+                                EnderecoEmpresaInvalido, TipoEmpresaInvalido{
 
         return enterpriseManager.createEnterprise(enterpriseType,ownerId,name,adress,kitchenType);
+    }
+
+    public String createEnterprise(String enterpriseType, String ownerId, String name,
+                                   String adress, String open, String closes, String supermarketType)
+            throws UsuarioNaoPodeCriarEmpresa, NomeDeEmpresaJaExiste, EmpresaComMesmoNomeeLocal,
+                    NomeInvalido,FormatoDeHoraInvalido,HorarioInvalido,EnderecoEmpresaInvalido,
+                    TipoEmpresaInvalido,TipoMercadoInvalido{
+
+        return enterpriseManager.createEnterprise(enterpriseType,ownerId,name,adress,open
+        ,closes,supermarketType);
     }
 
     public String getEnterprizesOfUser(String ownerId) throws EmpresanaoCadastrada,
@@ -91,6 +102,11 @@ public class Core {
             NaoExisteEmpresaComEsseNome {
 
         return enterpriseManager.getIdEmpresa(ownerId, name, index);
+    }
+
+    public void supermarketChangeOperation(String id, String open, String closes)
+            throws FormatoDeHoraInvalido, HorarioInvalido, MercadoInvalido{
+        enterpriseManager.supermarketChangeOperation(id,open,closes);
     }
 
     public String createProduct(String empresa, String nome, float valor, String categoria)

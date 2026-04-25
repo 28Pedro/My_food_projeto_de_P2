@@ -16,7 +16,7 @@ public class Restaurant extends Enterprise{
     @Override
     public String getAtribute(String atribute) throws AtributoInvalido {
 
-        if (atribute.equalsIgnoreCase("tipoCozinha")) {
+        if (atribute.equals("tipoCozinha")) {
             return getKitchenType();
         }else{
             return super.getAtribute(atribute);
