@@ -85,6 +85,14 @@ public class Core {
         ,closes,supermarketType);
     }
 
+    public String createEnterprise(String enterpriseType, String ownerId, String name,
+                                   String adress, boolean open24Hours, int numberOfEmploys) throws UsuarioNaoPodeCriarEmpresa,
+            NomeDeEmpresaJaExiste, EmpresaComMesmoNomeeLocal, NomeInvalido,
+            EnderecoEmpresaInvalido, TipoEmpresaInvalido{
+
+        return enterpriseManager.createEnterprise(enterpriseType,ownerId,name,adress,open24Hours,numberOfEmploys);
+    }
+
     public String getEnterprizesOfUser(String ownerId) throws EmpresanaoCadastrada,
             UsuarioNaoPodeCriarEmpresa{
 

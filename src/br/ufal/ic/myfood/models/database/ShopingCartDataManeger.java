@@ -18,7 +18,7 @@ public class ShopingCartDataManeger extends DataManger<Order> {
 
     private Map<String, Order> orderById;
     private Map<PairKey<String,String>, String> openOrderIdByClientEnterprise;
-    private Map<PairKey<String,String>, java.util.List<String>> allordersIdsByClientEnterprise;
+    private Map<PairKey<String,String>, List<String>> allordersIdsByClientEnterprise;
 
     public ShopingCartDataManeger() throws FileError {
 

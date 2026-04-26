@@ -3,6 +3,7 @@ package br.ufal.ic.myfood.models.manageres;
 import br.ufal.ic.myfood.exceptions.*;
 import br.ufal.ic.myfood.models.database.EnterpriseDataManeger;
 import br.ufal.ic.myfood.models.enterprise.Enterprise;
+import br.ufal.ic.myfood.models.enterprise.Pharmacy;
 import br.ufal.ic.myfood.models.enterprise.Restaurant;
 import br.ufal.ic.myfood.models.enterprise.SuperMarket;
 import br.ufal.ic.myfood.models.integrators.UserIntegrator;
@@ -51,9 +52,26 @@ public class EnterpriseManager {
         String enterpiseId = generateId();
 
         Enterprise newRestaurant = new SuperMarket(entrepriseType,ownerId,name,adress,
-                enterpiseId,closes,open,supermarketType); // ateção ao horário invertido
+                enterpiseId,closes,open,supermarketType);
 
         enterpriseDataManeger.saveObject(newRestaurant);
+
+        return enterpiseId;
+    }
+
+    public String createEnterprise(String entrepriseType, String ownerId, String name, String adress,
+                                   boolean open24Hours, int numberOfEmploys) throws UsuarioNaoPodeCriarEmpresa,
+            NomeDeEmpresaJaExiste, EmpresaComMesmoNomeeLocal, NomeInvalido, EnderecoEmpresaInvalido,
+            TipoEmpresaInvalido{
+
+        enterpriseValidator.validateCreateEnterprise(ownerId, name, adress,entrepriseType);
+
+        String enterpiseId = generateId();
+
+        Enterprise newPharmacy = new Pharmacy(entrepriseType,ownerId,name,adress,enterpiseId,
+                                                open24Hours,numberOfEmploys);
+
+        enterpriseDataManeger.saveObject(newPharmacy);
 
         return enterpiseId;
     }

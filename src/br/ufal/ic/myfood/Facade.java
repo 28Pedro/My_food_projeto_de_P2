@@ -54,13 +54,22 @@ public class Facade {
         return core.createEnterprise(tipoEmpresa,dono,nome,endereco,tipoCozinha);
     }
 
-    public String  criarEmpresa(String tipoEmpresa, String dono, String nome, String endereco,
+    public String criarEmpresa(String tipoEmpresa, String dono, String nome, String endereco,
                                 String abre, String fecha, String tipoMercado)  throws UsuarioNaoPodeCriarEmpresa, NomeDeEmpresaJaExiste,
             EmpresaComMesmoNomeeLocal, FormatoDeHoraInvalido, HorarioInvalido, NomeInvalido,
             TipoEmpresaInvalido,EnderecoEmpresaInvalido,TipoMercadoInvalido {
 
         return core.createEnterprise(tipoEmpresa,dono,nome,endereco,abre,fecha,tipoMercado);
     }
+
+    public String criarEmpresa(String tipoEmpresa, String dono, String nome, String endereco, boolean aberto24Horas,
+                               int numeroFuncionarios) throws UsuarioNaoPodeCriarEmpresa, NomeDeEmpresaJaExiste,
+            EmpresaComMesmoNomeeLocal,NomeInvalido, TipoEmpresaInvalido,EnderecoEmpresaInvalido {
+
+        return core.createEnterprise(tipoEmpresa,dono,nome,endereco,aberto24Horas,numeroFuncionarios);
+    }
+//# descrição: Cria uma nova empresa, do tipo fornecido, Restaurante, Mercado e Farmacia agora são criados.
+//# retorno:   Retorna o id da empresa
 
 
     public String getEmpresasDoUsuario(String IdDono) throws EmpresanaoCadastrada, UsuarioNaoPodeCriarEmpresa, UsuarioNaoExisteException {
