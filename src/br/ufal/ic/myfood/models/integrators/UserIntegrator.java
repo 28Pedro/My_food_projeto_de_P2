@@ -17,9 +17,26 @@ public class UserIntegrator {
     }
 
     public String getUserNameById(String id)
-            throws UsuarioNaoExisteException, AtributoInvalido {
+            throws UsuarioNaoExisteException{
+        try {
+            return userManager.getAtributebyId(id, "nome");
+        } catch (AtributoInvalido e) {
+           throw new UsuarioNaoExisteException();
+        }
 
-        return userManager.getAtributebyId(id, "nome");
     }
+
+    public String getUserEmailbyId(String id) throws UsuarioNaoExisteException
+     {
+
+        try {
+            return userManager.getAtributebyId(id,"email");
+
+        } catch (AtributoInvalido e) {
+
+            throw new UsuarioNaoExisteException();
+        }
+    }
+
 
 }

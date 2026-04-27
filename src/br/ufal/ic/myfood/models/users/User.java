@@ -21,7 +21,7 @@ public abstract class User {
 
     public String getAtribute(String atribute) throws AtributoInvalido {
 
-        return switch (atribute.toLowerCase()) {
+        return switch (atribute) { // retirado o to lowerCase, tomar cuidado com erros
             case "nome"     -> getName();
             case "email"    -> getEmail();
             case "endereco" -> getAdress();

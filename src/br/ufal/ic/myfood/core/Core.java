@@ -28,6 +28,8 @@ public class Core {
         this.productManager = new ProductManager(enterpriseIntegrator);
         this.productIntegrator = new ProductIntegrator(productManager);
         this.shopingCartManeger = new ShopingCartManeger(userIntegrator, productIntegrator, enterpriseIntegrator);
+
+        this.userManager.setEnterpriseIntegrator(enterpriseIntegrator);
     }
 
     public void zerarSistema(){
@@ -56,6 +58,14 @@ public class Core {
         userManager.createUser(nome,email,senha,endereco);
     }
 
+    public void criarUsuario(String nome, String email, String senha, String endereco,
+                             String vehicle, String licensePlate)
+            throws UsuarioJaExisteException, NomeInvalido, EmailInvalido, EnderecoInvalido,
+            SenhaInvalida,VeiculoInvalido,PlacaInvalido{
+
+        userManager.createUser(nome,email,senha,endereco,vehicle,licensePlate);
+    }
+
     public void criarUsuario(String nome, String email, String senha, String endereco, String cpf)
             throws CPFinvalido,UsuarioJaExisteException, NomeInvalido, EmailInvalido, EnderecoInvalido,
             SenhaInvalida {
@@ -65,6 +75,19 @@ public class Core {
 
     public String login(String email, String senha) throws LoginError {
         return userManager.login(email, senha);
+    }
+
+    public void addDeliveryMan(String enterpriseId, String userId)
+    throws EmpresanaoCadastrada,UsuarioNaoEEntregador,UsuarioNaoExisteException{
+
+        userManager.addDeliveryManEnterprise(enterpriseId,userId);
+        enterpriseManager.addDeliveryMan(enterpriseId,userId);
+    }
+
+    public String getEnterprisesByDeliveryMan(String userId)
+    throws UsuarioNaoEEntregador,UsuarioNaoExisteException{
+
+        return userManager.getEnterpisesByDeliveryMan(userId);
     }
 
     public String createEnterprise(String enterpriseType, String ownerId, String name,
@@ -110,6 +133,12 @@ public class Core {
             NaoExisteEmpresaComEsseNome {
 
         return enterpriseManager.getIdEmpresa(ownerId, name, index);
+    }
+
+    public String getDelivryManListByEnterprise(String enterpriseId) throws
+            EmpresanaoCadastrada{
+
+        return enterpriseManager.getDeviveryMensList(enterpriseId);
     }
 
     public void supermarketChangeOperation(String id, String open, String closes)

@@ -107,6 +107,24 @@ public class EnterpriseManager {
         return sb.toString();
     }
 
+    public void addDeliveryMan(String enterpiseId, String deliveryManId)
+    throws EmpresanaoCadastrada,UsuarioNaoExisteException{
+
+       Enterprise enterprise = enterpriseDataManeger.getEnterpriseByID(enterpiseId);
+
+       String deliveryManEmail = userIntegrator.getUserEmailbyId(deliveryManId);
+
+       enterprise.addDeliveryMan(deliveryManEmail);
+
+    }
+
+    public String getDeviveryMensList(String enterpriseId)
+    throws EmpresanaoCadastrada{
+       Enterprise enterprise = enterpriseDataManeger.getEnterpriseByID(enterpriseId);
+
+       return enterprise.getDeliveryManList();
+    }
+
     public String getIdEmpresa(String ownerId, String name, int index)
             throws NomeInvalido, IndiceMaiorQueEsperado,
             UsuarioNaoPodeCriarEmpresa, IndiceInvalido, NaoExisteEmpresaComEsseNome {

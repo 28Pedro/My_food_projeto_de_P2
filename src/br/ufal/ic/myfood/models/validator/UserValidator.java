@@ -1,6 +1,8 @@
 package br.ufal.ic.myfood.models.validator;
 import br.ufal.ic.myfood.exceptions.*;
 import br.ufal.ic.myfood.models.database.UserDataManage;
+import br.ufal.ic.myfood.models.users.DeliveryMan;
+import br.ufal.ic.myfood.models.users.User;
 
 public class UserValidator extends Validator<UserDataManage> {
 
@@ -50,10 +52,30 @@ public class UserValidator extends Validator<UserDataManage> {
         throw new LoginError();
     }
 
+    public void validateDeliveryManRules(String veicle, String licensePlate)
+    throws VeiculoInvalido,PlacaInvalido{
+
+         if(!fildExists(veicle)){
+             throw new VeiculoInvalido();
+         }
+         if(!fildExists(licensePlate) || dataBase.LicencePlateExits(licensePlate)){
+             throw new PlacaInvalido();
+         }
+
+    }
+
     public void validateEmailExists(String email) throws UsuarioJaExisteException {
         if(dataBase.emailExists(email)){
             throw new UsuarioJaExisteException();
         }
+    }
+
+    public void validateUserIsDeliveryMan(User user)
+    throws UsuarioNaoEEntregador{
+
+         if(!(user instanceof DeliveryMan)){
+             throw new UsuarioNaoEEntregador();
+         }
     }
 
     private boolean validateEmail(String email){
