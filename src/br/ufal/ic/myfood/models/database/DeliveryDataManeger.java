@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class DeliveryDataManeger extends DataManger<Delivery> {
 
-    private final String DELIVERY_BY_ID_FILE = getFILE_PATH() + "enterprise_by_id.xml";
+    private final String DELIVERY_BY_ID_FILE = getFILE_PATH() + "delivery_by_id.xml";
 
     private Map<String,Delivery> deliveryById;
 
