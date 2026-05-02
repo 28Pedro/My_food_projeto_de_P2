@@ -4,11 +4,7 @@ import br.ufal.ic.myfood.exceptions.AtributoInvalido;
 import br.ufal.ic.myfood.records.PairKey;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-
-// decidi por enquanto que a melhor opção seria implementar a lista de empresas direto nos entregadors
-// e a lista dos entrgadores por empresa direto nas empresas
 
 public class DeliveryMan extends User{
 
@@ -19,7 +15,9 @@ public class DeliveryMan extends User{
     private List<String> deliveryByIdPriorityList;
 
     public DeliveryMan() {
-
+        enterprises_Name_Address = new ArrayList<PairKey<String, String>>();
+        deliveryByIdList = new ArrayList<String>();
+        deliveryByIdPriorityList = new ArrayList<String>();
     }
 
     public DeliveryMan(String id, String name, String email, String password, String adress, String vehicle, String licensePlate) {
@@ -64,8 +62,10 @@ public class DeliveryMan extends User{
 
         if(!deliveryByIdPriorityList.isEmpty()){
            return deliveryByIdPriorityList.getFirst();
-        }else{
+        } else if (!deliveryByIdList.isEmpty()) {
            return deliveryByIdList.getFirst();
+        } else {
+           return "";
         }
     }
 

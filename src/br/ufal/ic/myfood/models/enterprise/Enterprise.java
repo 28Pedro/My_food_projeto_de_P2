@@ -16,6 +16,7 @@ public abstract class Enterprise {
 
 
     public Enterprise() {
+        this.deliveryManEmailList = new ArrayList<>();
     }
 
     public Enterprise(String type,String ownerId, String name, String adress, String id) {

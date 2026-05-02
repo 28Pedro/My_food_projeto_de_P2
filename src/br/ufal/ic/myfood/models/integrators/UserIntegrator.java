@@ -46,5 +46,10 @@ public class UserIntegrator {
         userManager.addDeliveryManListOrder(deliveryManEmailList,orderId,priority);
     }
 
+    public void removeDeliveryManListOrder(List<String> deliveryManEmailList, String orderId, boolean priority)
+            throws UsuarioNaoEEntregador,UsuarioNaoExisteException {
+        userManager.removeDeliveryManListOrder(deliveryManEmailList,orderId,priority);
+    }
+
 
 }

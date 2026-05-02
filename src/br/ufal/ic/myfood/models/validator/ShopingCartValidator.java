@@ -101,4 +101,14 @@ public class ShopingCartValidator extends Validator<ShopingCartDataManeger> {
         }
     }
 
+    public void validateReleaseOrder(Order order) throws
+            PedidoJaLiberado,LiberarPedidoAberto{
+
+        if(order.getState().equals("pronto")){
+            throw new PedidoJaLiberado();
+        }else if(!orderIsClosed(order)){
+            throw new LiberarPedidoAberto();
+        }
+    }
+
 }

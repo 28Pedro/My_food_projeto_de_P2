@@ -119,9 +119,21 @@ public class UserManager {
             userDataValidation.validateUserIsDeliveryMan(user);
 
             ((DeliveryMan)user).addOrder(orderId,priority);
-
         }
     }
+
+    public void addProntOrdersToDeliveryMan(String deliveryManEmail, List<String> prontOrderIds, boolean priority)
+    throws UsuarioNaoExisteException,UsuarioNaoEEntregador{
+
+        String deliveryManId = userDataManage.getIdByEmail(deliveryManEmail);
+        User user = userDataManage.getUserById(deliveryManId);
+
+        userDataValidation.validateUserIsDeliveryMan(user);
+
+        for(String orderId : prontOrderIds){
+            ((DeliveryMan)user).addOrder(orderId, priority);
+        }
+    }//!
 
     public void removeDeliveryManListOrder(List<String> deliverymanEmailList, String orderId, boolean priority)
             throws UsuarioNaoExisteException,UsuarioNaoEEntregador{
@@ -139,10 +151,13 @@ public class UserManager {
     }
 
     public String getOrderByDeliveryMan(String deliveryManId)
-    throws UsuarioNaoEEntregador,UsuarioNaoExisteException{
+    throws UsuarioNaoEEntregador,UsuarioNaoExisteException,EntregadorNaoTemEmpresa{
 
         User user = userDataManage.getUserById(deliveryManId);
+
         userDataValidation.validateUserIsDeliveryMan(user);
+
+        userDataValidation.validadeDeliveryManHasEnterprise((DeliveryMan)user);
 
         return ((DeliveryMan)user).getFirstOrder();
     }

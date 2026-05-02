@@ -112,25 +112,40 @@ public class ShopingCartManeger {
     }
 
     public void releaseOrder(String orderId)
-    throws PedidoNaoEncontrado,EmpresanaoCadastrada,LiberarPedidoAberto{
+    throws PedidoNaoEncontrado,EmpresanaoCadastrada,LiberarPedidoAberto,PedidoJaLiberado,
+            UsuarioNaoEEntregador, UsuarioNaoExisteException{
 
         Order order = shopingCartDataManeger.getOrderById(orderId);
+        shopingCartValidator.validateReleaseOrder(order);
 
-        if(!shopingCartValidator.orderIsClosed(order)){
-            throw new LiberarPedidoAberto();
-        }
+        String enterpriseId = order.getEnterpriseId();
 
         order.setState("pronto");
 
-        String enterpriseId = order.getEnterpriseId();
-        List<String> DeliveryManEmailList = enterpriseIntegrator.getDeliveryManList(enterpriseId);
+        shopingCartDataManeger.addprontOrder(enterpriseId,orderId);
+
+
+        List<String> deliveryManEmailList = enterpriseIntegrator.getDeliveryManList(enterpriseId);
+
+        boolean priority = enterpriseIntegrator.enterpriseIsPharmacy(enterpriseId);
+
+        userIntegrator.addDeliveryManListOrder(deliveryManEmailList,orderId,priority);
 
     }
 
     public void MakeDelivery(String orderId)
-    throws PedidoNaoEncontrado{
+    throws PedidoNaoEncontrado,EmpresanaoCadastrada,UsuarioNaoEEntregador,
+            UsuarioNaoExisteException{
        Order order = shopingCartDataManeger.getOrderById(orderId);
-       /// //finalizar aqui
+       order.setState("entregue");
+
+       String enterpriseId = order.getEnterpriseId();
+       List<String> deliveryManEmailList = enterpriseIntegrator.getDeliveryManList(enterpriseId);
+
+       boolean priority = enterpriseIntegrator.enterpriseIsPharmacy(enterpriseId);
+
+       userIntegrator.removeDeliveryManListOrder(deliveryManEmailList,orderId,priority);
+
     }
 
     public void saveData() throws SaveError {
@@ -140,6 +155,10 @@ public class ShopingCartManeger {
     public void resetData(){
         shopingCartDataManeger.resetData();
     }
+
+    public List<String> getProntOrdersByEnterprise(String enterpriseId){
+        return shopingCartDataManeger.getProntOrdersByEnterprise(enterpriseId);
+    } //!
 
     private String generateId() {
         return UUID.randomUUID().toString();

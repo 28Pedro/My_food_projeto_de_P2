@@ -111,8 +111,6 @@ public class Facade {
     throws MercadoInvalido,HorarioInvalido,FormatoDeHoraInvalido{
         core.supermarketChangeOperation(mercado,abre,fecha);
     }
-//# descrição: Altera o horario de funcionamento do Mercado.
-//# retorno: Sem retorno
 
     public String criarProduto(String empresa, String nome, float valor, String categoria)
             throws NomeInvalido, ValorInvalido, CategoriaInvalido, JaExisteUmProdutoComEsseNomeParaEssaEmpresa {
@@ -160,6 +158,16 @@ public class Facade {
     public String getNumeroPedido(String cliente, String empresa, int indice)
             throws IndiceMaiorQueEsperado {
         return core.getOrderNumber(cliente, empresa, indice);
+    }
+
+    public void liberarPedido(String numero) throws PedidoNaoEncontrado,EmpresanaoCadastrada,LiberarPedidoAberto,
+    UsuarioNaoEEntregador, UsuarioNaoExisteException, PedidoJaLiberado{
+        core.releaseOrder(numero);
+    }
+
+    public String obterPedido(String entregador) throws UsuarioNaoEEntregador,UsuarioNaoExisteException,
+    EntregadorNaoTemEmpresa{
+       return core.getOrderByDeliveryMan(entregador);
     }
 
 }

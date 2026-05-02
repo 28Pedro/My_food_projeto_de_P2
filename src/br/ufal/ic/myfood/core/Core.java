@@ -9,6 +9,8 @@ import br.ufal.ic.myfood.models.manageres.ProductManager;
 import br.ufal.ic.myfood.models.manageres.ShopingCartManeger;
 import br.ufal.ic.myfood.models.manageres.UserManager;
 
+import java.util.List;
+
 public class Core {
 
     private UserManager userManager;
@@ -82,6 +84,14 @@ public class Core {
 
         userManager.addDeliveryManEnterprise(enterpriseId,userId);
         enterpriseManager.addDeliveryMan(enterpriseId,userId);
+
+        List<String> prontOrders = shopingCartManeger.getProntOrdersByEnterprise(enterpriseId);
+        String deliveryManEmail = userIntegrator.getUserEmailbyId(userId);
+        boolean isPharmacy = enterpriseManager.enterpriseIsPharmacy(enterpriseId);
+
+        if(prontOrders != null){
+            userManager.addProntOrdersToDeliveryMan(deliveryManEmail, prontOrders, isPharmacy);
+        } //!
     }
 
     public String getEnterprisesByDeliveryMan(String userId)
@@ -193,6 +203,17 @@ public class Core {
 
     public String getOrderNumber(String clientId, String enterpriseId, int index) throws IndiceMaiorQueEsperado {
         return shopingCartManeger.getOrderNumber(clientId, enterpriseId, index);
+    }
+
+    public void releaseOrder(String orderId)
+            throws PedidoNaoEncontrado,EmpresanaoCadastrada,LiberarPedidoAberto,
+            UsuarioNaoEEntregador, UsuarioNaoExisteException,PedidoJaLiberado{
+        shopingCartManeger.releaseOrder(orderId);
+    }
+
+    public String getOrderByDeliveryMan(String deliveryManId)
+            throws UsuarioNaoEEntregador,UsuarioNaoExisteException, EntregadorNaoTemEmpresa{
+         return userManager.getOrderByDeliveryMan(deliveryManId);
     }
 
 }

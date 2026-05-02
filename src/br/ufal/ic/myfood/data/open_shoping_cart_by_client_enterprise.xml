@@ -4,24 +4,24 @@
   <void method="put">
    <object class="br.ufal.ic.myfood.records.PairKey">
     <void property="first">
-     <string>80d58bcb-1ee0-4169-aaa1-420776a01bab</string>
+     <string>9736be01-0a91-47e7-b90a-7a11317d441b</string>
     </void>
     <void property="second">
-     <string>25f378a9-790e-48fe-b8f9-50fb9f7d8f17</string>
+     <string>64bed299-5b92-440f-a3d9-92aecccc5b65</string>
     </void>
    </object>
-   <string>db56e62a-b737-4d1f-b5b4-6b0abe898b8b</string>
+   <string>788f5676-db93-44a8-8beb-7206b6c8a307</string>
   </void>
   <void method="put">
    <object class="br.ufal.ic.myfood.records.PairKey">
     <void property="first">
-     <string>80d58bcb-1ee0-4169-aaa1-420776a01bab</string>
+     <string>9736be01-0a91-47e7-b90a-7a11317d441b</string>
     </void>
     <void property="second">
-     <string>3713f3d4-a73b-416e-af7c-37d77f07ca9c</string>
+     <string>6ef1f352-2f3b-47d0-aafb-d3b8efa1acd9</string>
     </void>
    </object>
-   <string>b26d2b0f-ad7e-459a-99b2-e8e36e1a3eb4</string>
+   <string>218e92d8-b50c-468f-a89c-d96057ee9176</string>
   </void>
  </object>
 </java>

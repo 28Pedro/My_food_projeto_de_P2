@@ -37,8 +37,9 @@ public class EnterpriseIntegrator {
         return enterpriseManager.GetDeliveryManList(enterpriseId);
     }
 
-    public boolean enterpriseIsPharmacy(String enterpriseId){
-
+    public boolean enterpriseIsPharmacy(String enterpriseId)
+    throws EmpresanaoCadastrada{
+        return enterpriseManager.enterpriseIsPharmacy(enterpriseId);
     }
 
     private String getEnterpriseAdressById(String enterpriseId) throws AtributoInvalido,
