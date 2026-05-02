@@ -2,114 +2,7 @@
 <java version="25.0.2" class="java.beans.XMLDecoder">
  <object class="java.util.HashMap">
   <void method="put">
-   <string>47185ac4-6538-4e5b-aa65-7986b2f4d65a</string>
-   <object class="br.ufal.ic.myfood.models.users.DeliveryMan" id="DeliveryMan0">
-    <void property="adress">
-     <string>Rua Exemplo N 123</string>
-    </void>
-    <void property="deliveryByIdList">
-     <void method="add">
-      <string>57f9f3a0-2e6d-463f-9d64-257375ac9bd0</string>
-     </void>
-     <void method="add">
-      <string>214c9e4f-13d9-44c0-8de4-c24fd526b89e</string>
-     </void>
-    </void>
-    <void property="email">
-     <string>joana@ufal.com.br</string>
-    </void>
-    <void property="enterprises_Name_Address">
-     <void method="add">
-      <object class="br.ufal.ic.myfood.records.PairKey">
-       <void property="first">
-        <string>Pastelaria</string>
-       </void>
-       <void property="second">
-        <string>Rua Segura N 987</string>
-       </void>
-      </object>
-     </void>
-    </void>
-    <void property="id">
-     <string>47185ac4-6538-4e5b-aa65-7986b2f4d65a</string>
-    </void>
-    <void property="licensePlate">
-     <string>BRA 8574</string>
-    </void>
-    <void property="name">
-     <string>Joana</string>
-    </void>
-    <void property="password">
-     <string>123senha</string>
-    </void>
-    <void property="vehicle">
-     <string>carro</string>
-    </void>
-   </object>
-  </void>
-  <void method="put">
-   <string>1cd5d9d5-3217-4758-b371-3c12bb2d8651</string>
-   <object class="br.ufal.ic.myfood.models.users.DeliveryMan" id="DeliveryMan1">
-    <void property="adress">
-     <string>Rua Exemplo N 123</string>
-    </void>
-    <void property="deliveryByIdList">
-     <void method="add">
-      <string>57f9f3a0-2e6d-463f-9d64-257375ac9bd0</string>
-     </void>
-     <void method="add">
-      <string>214c9e4f-13d9-44c0-8de4-c24fd526b89e</string>
-     </void>
-    </void>
-    <void property="deliveryByIdPriorityList">
-     <void method="add">
-      <string>9f2fae20-0bed-4e66-851d-659f2403f5d1</string>
-     </void>
-    </void>
-    <void property="email">
-     <string>rodrigo@ufal.com.br</string>
-    </void>
-    <void property="enterprises_Name_Address">
-     <void method="add">
-      <object class="br.ufal.ic.myfood.records.PairKey">
-       <void property="first">
-        <string>Pastelaria</string>
-       </void>
-       <void property="second">
-        <string>Rua Segura N 987</string>
-       </void>
-      </object>
-     </void>
-     <void method="add">
-      <object class="br.ufal.ic.myfood.records.PairKey">
-       <void property="first">
-        <string>Farmacia</string>
-       </void>
-       <void property="second">
-        <string>Rua Segura N 123</string>
-       </void>
-      </object>
-     </void>
-    </void>
-    <void property="id">
-     <string>1cd5d9d5-3217-4758-b371-3c12bb2d8651</string>
-    </void>
-    <void property="licensePlate">
-     <string>BRA 1234</string>
-    </void>
-    <void property="name">
-     <string>Rodrigo</string>
-    </void>
-    <void property="password">
-     <string>123senha</string>
-    </void>
-    <void property="vehicle">
-     <string>moto</string>
-    </void>
-   </object>
-  </void>
-  <void method="put">
-   <string>9736be01-0a91-47e7-b90a-7a11317d441b</string>
+   <string>3b4aa1d4-18da-4601-98a5-35200859f6ab</string>
    <object class="br.ufal.ic.myfood.models.users.Client">
     <void property="adress">
      <string>Rua Exemplo N 123</string>
@@ -118,7 +11,7 @@
      <string>carlos@ufal.com.br</string>
     </void>
     <void property="id">
-     <string>9736be01-0a91-47e7-b90a-7a11317d441b</string>
+     <string>3b4aa1d4-18da-4601-98a5-35200859f6ab</string>
     </void>
     <void property="name">
      <string>Carlos</string>
@@ -129,7 +22,7 @@
    </object>
   </void>
   <void method="put">
-   <string>15ffd4da-a475-46a6-85ca-165746708e1c</string>
+   <string>347ad224-d4c9-4ff2-8263-72ad4ca166c4</string>
    <object class="br.ufal.ic.myfood.models.users.Owner">
     <void property="adress">
      <string>Rua Exemplo N 321</string>
@@ -138,13 +31,13 @@
      <string>544.732.410-68</string>
     </void>
     <void property="email">
-     <string>lucas@ufal.com.br</string>
+     <string>roberto@ufal.com.br</string>
     </void>
     <void property="id">
-     <string>15ffd4da-a475-46a6-85ca-165746708e1c</string>
+     <string>347ad224-d4c9-4ff2-8263-72ad4ca166c4</string>
     </void>
     <void property="name">
-     <string>Lucas</string>
+     <string>RobertoDono</string>
     </void>
     <void property="password">
      <string>123senha</string>

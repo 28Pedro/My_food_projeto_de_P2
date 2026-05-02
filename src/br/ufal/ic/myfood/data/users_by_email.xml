@@ -2,20 +2,12 @@
 <java version="25.0.2" class="java.beans.XMLDecoder">
  <object class="java.util.HashMap">
   <void method="put">
-   <string>rodrigo@ufal.com.br</string>
-   <string>1cd5d9d5-3217-4758-b371-3c12bb2d8651</string>
-  </void>
-  <void method="put">
    <string>carlos@ufal.com.br</string>
-   <string>9736be01-0a91-47e7-b90a-7a11317d441b</string>
+   <string>3b4aa1d4-18da-4601-98a5-35200859f6ab</string>
   </void>
   <void method="put">
-   <string>lucas@ufal.com.br</string>
-   <string>15ffd4da-a475-46a6-85ca-165746708e1c</string>
-  </void>
-  <void method="put">
-   <string>joana@ufal.com.br</string>
-   <string>47185ac4-6538-4e5b-aa65-7986b2f4d65a</string>
+   <string>roberto@ufal.com.br</string>
+   <string>347ad224-d4c9-4ff2-8263-72ad4ca166c4</string>
   </void>
  </object>
 </java>

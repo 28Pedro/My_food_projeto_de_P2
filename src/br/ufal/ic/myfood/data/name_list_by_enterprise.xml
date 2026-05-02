@@ -2,35 +2,24 @@
 <java version="25.0.2" class="java.beans.XMLDecoder">
  <object class="java.util.HashMap">
   <void method="put">
-   <string>6ef1f352-2f3b-47d0-aafb-d3b8efa1acd9</string>
+   <string>6292b1f1-b511-494f-90a3-62c7d8600380</string>
    <object class="java.util.ArrayList">
     <void method="add">
-     <string>Paracetamol</string>
-    </void>
-    <void method="add">
-     <string>Agua Oxigenada</string>
+     <string>Pastel de queijo</string>
     </void>
    </object>
   </void>
   <void method="put">
-   <string>98d2372e-8e2c-489d-b04f-1be8546950c2</string>
+   <string>004fcade-9514-4fca-a9ff-1d6f9e0a6a48</string>
    <object class="java.util.ArrayList">
     <void method="add">
-     <string>Pastel</string>
+     <string>Sorvete morango</string>
+    </void>
+    <void method="add">
+     <string>Sorvete chocolate</string>
     </void>
     <void method="add">
      <string>Refrigerante</string>
-    </void>
-   </object>
-  </void>
-  <void method="put">
-   <string>64bed299-5b92-440f-a3d9-92aecccc5b65</string>
-   <object class="java.util.ArrayList">
-    <void method="add">
-     <string>Refrigerante</string>
-    </void>
-    <void method="add">
-     <string>Sabão</string>
     </void>
    </object>
   </void>

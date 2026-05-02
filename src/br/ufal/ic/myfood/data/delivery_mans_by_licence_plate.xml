@@ -1,13 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <java version="25.0.2" class="java.beans.XMLDecoder">
- <object class="java.util.HashMap">
-  <void method="put">
-   <string>BRA 1234</string>
-   <string>1cd5d9d5-3217-4758-b371-3c12bb2d8651</string>
-  </void>
-  <void method="put">
-   <string>BRA 8574</string>
-   <string>47185ac4-6538-4e5b-aa65-7986b2f4d65a</string>
-  </void>
- </object>
+ <object class="java.util.HashMap"/>
 </java>

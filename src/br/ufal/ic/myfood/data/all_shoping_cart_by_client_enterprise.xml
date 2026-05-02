@@ -4,51 +4,33 @@
   <void method="put">
    <object class="br.ufal.ic.myfood.records.PairKey">
     <void property="first">
-     <string>9736be01-0a91-47e7-b90a-7a11317d441b</string>
+     <string>3b4aa1d4-18da-4601-98a5-35200859f6ab</string>
     </void>
     <void property="second">
-     <string>98d2372e-8e2c-489d-b04f-1be8546950c2</string>
+     <string>6292b1f1-b511-494f-90a3-62c7d8600380</string>
     </void>
    </object>
    <object class="java.util.ArrayList">
     <void method="add">
-     <string>57f9f3a0-2e6d-463f-9d64-257375ac9bd0</string>
-    </void>
-    <void method="add">
-     <string>214c9e4f-13d9-44c0-8de4-c24fd526b89e</string>
+     <string>97bba44a-d56a-4037-8834-b708fd3b661e</string>
     </void>
    </object>
   </void>
   <void method="put">
    <object class="br.ufal.ic.myfood.records.PairKey">
     <void property="first">
-     <string>9736be01-0a91-47e7-b90a-7a11317d441b</string>
+     <string>3b4aa1d4-18da-4601-98a5-35200859f6ab</string>
     </void>
     <void property="second">
-     <string>64bed299-5b92-440f-a3d9-92aecccc5b65</string>
+     <string>004fcade-9514-4fca-a9ff-1d6f9e0a6a48</string>
     </void>
    </object>
    <object class="java.util.ArrayList">
     <void method="add">
-     <string>788f5676-db93-44a8-8beb-7206b6c8a307</string>
-    </void>
-   </object>
-  </void>
-  <void method="put">
-   <object class="br.ufal.ic.myfood.records.PairKey">
-    <void property="first">
-     <string>9736be01-0a91-47e7-b90a-7a11317d441b</string>
-    </void>
-    <void property="second">
-     <string>6ef1f352-2f3b-47d0-aafb-d3b8efa1acd9</string>
-    </void>
-   </object>
-   <object class="java.util.ArrayList">
-    <void method="add">
-     <string>9f2fae20-0bed-4e66-851d-659f2403f5d1</string>
+     <string>e0fa8acd-9685-4fa0-a64e-3279cf4cac70</string>
     </void>
     <void method="add">
-     <string>218e92d8-b50c-468f-a89c-d96057ee9176</string>
+     <string>ca63d467-573f-41f5-b586-e5819d2a8455</string>
     </void>
    </object>
   </void>

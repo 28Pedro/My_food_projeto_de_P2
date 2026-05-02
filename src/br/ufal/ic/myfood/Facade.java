@@ -170,4 +170,11 @@ public class Facade {
        return core.getOrderByDeliveryMan(entregador);
     }
 
+    public String criarEntrega(String pedido, String entregador, String destino)
+            throws PedidoNaoEstaPronto,PedidoNaoEncontrado,NaoEUmEntregadorValido{
+        return core.createDelivery(pedido,entregador,destino);
+    }
+//# descrição: Cria um objeto de entrega, e muda o estado do pedido para "entregando".
+//            # retorno: Retorna o id do objeto de entrega.
+
 }

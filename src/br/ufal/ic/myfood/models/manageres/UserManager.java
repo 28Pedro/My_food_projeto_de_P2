@@ -133,7 +133,7 @@ public class UserManager {
         for(String orderId : prontOrderIds){
             ((DeliveryMan)user).addOrder(orderId, priority);
         }
-    }//!
+    }
 
     public void removeDeliveryManListOrder(List<String> deliverymanEmailList, String orderId, boolean priority)
             throws UsuarioNaoExisteException,UsuarioNaoEEntregador{
@@ -164,6 +164,12 @@ public class UserManager {
 
     public void saveData() throws SaveError{
         userDataManage.saveData();
+    }
+
+    public boolean userIsDeliveryMan(String userId) throws
+            UsuarioNaoExisteException{
+        User user  = userDataManage.getUserById(userId);
+        return user instanceof DeliveryMan;
     }
 
     public void resetData(){

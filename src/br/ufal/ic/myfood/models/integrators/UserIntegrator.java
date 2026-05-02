@@ -51,5 +51,9 @@ public class UserIntegrator {
         userManager.removeDeliveryManListOrder(deliveryManEmailList,orderId,priority);
     }
 
+    public boolean userIsDeliveryMan(String userId) throws UsuarioNaoExisteException{
+        return userManager.userIsDeliveryMan(userId);
+    }
+
 
 }

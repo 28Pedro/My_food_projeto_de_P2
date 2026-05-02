@@ -1,24 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <java version="25.0.2" class="java.beans.XMLDecoder">
- <object class="java.util.HashMap">
-  <void method="put">
-   <string>6ef1f352-2f3b-47d0-aafb-d3b8efa1acd9</string>
-   <object class="java.util.ArrayList">
-    <void method="add">
-     <string>9f2fae20-0bed-4e66-851d-659f2403f5d1</string>
-    </void>
-   </object>
-  </void>
-  <void method="put">
-   <string>98d2372e-8e2c-489d-b04f-1be8546950c2</string>
-   <object class="java.util.ArrayList">
-    <void method="add">
-     <string>57f9f3a0-2e6d-463f-9d64-257375ac9bd0</string>
-    </void>
-    <void method="add">
-     <string>214c9e4f-13d9-44c0-8de4-c24fd526b89e</string>
-    </void>
-   </object>
-  </void>
- </object>
+ <object class="java.util.HashMap"/>
 </java>

@@ -88,6 +88,10 @@ public class ShopingCartManeger {
         }
     }
 
+    public Order getOrderById(String orderId) throws PedidoNaoEncontrado{
+        return shopingCartDataManeger.getOrderById(orderId);
+    }
+
     public void closeOrder(String orderId) throws PedidoNaoEncontrado {
         Order order = shopingCartDataManeger.getOrderById(orderId);
 

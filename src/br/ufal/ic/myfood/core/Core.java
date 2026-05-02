@@ -2,12 +2,10 @@ package br.ufal.ic.myfood.core;
 
 import br.ufal.ic.myfood.exceptions.*;
 import br.ufal.ic.myfood.models.integrators.EnterpriseIntegrator;
+import br.ufal.ic.myfood.models.integrators.OrderIntegrator;
 import br.ufal.ic.myfood.models.integrators.ProductIntegrator;
 import br.ufal.ic.myfood.models.integrators.UserIntegrator;
-import br.ufal.ic.myfood.models.manageres.EnterpriseManager;
-import br.ufal.ic.myfood.models.manageres.ProductManager;
-import br.ufal.ic.myfood.models.manageres.ShopingCartManeger;
-import br.ufal.ic.myfood.models.manageres.UserManager;
+import br.ufal.ic.myfood.models.manageres.*;
 
 import java.util.List;
 
@@ -20,6 +18,8 @@ public class Core {
     private ProductManager productManager;
     private ProductIntegrator productIntegrator;
     private ShopingCartManeger shopingCartManeger;
+    private OrderIntegrator orderIntegrator;
+    private DeliveryManeger deliveryManeger;
 
 
     public Core() throws FileError{
@@ -30,6 +30,8 @@ public class Core {
         this.productManager = new ProductManager(enterpriseIntegrator);
         this.productIntegrator = new ProductIntegrator(productManager);
         this.shopingCartManeger = new ShopingCartManeger(userIntegrator, productIntegrator, enterpriseIntegrator);
+        this.orderIntegrator = new OrderIntegrator(shopingCartManeger);
+        this.deliveryManeger = new DeliveryManeger(userIntegrator,orderIntegrator);
 
         this.userManager.setEnterpriseIntegrator(enterpriseIntegrator);
     }
@@ -39,6 +41,7 @@ public class Core {
        enterpriseManager.resetData();
        productManager.resetData();
        shopingCartManeger.resetData();
+       deliveryManeger.resetData();
     }
 
     public void encerrarSistema() throws SaveError {
@@ -46,6 +49,7 @@ public class Core {
         enterpriseManager.saveData();
         productManager.saveData();
         shopingCartManeger.saveData();
+        deliveryManeger.saveData();
     }
 
     public String getAtributoUsuario(String id, String atributo)
@@ -214,6 +218,11 @@ public class Core {
     public String getOrderByDeliveryMan(String deliveryManId)
             throws UsuarioNaoEEntregador,UsuarioNaoExisteException, EntregadorNaoTemEmpresa{
          return userManager.getOrderByDeliveryMan(deliveryManId);
+    }
+
+    public String createDelivery(String orderId, String deliveryManId, String destination)
+    throws PedidoNaoEstaPronto,PedidoNaoEncontrado,NaoEUmEntregadorValido{
+        return deliveryManeger.createDelivery(orderId,deliveryManId,destination);
     }
 
 }

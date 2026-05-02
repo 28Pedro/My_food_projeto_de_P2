@@ -2,16 +2,12 @@
 <java version="25.0.2" class="java.beans.XMLDecoder">
  <object class="java.util.HashMap">
   <void method="put">
-   <string>Farmacia</string>
-   <string>15ffd4da-a475-46a6-85ca-165746708e1c</string>
+   <string>Sorveteria do Roberto</string>
+   <string>347ad224-d4c9-4ff2-8263-72ad4ca166c4</string>
   </void>
   <void method="put">
-   <string>Pastelaria</string>
-   <string>15ffd4da-a475-46a6-85ca-165746708e1c</string>
-  </void>
-  <void method="put">
-   <string>Mercado</string>
-   <string>15ffd4da-a475-46a6-85ca-165746708e1c</string>
+   <string>Pastelaria do Roberto</string>
+   <string>347ad224-d4c9-4ff2-8263-72ad4ca166c4</string>
   </void>
  </object>
 </java>

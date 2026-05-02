@@ -4,35 +4,24 @@
   <void method="put">
    <object class="br.ufal.ic.myfood.records.PairKey">
     <void property="first">
-     <string>Mercado</string>
-    </void>
-    <void property="second">
-     <string>Rua Segura N 123</string>
-    </void>
-   </object>
-   <string>64bed299-5b92-440f-a3d9-92aecccc5b65</string>
-  </void>
-  <void method="put">
-   <object class="br.ufal.ic.myfood.records.PairKey">
-    <void property="first">
-     <string>Pastelaria</string>
+     <string>Pastelaria do Roberto</string>
     </void>
     <void property="second">
      <string>Rua Segura N 987</string>
     </void>
    </object>
-   <string>98d2372e-8e2c-489d-b04f-1be8546950c2</string>
+   <string>6292b1f1-b511-494f-90a3-62c7d8600380</string>
   </void>
   <void method="put">
    <object class="br.ufal.ic.myfood.records.PairKey">
     <void property="first">
-     <string>Farmacia</string>
+     <string>Sorveteria do Roberto</string>
     </void>
     <void property="second">
-     <string>Rua Segura N 123</string>
+     <string>Rua Segura N 987</string>
     </void>
    </object>
-   <string>6ef1f352-2f3b-47d0-aafb-d3b8efa1acd9</string>
+   <string>004fcade-9514-4fca-a9ff-1d6f9e0a6a48</string>
   </void>
  </object>
 </java>
