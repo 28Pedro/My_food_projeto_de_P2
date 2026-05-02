@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="25.0.2" class="java.beans.XMLDecoder">
+ <object class="java.util.HashMap">
+  <void method="put">
+   <string>c834d0a4-7bca-4a1b-a913-959a71f9aad8</string>
+   <object class="br.ufal.ic.myfood.models.products.RestaurantProduct">
+    <void property="category">
+     <string>alimento</string>
+    </void>
+    <void property="enterpriseId">
+     <string>8d56eef7-f44f-42bf-9975-80218f7ba1ee</string>
+    </void>
+    <void property="id">
+     <string>c834d0a4-7bca-4a1b-a913-959a71f9aad8</string>
+    </void>
+    <void property="name">
+     <string>Pastel</string>
+    </void>
+    <void property="value">
+     <float>1.4</float>
+    </void>
+   </object>
+  </void>
+  <void method="put">
+   <string>fcee5e36-d7f5-4aff-bf9f-194e00593ebe</string>
+   <object class="br.ufal.ic.myfood.models.products.RestaurantProduct">
+    <void property="category">
+     <string>limpeza</string>
+    </void>
+    <void property="enterpriseId">
+     <string>3713f3d4-a73b-416e-af7c-37d77f07ca9c</string>
+    </void>
+    <void property="id">
+     <string>fcee5e36-d7f5-4aff-bf9f-194e00593ebe</string>
+    </void>
+    <void property="name">
+     <string>Sabão</string>
+    </void>
+    <void property="value">
+     <float>1.25</float>
+    </void>
+   </object>
+  </void>
+  <void method="put">
+   <string>ac4f2159-8386-483d-8629-c13996e7ab57</string>
+   <object class="br.ufal.ic.myfood.models.products.RestaurantProduct">
+    <void property="category">
+     <string>bebida</string>
+    </void>
+    <void property="enterpriseId">
+     <string>8d56eef7-f44f-42bf-9975-80218f7ba1ee</string>
+    </void>
+    <void property="id">
+     <string>ac4f2159-8386-483d-8629-c13996e7ab57</string>
+    </void>
+    <void property="name">
+     <string>Refrigerante</string>
+    </void>
+    <void property="value">
+     <float>3.0</float>
+    </void>
+   </object>
+  </void>
+  <void method="put">
+   <string>13d43de1-23a2-41bd-8ac0-df176f4200fc</string>
+   <object class="br.ufal.ic.myfood.models.products.RestaurantProduct">
+    <void property="category">
+     <string>medicamento</string>
+    </void>
+    <void property="enterpriseId">
+     <string>25f378a9-790e-48fe-b8f9-50fb9f7d8f17</string>
+    </void>
+    <void property="id">
+     <string>13d43de1-23a2-41bd-8ac0-df176f4200fc</string>
+    </void>
+    <void property="name">
+     <string>Paracetamol</string>
+    </void>
+    <void property="value">
+     <float>2.4</float>
+    </void>
+   </object>
+  </void>
+  <void method="put">
+   <string>a0942441-255c-439e-8799-d2d1ebb3b75c</string>
+   <object class="br.ufal.ic.myfood.models.products.RestaurantProduct">
+    <void property="category">
+     <string>bebida</string>
+    </void>
+    <void property="enterpriseId">
+     <string>3713f3d4-a73b-416e-af7c-37d77f07ca9c</string>
+    </void>
+    <void property="id">
+     <string>a0942441-255c-439e-8799-d2d1ebb3b75c</string>
+    </void>
+    <void property="name">
+     <string>Refrigerante</string>
+    </void>
+    <void property="value">
+     <float>2.4</float>
+    </void>
+   </object>
+  </void>
+  <void method="put">
+   <string>d8f96279-ac74-45f8-8048-7f05f2c03924</string>
+   <object class="br.ufal.ic.myfood.models.products.RestaurantProduct">
+    <void property="category">
+     <string>higiene</string>
+    </void>
+    <void property="enterpriseId">
+     <string>25f378a9-790e-48fe-b8f9-50fb9f7d8f17</string>
+    </void>
+    <void property="id">
+     <string>d8f96279-ac74-45f8-8048-7f05f2c03924</string>
+    </void>
+    <void property="name">
+     <string>Agua Oxigenada</string>
+    </void>
+    <void property="value">
+     <float>5.0</float>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>

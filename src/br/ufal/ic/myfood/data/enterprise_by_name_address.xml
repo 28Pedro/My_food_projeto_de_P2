@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="25.0.2" class="java.beans.XMLDecoder">
+ <object class="java.util.HashMap">
+  <void method="put">
+   <object class="br.ufal.ic.myfood.records.PairKey">
+    <void property="first">
+     <string>Mercado</string>
+    </void>
+    <void property="second">
+     <string>Rua Segura N 123</string>
+    </void>
+   </object>
+   <string>3713f3d4-a73b-416e-af7c-37d77f07ca9c</string>
+  </void>
+  <void method="put">
+   <object class="br.ufal.ic.myfood.records.PairKey">
+    <void property="first">
+     <string>Pastelaria</string>
+    </void>
+    <void property="second">
+     <string>Rua Segura N 987</string>
+    </void>
+   </object>
+   <string>8d56eef7-f44f-42bf-9975-80218f7ba1ee</string>
+  </void>
+  <void method="put">
+   <object class="br.ufal.ic.myfood.records.PairKey">
+    <void property="first">
+     <string>Farmacia</string>
+    </void>
+    <void property="second">
+     <string>Rua Segura N 123</string>
+    </void>
+   </object>
+   <string>25f378a9-790e-48fe-b8f9-50fb9f7d8f17</string>
+  </void>
+ </object>
+</java>

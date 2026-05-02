@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="25.0.2" class="java.beans.XMLDecoder">
+ <object class="java.util.HashMap">
+  <void method="put">
+   <string>8d56eef7-f44f-42bf-9975-80218f7ba1ee</string>
+   <object class="br.ufal.ic.myfood.models.enterprise.Restaurant">
+    <void property="adress">
+     <string>Rua Segura N 987</string>
+    </void>
+    <void property="deliveryManEmailList">
+     <object class="java.util.ArrayList">
+      <void method="add">
+       <string>rodrigo@ufal.com.br</string>
+      </void>
+      <void method="add">
+       <string>joana@ufal.com.br</string>
+      </void>
+     </object>
+    </void>
+    <void property="id">
+     <string>8d56eef7-f44f-42bf-9975-80218f7ba1ee</string>
+    </void>
+    <void property="kitchenType">
+     <string>brasileira</string>
+    </void>
+    <void property="name">
+     <string>Pastelaria</string>
+    </void>
+    <void property="ownerId">
+     <string>519a4d1a-a387-4501-b349-6e03aaf5a7d7</string>
+    </void>
+    <void property="type">
+     <string>restaurante</string>
+    </void>
+   </object>
+  </void>
+  <void method="put">
+   <string>3713f3d4-a73b-416e-af7c-37d77f07ca9c</string>
+   <object class="br.ufal.ic.myfood.models.enterprise.SuperMarket">
+    <void property="adress">
+     <string>Rua Segura N 123</string>
+    </void>
+    <void property="closes">
+     <string>21:00</string>
+    </void>
+    <void property="deliveryManEmailList">
+     <object class="java.util.ArrayList"/>
+    </void>
+    <void property="id">
+     <string>3713f3d4-a73b-416e-af7c-37d77f07ca9c</string>
+    </void>
+    <void property="name">
+     <string>Mercado</string>
+    </void>
+    <void property="open">
+     <string>07:30</string>
+    </void>
+    <void property="ownerId">
+     <string>519a4d1a-a387-4501-b349-6e03aaf5a7d7</string>
+    </void>
+    <void property="supermarketType">
+     <string>supermercado</string>
+    </void>
+    <void property="type">
+     <string>mercado</string>
+    </void>
+   </object>
+  </void>
+  <void method="put">
+   <string>25f378a9-790e-48fe-b8f9-50fb9f7d8f17</string>
+   <object class="br.ufal.ic.myfood.models.enterprise.Pharmacy">
+    <void property="adress">
+     <string>Rua Segura N 123</string>
+    </void>
+    <void property="deliveryManEmailList">
+     <object class="java.util.ArrayList">
+      <void method="add">
+       <string>rodrigo@ufal.com.br</string>
+      </void>
+     </object>
+    </void>
+    <void property="id">
+     <string>25f378a9-790e-48fe-b8f9-50fb9f7d8f17</string>
+    </void>
+    <void property="name">
+     <string>Farmacia</string>
+    </void>
+    <void property="numberOfEmploys">
+     <int>2</int>
+    </void>
+    <void property="open24Hours">
+     <boolean>true</boolean>
+    </void>
+    <void property="ownerId">
+     <string>519a4d1a-a387-4501-b349-6e03aaf5a7d7</string>
+    </void>
+    <void property="type">
+     <string>farmacia</string>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>

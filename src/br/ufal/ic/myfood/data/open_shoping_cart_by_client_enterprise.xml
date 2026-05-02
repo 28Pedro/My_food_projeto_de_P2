@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="25.0.2" class="java.beans.XMLDecoder">
+ <object class="java.util.HashMap">
+  <void method="put">
+   <object class="br.ufal.ic.myfood.records.PairKey">
+    <void property="first">
+     <string>80d58bcb-1ee0-4169-aaa1-420776a01bab</string>
+    </void>
+    <void property="second">
+     <string>25f378a9-790e-48fe-b8f9-50fb9f7d8f17</string>
+    </void>
+   </object>
+   <string>db56e62a-b737-4d1f-b5b4-6b0abe898b8b</string>
+  </void>
+  <void method="put">
+   <object class="br.ufal.ic.myfood.records.PairKey">
+    <void property="first">
+     <string>80d58bcb-1ee0-4169-aaa1-420776a01bab</string>
+    </void>
+    <void property="second">
+     <string>3713f3d4-a73b-416e-af7c-37d77f07ca9c</string>
+    </void>
+   </object>
+   <string>b26d2b0f-ad7e-459a-99b2-e8e36e1a3eb4</string>
+  </void>
+ </object>
+</java>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="25.0.2" class="java.beans.XMLDecoder">
+ <object class="java.util.HashMap">
+  <void method="put">
+   <string>519a4d1a-a387-4501-b349-6e03aaf5a7d7</string>
+   <object class="java.util.ArrayList">
+    <void method="add">
+     <string>8d56eef7-f44f-42bf-9975-80218f7ba1ee</string>
+    </void>
+    <void method="add">
+     <string>3713f3d4-a73b-416e-af7c-37d77f07ca9c</string>
+    </void>
+    <void method="add">
+     <string>25f378a9-790e-48fe-b8f9-50fb9f7d8f17</string>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>

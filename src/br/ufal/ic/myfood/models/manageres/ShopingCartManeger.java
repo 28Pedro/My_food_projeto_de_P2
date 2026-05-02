@@ -2,6 +2,7 @@ package br.ufal.ic.myfood.models.manageres;
 
 import br.ufal.ic.myfood.exceptions.*;
 import br.ufal.ic.myfood.models.database.ShopingCartDataManeger;
+import br.ufal.ic.myfood.models.enterprise.Enterprise;
 import br.ufal.ic.myfood.models.integrators.EnterpriseIntegrator;
 import br.ufal.ic.myfood.models.integrators.ProductIntegrator;
 import br.ufal.ic.myfood.models.integrators.UserIntegrator;
@@ -108,6 +109,28 @@ public class ShopingCartManeger {
         List<String> allOrders = shopingCartDataManeger.getAllOrdersByClientEnterprise(clientId, enterpriseId);
         shopingCartValidator.getOrderNumberValidator(allOrders,index);
         return allOrders.get(index);
+    }
+
+    public void releaseOrder(String orderId)
+    throws PedidoNaoEncontrado,EmpresanaoCadastrada,LiberarPedidoAberto{
+
+        Order order = shopingCartDataManeger.getOrderById(orderId);
+
+        if(!shopingCartValidator.orderIsClosed(order)){
+            throw new LiberarPedidoAberto();
+        }
+
+        order.setState("pronto");
+
+        String enterpriseId = order.getEnterpriseId();
+        List<String> DeliveryManEmailList = enterpriseIntegrator.getDeliveryManList(enterpriseId);
+
+    }
+
+    public void MakeDelivery(String orderId)
+    throws PedidoNaoEncontrado{
+       Order order = shopingCartDataManeger.getOrderById(orderId);
+       /// //finalizar aqui
     }
 
     public void saveData() throws SaveError {

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="25.0.2" class="java.beans.XMLDecoder">
+ <object class="java.util.HashMap">
+  <void method="put">
+   <string>Farmacia</string>
+   <string>519a4d1a-a387-4501-b349-6e03aaf5a7d7</string>
+  </void>
+  <void method="put">
+   <string>Pastelaria</string>
+   <string>519a4d1a-a387-4501-b349-6e03aaf5a7d7</string>
+  </void>
+  <void method="put">
+   <string>Mercado</string>
+   <string>519a4d1a-a387-4501-b349-6e03aaf5a7d7</string>
+  </void>
+ </object>
+</java>
