@@ -190,6 +190,19 @@ public class EnterpriseManager {
         }
     }
 
+    public List<String> GetDeliveryManList(String id) throws EmpresanaoCadastrada{
+        Enterprise enterprise = enterpriseDataManeger.getEnterpriseByID(id);
+        return enterprise.getDeliveryManEmailList();
+    }
+
+    public boolean enterpriseIsPharmacy(String enterpriseId)
+    throws EmpresanaoCadastrada{
+
+        Enterprise enterprise = enterpriseDataManeger.getEnterpriseByID(enterpriseId);
+
+        return enterprise instanceof Pharmacy;
+    }
+
     private String generateId() {
         return UUID.randomUUID().toString();
     }

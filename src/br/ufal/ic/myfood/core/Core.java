@@ -2,12 +2,12 @@ package br.ufal.ic.myfood.core;
 
 import br.ufal.ic.myfood.exceptions.*;
 import br.ufal.ic.myfood.models.integrators.EnterpriseIntegrator;
+import br.ufal.ic.myfood.models.integrators.OrderIntegrator;
 import br.ufal.ic.myfood.models.integrators.ProductIntegrator;
 import br.ufal.ic.myfood.models.integrators.UserIntegrator;
-import br.ufal.ic.myfood.models.manageres.EnterpriseManager;
-import br.ufal.ic.myfood.models.manageres.ProductManager;
-import br.ufal.ic.myfood.models.manageres.ShopingCartManeger;
-import br.ufal.ic.myfood.models.manageres.UserManager;
+import br.ufal.ic.myfood.models.manageres.*;
+
+import java.util.List;
 
 public class Core {
 
@@ -18,6 +18,8 @@ public class Core {
     private ProductManager productManager;
     private ProductIntegrator productIntegrator;
     private ShopingCartManeger shopingCartManeger;
+    private OrderIntegrator orderIntegrator;
+    private DeliveryManeger deliveryManeger;
 
 
     public Core() throws FileError{
@@ -28,6 +30,8 @@ public class Core {
         this.productManager = new ProductManager(enterpriseIntegrator);
         this.productIntegrator = new ProductIntegrator(productManager);
         this.shopingCartManeger = new ShopingCartManeger(userIntegrator, productIntegrator, enterpriseIntegrator);
+        this.orderIntegrator = new OrderIntegrator(shopingCartManeger);
+        this.deliveryManeger = new DeliveryManeger(userIntegrator,orderIntegrator,enterpriseIntegrator);
 
         this.userManager.setEnterpriseIntegrator(enterpriseIntegrator);
     }
@@ -37,6 +41,7 @@ public class Core {
        enterpriseManager.resetData();
        productManager.resetData();
        shopingCartManeger.resetData();
+       deliveryManeger.resetData();
     }
 
     public void encerrarSistema() throws SaveError {
@@ -44,6 +49,7 @@ public class Core {
         enterpriseManager.saveData();
         productManager.saveData();
         shopingCartManeger.saveData();
+        deliveryManeger.saveData();
     }
 
     public String getAtributoUsuario(String id, String atributo)
@@ -82,6 +88,14 @@ public class Core {
 
         userManager.addDeliveryManEnterprise(enterpriseId,userId);
         enterpriseManager.addDeliveryMan(enterpriseId,userId);
+
+        List<String> prontOrders = shopingCartManeger.getProntOrdersByEnterprise(enterpriseId);
+        String deliveryManEmail = userIntegrator.getUserEmailbyId(userId);
+        boolean isPharmacy = enterpriseManager.enterpriseIsPharmacy(enterpriseId);
+
+        if(prontOrders != null){
+            userManager.addProntOrdersToDeliveryMan(deliveryManEmail, prontOrders, isPharmacy);
+        } //!
     }
 
     public String getEnterprisesByDeliveryMan(String userId)
@@ -194,5 +208,37 @@ public class Core {
     public String getOrderNumber(String clientId, String enterpriseId, int index) throws IndiceMaiorQueEsperado {
         return shopingCartManeger.getOrderNumber(clientId, enterpriseId, index);
     }
+
+    public void releaseOrder(String orderId)
+            throws PedidoNaoEncontrado,EmpresanaoCadastrada,LiberarPedidoAberto,
+            UsuarioNaoEEntregador, UsuarioNaoExisteException,PedidoJaLiberado{
+        shopingCartManeger.releaseOrder(orderId);
+    }
+
+    public String getOrderByDeliveryMan(String deliveryManId)
+            throws UsuarioNaoEEntregador,UsuarioNaoExisteException, EntregadorNaoTemEmpresa,
+            NaoExistePedidoParaEntrega{
+         return userManager.getOrderByDeliveryMan(deliveryManId);
+    }
+
+    public String createDelivery(String orderId, String deliveryManId, String destination)
+    throws PedidoNaoEstaPronto,PedidoNaoEncontrado,NaoEUmEntregadorValido,EntregadorAindaEmEntrega,
+            NaoExistePedidoParaEntrega{
+        return deliveryManeger.createDelivery(orderId,deliveryManId,destination);
+    }
+
+    public String getDeliveryAtributeById(String deliveryId, String atribute)
+            throws AtributoNaoExiste,AtributoInvalido, NaoExisteEntregaId {
+        return deliveryManeger.getDeliveryAtributeById(deliveryId,atribute);
+    }
+
+    public String getDeliveryIdbyOrderId(String orderId)throws NaoExisteEntregaId{
+        return deliveryManeger.getDeliveryIdbyOrderId(orderId);
+    }
+
+    public void finishDelivery(String deliveryId) throws NadaParaSerEntregue{
+        deliveryManeger.finishDelivery(deliveryId);
+    }
+
 
 }

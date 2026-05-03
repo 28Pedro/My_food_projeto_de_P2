@@ -10,6 +10,7 @@ import br.ufal.ic.myfood.models.users.Owner;
 import br.ufal.ic.myfood.models.users.User;
 import br.ufal.ic.myfood.records.PairKey;
 
+import java.util.List;
 import java.util.UUID;
 
 public class UserManager {
@@ -107,8 +108,72 @@ public class UserManager {
         return user instanceof Client;
     }
 
+    public void addDeliveryManListOrder(List<String> deliverymanEmailList, String orderId, boolean priority)
+    throws UsuarioNaoExisteException,UsuarioNaoEEntregador{
+
+        for(String devireyManEmail : deliverymanEmailList){
+
+            String deliveryManId = userDataManage.getIdByEmail(devireyManEmail);
+            User user = userDataManage.getUserById(deliveryManId);
+
+            userDataValidation.validateUserIsDeliveryMan(user);
+
+            ((DeliveryMan)user).addOrder(orderId,priority);
+        }
+    }
+
+    public void addProntOrdersToDeliveryMan(String deliveryManEmail, List<String> prontOrderIds, boolean priority)
+    throws UsuarioNaoExisteException,UsuarioNaoEEntregador{
+
+        String deliveryManId = userDataManage.getIdByEmail(deliveryManEmail);
+        User user = userDataManage.getUserById(deliveryManId);
+
+        userDataValidation.validateUserIsDeliveryMan(user);
+
+        for(String orderId : prontOrderIds){
+            ((DeliveryMan)user).addOrder(orderId, priority);
+        }
+    }
+
+    public void removeDeliveryManListOrder(List<String> deliverymanEmailList, String orderId, boolean priority,
+                                           String deliveryManIdRecived)
+            throws UsuarioNaoExisteException,UsuarioNaoEEntregador{
+
+        for(String devireyManEmail : deliverymanEmailList){
+
+            String deliveryManId = userDataManage.getIdByEmail(devireyManEmail);
+
+
+            User user = userDataManage.getUserById(deliveryManId);
+
+            userDataValidation.validateUserIsDeliveryMan(user);
+
+            ((DeliveryMan) user).removeOrder(orderId, priority);
+
+        }
+    }
+
+    public String getOrderByDeliveryMan(String deliveryManId)
+    throws UsuarioNaoEEntregador,UsuarioNaoExisteException,EntregadorNaoTemEmpresa,
+            NaoExistePedidoParaEntrega{
+
+        User user = userDataManage.getUserById(deliveryManId);
+
+        userDataValidation.validateUserIsDeliveryMan(user);
+
+        userDataValidation.validadeDeliveryManHasEnterprise((DeliveryMan)user);
+
+        return ((DeliveryMan)user).getFirstOrder();
+    }
+
     public void saveData() throws SaveError{
         userDataManage.saveData();
+    }
+
+    public boolean userIsDeliveryMan(String userId) throws
+            UsuarioNaoExisteException{
+        User user  = userDataManage.getUserById(userId);
+        return user instanceof DeliveryMan;
     }
 
     public void resetData(){

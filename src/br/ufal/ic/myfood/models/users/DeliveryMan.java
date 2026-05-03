@@ -1,22 +1,24 @@
 package br.ufal.ic.myfood.models.users;
 
 import br.ufal.ic.myfood.exceptions.AtributoInvalido;
+import br.ufal.ic.myfood.exceptions.NaoExistePedidoParaEntrega;
 import br.ufal.ic.myfood.records.PairKey;
 
 import java.util.ArrayList;
 import java.util.List;
-
-// decidi por enquanto que a melhor opção seria implementar a lista de empresas direto nos entregadors
-// e a lista dos entrgadores por empresa direto nas empresas
 
 public class DeliveryMan extends User{
 
     private String vehicle;
     private String licensePlate;
     private List<PairKey<String,String>> enterprises_Name_Address;
+    private List<String> deliveryByIdList;
+    private List<String> deliveryByIdPriorityList;
 
     public DeliveryMan() {
-
+        enterprises_Name_Address = new ArrayList<PairKey<String, String>>();
+        deliveryByIdList = new ArrayList<String>();
+        deliveryByIdPriorityList = new ArrayList<String>();
     }
 
     public DeliveryMan(String id, String name, String email, String password, String adress, String vehicle, String licensePlate) {
@@ -24,6 +26,8 @@ public class DeliveryMan extends User{
         this.vehicle = vehicle;
         this.licensePlate = licensePlate;
         enterprises_Name_Address = new ArrayList<PairKey<String, String>>();
+        deliveryByIdList = new ArrayList<String>();
+        deliveryByIdPriorityList = new ArrayList<String>();
     }
 
     @Override
@@ -35,6 +39,35 @@ public class DeliveryMan extends User{
           default -> super.getAtribute(atribute);
        };
 
+    }
+
+    public void addOrder(String orderId, boolean priority){
+        if(priority){
+            deliveryByIdPriorityList.add(orderId);
+        }else{
+            deliveryByIdList.add(orderId);
+        }
+    }
+
+    public void removeOrder(String orderId, boolean priority){
+
+        if(priority){
+            deliveryByIdPriorityList.remove(orderId);
+        }else{
+            deliveryByIdList.remove(orderId);
+        }
+
+    }
+
+    public String getFirstOrder() throws NaoExistePedidoParaEntrega{
+
+        if(!deliveryByIdPriorityList.isEmpty()){
+           return deliveryByIdPriorityList.getFirst();
+        } else if (!deliveryByIdList.isEmpty()) {
+           return deliveryByIdList.getFirst();
+        } else {
+           throw new NaoExistePedidoParaEntrega();
+        }
     }
 
     public void addEnterpise(PairKey<String,String> nameAddress){
@@ -86,6 +119,22 @@ public class DeliveryMan extends User{
 
     public List<PairKey<String, String>> getEnterprises_Name_Address() {
         return enterprises_Name_Address;
+    }
+
+    public List<String> getDeliveryByIdList() {
+        return deliveryByIdList;
+    }
+
+    public void setDeliveryByIdList(List<String> deliveryByIdList) {
+        this.deliveryByIdList = deliveryByIdList;
+    }
+
+    public List<String> getDeliveryByIdPriorityList() {
+        return deliveryByIdPriorityList;
+    }
+
+    public void setDeliveryByIdPriorityList(List<String> deliveryByIdPriorityList) {
+        this.deliveryByIdPriorityList = deliveryByIdPriorityList;
     }
 
     public void setEnterprises_Name_Address(List<PairKey<String, String>> enterprises_Name_Address) {

@@ -1,8 +1,11 @@
 package br.ufal.ic.myfood.models.integrators;
 
 import br.ufal.ic.myfood.exceptions.AtributoInvalido;
+import br.ufal.ic.myfood.exceptions.UsuarioNaoEEntregador;
 import br.ufal.ic.myfood.exceptions.UsuarioNaoExisteException;
 import br.ufal.ic.myfood.models.manageres.UserManager;
+
+import java.util.List;
 
 public class UserIntegrator {
 
@@ -36,6 +39,21 @@ public class UserIntegrator {
 
             throw new UsuarioNaoExisteException();
         }
+    }
+
+    public void addDeliveryManListOrder(List<String> deliveryManEmailList, String orderId, boolean priority)
+    throws UsuarioNaoEEntregador,UsuarioNaoExisteException {
+        userManager.addDeliveryManListOrder(deliveryManEmailList,orderId,priority);
+    }
+
+    public void removeDeliveryManListOrder(List<String> deliveryManEmailList, String orderId, boolean priority,
+                                           String deliveryManId)
+            throws UsuarioNaoEEntregador,UsuarioNaoExisteException {
+        userManager.removeDeliveryManListOrder(deliveryManEmailList,orderId,priority,deliveryManId);
+    }
+
+    public boolean userIsDeliveryMan(String userId) throws UsuarioNaoExisteException{
+        return userManager.userIsDeliveryMan(userId);
     }
 
 

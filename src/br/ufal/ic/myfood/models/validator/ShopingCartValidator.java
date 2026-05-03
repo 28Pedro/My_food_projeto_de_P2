@@ -4,6 +4,7 @@ import br.ufal.ic.myfood.exceptions.*;
 import br.ufal.ic.myfood.models.integrators.ProductIntegrator;
 import br.ufal.ic.myfood.models.integrators.UserIntegrator;
 import br.ufal.ic.myfood.models.database.ShopingCartDataManeger;
+import br.ufal.ic.myfood.models.shopingCart.Order;
 
 import java.util.List;
 
@@ -89,10 +90,24 @@ public class ShopingCartValidator extends Validator<ShopingCartDataManeger> {
 
     }
 
+    public boolean orderIsClosed(Order order){
+        return order.getState().equals("preparando");
+    }
+
     public void getOrderNumberValidator(List<String> allOrders, int index)
         throws IndiceMaiorQueEsperado{
         if(allOrders == null || index >= allOrders.size()) {
             throw new IndiceMaiorQueEsperado();
+        }
+    }
+
+    public void validateReleaseOrder(Order order) throws
+            PedidoJaLiberado,LiberarPedidoAberto{
+
+        if(order.getState().equals("pronto")){
+            throw new PedidoJaLiberado();
+        }else if(!orderIsClosed(order)){
+            throw new LiberarPedidoAberto();
         }
     }
 

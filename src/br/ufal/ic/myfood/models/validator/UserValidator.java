@@ -3,6 +3,10 @@ import br.ufal.ic.myfood.exceptions.*;
 import br.ufal.ic.myfood.models.database.UserDataManage;
 import br.ufal.ic.myfood.models.users.DeliveryMan;
 import br.ufal.ic.myfood.models.users.User;
+import br.ufal.ic.myfood.records.PairKey;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserValidator extends Validator<UserDataManage> {
 
@@ -75,6 +79,16 @@ public class UserValidator extends Validator<UserDataManage> {
 
          if(!(user instanceof DeliveryMan)){
              throw new UsuarioNaoEEntregador();
+         }
+    }
+
+    public void validadeDeliveryManHasEnterprise(DeliveryMan deliveryMan)
+    throws EntregadorNaoTemEmpresa{
+
+         List<PairKey<String,String>> enterpiseList = deliveryMan.getEnterprises_Name_Address();
+
+        if(enterpiseList.isEmpty()){
+             throw new EntregadorNaoTemEmpresa();
          }
     }
 

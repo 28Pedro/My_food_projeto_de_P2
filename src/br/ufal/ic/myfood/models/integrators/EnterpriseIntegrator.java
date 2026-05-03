@@ -5,6 +5,8 @@ import br.ufal.ic.myfood.exceptions.EmpresanaoCadastrada;
 import br.ufal.ic.myfood.models.manageres.EnterpriseManager;
 import br.ufal.ic.myfood.records.PairKey;
 
+import java.util.List;
+
 public class EnterpriseIntegrator {
 
     private final EnterpriseManager enterpriseManager;
@@ -28,6 +30,21 @@ public class EnterpriseIntegrator {
             throw new EmpresanaoCadastrada();
         }
 
+    }
+
+    public List<String> getDeliveryManList(String enterpriseId)
+    throws EmpresanaoCadastrada{
+        return enterpriseManager.GetDeliveryManList(enterpriseId);
+    }
+
+    public boolean enterpriseIsPharmacy(String enterpriseId)
+    throws EmpresanaoCadastrada{
+        return enterpriseManager.enterpriseIsPharmacy(enterpriseId);
+    }
+
+    public String getEnterpriseNameById(String enterpriseId)throws EmpresanaoCadastrada,
+            AtributoInvalido{
+         return enterpriseManager.getAtributoEmpresa(enterpriseId,"nome");
     }
 
     private String getEnterpriseAdressById(String enterpriseId) throws AtributoInvalido,

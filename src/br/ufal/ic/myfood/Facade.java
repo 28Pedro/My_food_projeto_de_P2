@@ -111,8 +111,6 @@ public class Facade {
     throws MercadoInvalido,HorarioInvalido,FormatoDeHoraInvalido{
         core.supermarketChangeOperation(mercado,abre,fecha);
     }
-//# descrição: Altera o horario de funcionamento do Mercado.
-//# retorno: Sem retorno
 
     public String criarProduto(String empresa, String nome, float valor, String categoria)
             throws NomeInvalido, ValorInvalido, CategoriaInvalido, JaExisteUmProdutoComEsseNomeParaEssaEmpresa {
@@ -161,5 +159,36 @@ public class Facade {
             throws IndiceMaiorQueEsperado {
         return core.getOrderNumber(cliente, empresa, indice);
     }
+
+    public void liberarPedido(String numero) throws PedidoNaoEncontrado,EmpresanaoCadastrada,LiberarPedidoAberto,
+    UsuarioNaoEEntregador, UsuarioNaoExisteException, PedidoJaLiberado{
+        core.releaseOrder(numero);
+    }
+
+    public String obterPedido(String entregador) throws UsuarioNaoEEntregador,UsuarioNaoExisteException,
+    EntregadorNaoTemEmpresa,NaoExistePedidoParaEntrega{
+       return core.getOrderByDeliveryMan(entregador);
+    }
+
+    public String criarEntrega(String pedido, String entregador, String destino)
+            throws PedidoNaoEstaPronto,PedidoNaoEncontrado,NaoEUmEntregadorValido,
+    EntregadorAindaEmEntrega,NaoExistePedidoParaEntrega{
+        return core.createDelivery(pedido,entregador,destino);
+    }
+
+    public String getEntrega(String id, String atributo) throws
+            AtributoInvalido,AtributoNaoExiste, NaoExisteEntregaId {
+        return core.getDeliveryAtributeById(id,atributo);
+    }
+// erro na linha 167 do teste Us8_1 do easyacept
+
+    public String getIdEntrega(String pedido) throws NaoExisteEntregaId{
+        return core.getDeliveryIdbyOrderId(pedido);
+    }
+
+    public void entregar(String entrega) throws NadaParaSerEntregue{
+        core.finishDelivery(entrega);
+    }
+
 
 }

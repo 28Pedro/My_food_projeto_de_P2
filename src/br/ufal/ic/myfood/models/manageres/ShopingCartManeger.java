@@ -2,6 +2,7 @@ package br.ufal.ic.myfood.models.manageres;
 
 import br.ufal.ic.myfood.exceptions.*;
 import br.ufal.ic.myfood.models.database.ShopingCartDataManeger;
+import br.ufal.ic.myfood.models.enterprise.Enterprise;
 import br.ufal.ic.myfood.models.integrators.EnterpriseIntegrator;
 import br.ufal.ic.myfood.models.integrators.ProductIntegrator;
 import br.ufal.ic.myfood.models.integrators.UserIntegrator;
@@ -87,6 +88,10 @@ public class ShopingCartManeger {
         }
     }
 
+    public Order getOrderById(String orderId) throws PedidoNaoEncontrado{
+        return shopingCartDataManeger.getOrderById(orderId);
+    }
+
     public void closeOrder(String orderId) throws PedidoNaoEncontrado {
         Order order = shopingCartDataManeger.getOrderById(orderId);
 
@@ -110,12 +115,63 @@ public class ShopingCartManeger {
         return allOrders.get(index);
     }
 
+    public void releaseOrder(String orderId)
+    throws PedidoNaoEncontrado,EmpresanaoCadastrada,LiberarPedidoAberto,PedidoJaLiberado,
+            UsuarioNaoEEntregador, UsuarioNaoExisteException{
+
+        Order order = shopingCartDataManeger.getOrderById(orderId);
+        shopingCartValidator.validateReleaseOrder(order);
+
+        String enterpriseId = order.getEnterpriseId();
+
+        order.setState("pronto");
+
+        shopingCartDataManeger.addprontOrder(enterpriseId,orderId);
+
+
+        List<String> deliveryManEmailList = enterpriseIntegrator.getDeliveryManList(enterpriseId);
+
+        boolean priority = enterpriseIntegrator.enterpriseIsPharmacy(enterpriseId);
+
+        userIntegrator.addDeliveryManListOrder(deliveryManEmailList,orderId,priority);
+
+    }
+
+    public void MakeDelivery(String orderId, String deliveryManId)
+    throws PedidoNaoEncontrado,EmpresanaoCadastrada,UsuarioNaoEEntregador,
+            UsuarioNaoExisteException{
+
+        Order order = shopingCartDataManeger.getOrderById(orderId);
+       order.setState("entregando");
+
+       String enterpriseId = order.getEnterpriseId();
+       List<String> deliveryManEmailList = enterpriseIntegrator.getDeliveryManList(enterpriseId);
+
+       boolean priority = enterpriseIntegrator.enterpriseIsPharmacy(enterpriseId);
+
+       userIntegrator.removeDeliveryManListOrder(deliveryManEmailList,orderId,priority,deliveryManId);
+
+    }
+
+    public void finishDelivery(String orderId) throws PedidoNaoEncontrado{
+       Order order = shopingCartDataManeger.getOrderById(orderId);
+       order.setState("entregue");
+    }
+
     public void saveData() throws SaveError {
         shopingCartDataManeger.saveData();
     }
 
     public void resetData(){
         shopingCartDataManeger.resetData();
+    }
+
+    public List<String> getProntOrdersByEnterprise(String enterpriseId){
+        return shopingCartDataManeger.getProntOrdersByEnterprise(enterpriseId);
+    }
+
+    public boolean orderExists(String orderId){
+        return shopingCartDataManeger.orderExists(orderId);
     }
 
     private String generateId() {
