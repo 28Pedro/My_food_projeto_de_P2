@@ -153,6 +153,11 @@ public class ShopingCartManeger {
 
     }
 
+    public void finishDelivery(String orderId) throws PedidoNaoEncontrado{
+       Order order = shopingCartDataManeger.getOrderById(orderId);
+       order.setState("entregue");
+    }
+
     public void saveData() throws SaveError {
         shopingCartDataManeger.saveData();
     }

@@ -52,4 +52,8 @@ public class OrderIntegrator {
         shopingCartManeger.MakeDelivery(orderId,deliveryManId);
     }
 
+    public void finishDelivery(String orderId) throws PedidoNaoEncontrado {
+        shopingCartManeger.finishDelivery(orderId);
+    }
+
 }

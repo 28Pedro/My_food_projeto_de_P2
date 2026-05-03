@@ -31,7 +31,7 @@ public class Core {
         this.productIntegrator = new ProductIntegrator(productManager);
         this.shopingCartManeger = new ShopingCartManeger(userIntegrator, productIntegrator, enterpriseIntegrator);
         this.orderIntegrator = new OrderIntegrator(shopingCartManeger);
-        this.deliveryManeger = new DeliveryManeger(userIntegrator,orderIntegrator);
+        this.deliveryManeger = new DeliveryManeger(userIntegrator,orderIntegrator,enterpriseIntegrator);
 
         this.userManager.setEnterpriseIntegrator(enterpriseIntegrator);
     }
@@ -224,5 +224,19 @@ public class Core {
     throws PedidoNaoEstaPronto,PedidoNaoEncontrado,NaoEUmEntregadorValido,EntregadorAindaEmEntrega{
         return deliveryManeger.createDelivery(orderId,deliveryManId,destination);
     }
+
+    public String getDeliveryAtributeById(String deliveryId, String atribute)
+            throws AtributoNaoExiste,AtributoInvalido, NaoExisteEntregaId {
+        return deliveryManeger.getDeliveryAtributeById(deliveryId,atribute);
+    }
+
+    public String getDeliveryIdbyOrderId(String orderId)throws NaoExisteEntregaId{
+        return deliveryManeger.getDeliveryIdbyOrderId(orderId);
+    }
+
+    public void finishDelivery(String deliveryId) throws NadaParaSerEntregue{
+        deliveryManeger.finishDelivery(deliveryId);
+    }
+
 
 }

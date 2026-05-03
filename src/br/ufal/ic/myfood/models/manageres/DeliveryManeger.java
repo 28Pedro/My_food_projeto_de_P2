@@ -3,6 +3,7 @@ package br.ufal.ic.myfood.models.manageres;
 import br.ufal.ic.myfood.exceptions.*;
 import br.ufal.ic.myfood.models.database.DeliveryDataManeger;
 import br.ufal.ic.myfood.models.delivery.Delivery;
+import br.ufal.ic.myfood.models.integrators.EnterpriseIntegrator;
 import br.ufal.ic.myfood.models.integrators.OrderIntegrator;
 import br.ufal.ic.myfood.models.integrators.UserIntegrator;
 import br.ufal.ic.myfood.models.validator.DeliveryValidator;
@@ -16,12 +17,15 @@ public class DeliveryManeger{
     private DeliveryValidator deliveryValidator;
     private OrderIntegrator orderIntegrator;
     private UserIntegrator userIntegrator;
+    private EnterpriseIntegrator enterpriseIntegrator;
 
-  public  DeliveryManeger(UserIntegrator userIntegrator, OrderIntegrator orderIntegrator) throws FileError {
+  public  DeliveryManeger(UserIntegrator userIntegrator, OrderIntegrator orderIntegrator,
+    EnterpriseIntegrator enterpriseIntegrator) throws FileError {
         deliveryDataManeger = new DeliveryDataManeger();
         deliveryValidator = new DeliveryValidator(deliveryDataManeger,userIntegrator,orderIntegrator);
         this.orderIntegrator = orderIntegrator;
         this.userIntegrator = userIntegrator;
+        this.enterpriseIntegrator = enterpriseIntegrator;
     }
 
     public String createDelivery(String orderId, String deliveryManId, String destination)
@@ -53,6 +57,58 @@ public class DeliveryManeger{
         deliveryDataManeger.saveObject(delivery);
 
         return id;
+
+    }
+
+    public String getDeliveryAtributeById(String deliveryId, String atribute)
+    throws AtributoNaoExiste,AtributoInvalido, NaoExisteEntregaId {
+
+      deliveryValidator.validateAtrinbute(atribute);
+
+      Delivery delivery = deliveryDataManeger.getDeliverybyId(deliveryId);
+
+      return switch (atribute){
+          case "cliente"     -> {
+              try {
+                 yield  userIntegrator.getUserNameById(delivery.getClient());
+              } catch (UsuarioNaoExisteException e) {
+                  throw new AtributoInvalido();
+              }
+          }
+          case "empresa"    -> {
+              try {
+                 yield  enterpriseIntegrator.getEnterpriseNameById(delivery.getEnterprise());
+              } catch (EmpresanaoCadastrada e) {
+                  throw new AtributoInvalido();
+              }
+          }
+          case "entregador"    -> {
+              try {
+                 yield  userIntegrator.getUserNameById(delivery.getDeliveryManId());
+              } catch (UsuarioNaoExisteException e) {
+                  throw new AtributoInvalido();
+              }
+          }
+
+          default -> delivery.getAtribute(atribute);
+
+      };
+
+    }
+
+    public String getDeliveryIdbyOrderId(String orderId)throws NaoExisteEntregaId{
+      return deliveryDataManeger.getDeliveryByOrderId(orderId);
+    }
+
+    public void finishDelivery(String deliveryId) throws NadaParaSerEntregue{
+      try {
+         Delivery delivery = deliveryDataManeger.getDeliverybyId(deliveryId);
+         orderIntegrator.finishDelivery(delivery.getOrderId());
+      } catch (NaoExisteEntregaId | PedidoNaoEncontrado e) {
+          throw new NadaParaSerEntregue();
+      }
+
+
 
     }
 

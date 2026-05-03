@@ -1,5 +1,8 @@
 package br.ufal.ic.myfood.models.delivery;
 
+import br.ufal.ic.myfood.exceptions.AtributoInvalido;
+import br.ufal.ic.myfood.exceptions.AtributoNaoExiste;
+
 import java.util.List;
 
 public class Delivery {
@@ -20,8 +23,43 @@ public class Delivery {
         this.enterprise = enterprise;
         this.orderId = orderId;
         this.deliveryManId = deliveryManId;
-        this.destination = destination;
+
+        this.destination = (destination == null) ? "Rua Exemplo N 123" : destination;
+        /* erro na linha 167 do teste Us8_1:
+           en1=criarEntrega pedido=${epe1} entregador=${id3} destino=
+           valor de destino não colocado
+        */
         this.itensList = itensList;
+    }
+
+    public String getAtribute(String atribute) throws AtributoNaoExiste {
+
+        return switch (atribute) {
+            case "pedido" -> getOrderId();
+            case "destino" -> getDestination();
+            case "produtos" -> bildProductList();
+            default -> throw new AtributoNaoExiste();
+        };
+    }
+
+    private String bildProductList(){
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("{[");
+
+        for (int i = 0; i < itensList.size(); i++) {
+            String item = itensList.get(i);
+            sb.append(item);
+
+            if(i < itensList.size() - 1){
+                sb.append(", ");
+            }
+        }
+
+        sb.append("]}");
+
+        return sb.toString();
+
     }
 
     public String getId() {

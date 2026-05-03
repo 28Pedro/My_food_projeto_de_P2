@@ -39,6 +39,10 @@ public class DeliveryValidator extends Validator<DeliveryDataManeger> {
 
     }
 
-
+    public void validateAtrinbute(String atribute) throws AtributoInvalido{
+        if(!fildExists(atribute)){
+            throw new AtributoInvalido();
+        }
+    }
 
 }

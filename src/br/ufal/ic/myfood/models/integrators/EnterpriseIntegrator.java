@@ -42,6 +42,11 @@ public class EnterpriseIntegrator {
         return enterpriseManager.enterpriseIsPharmacy(enterpriseId);
     }
 
+    public String getEnterpriseNameById(String enterpriseId)throws EmpresanaoCadastrada,
+            AtributoInvalido{
+         return enterpriseManager.getAtributoEmpresa(enterpriseId,"nome");
+    }
+
     private String getEnterpriseAdressById(String enterpriseId) throws AtributoInvalido,
             EmpresanaoCadastrada{
 

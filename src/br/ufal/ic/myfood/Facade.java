@@ -176,5 +176,19 @@ public class Facade {
         return core.createDelivery(pedido,entregador,destino);
     }
 
+    public String getEntrega(String id, String atributo) throws
+            AtributoInvalido,AtributoNaoExiste, NaoExisteEntregaId {
+        return core.getDeliveryAtributeById(id,atributo);
+    }
+// erro na linha 167 do teste Us8_1 do easyacept
+
+    public String getIdEntrega(String pedido) throws NaoExisteEntregaId{
+        return core.getDeliveryIdbyOrderId(pedido);
+    }
+
+    public void entregar(String entrega) throws NadaParaSerEntregue{
+        core.finishDelivery(entrega);
+    }
+
 
 }
