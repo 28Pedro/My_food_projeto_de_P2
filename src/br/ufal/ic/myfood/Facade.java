@@ -171,7 +171,8 @@ public class Facade {
     }
 
     public String criarEntrega(String pedido, String entregador, String destino)
-            throws PedidoNaoEstaPronto,PedidoNaoEncontrado,NaoEUmEntregadorValido{
+            throws PedidoNaoEstaPronto,PedidoNaoEncontrado,NaoEUmEntregadorValido,
+    EntregadorAindaEmEntrega{
         return core.createDelivery(pedido,entregador,destino);
     }
 

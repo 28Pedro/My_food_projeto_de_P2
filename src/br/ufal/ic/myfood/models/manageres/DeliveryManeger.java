@@ -25,7 +25,7 @@ public class DeliveryManeger{
     }
 
     public String createDelivery(String orderId, String deliveryManId, String destination)
-    throws PedidoNaoEstaPronto,PedidoNaoEncontrado, NaoEUmEntregadorValido {
+    throws PedidoNaoEstaPronto,PedidoNaoEncontrado, NaoEUmEntregadorValido,EntregadorAindaEmEntrega {
 
         deliveryValidator.validateDeliveryRequest(orderId,deliveryManId);
         OrderInfo orderInfo = orderIntegrator.getOrderInfo(orderId);
@@ -47,6 +47,8 @@ public class DeliveryManeger{
         } catch (EmpresanaoCadastrada | UsuarioNaoEEntregador | UsuarioNaoExisteException e) {
             throw new NaoEUmEntregadorValido();
         }
+
+        deliveryDataManeger.atributeDeliveryToDeliveryMan(id,deliveryManId);
 
         deliveryDataManeger.saveObject(delivery);
 

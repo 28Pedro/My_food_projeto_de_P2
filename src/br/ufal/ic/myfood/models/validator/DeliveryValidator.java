@@ -1,9 +1,6 @@
 package br.ufal.ic.myfood.models.validator;
 
-import br.ufal.ic.myfood.exceptions.NaoEUmEntregadorValido;
-import br.ufal.ic.myfood.exceptions.PedidoNaoEncontrado;
-import br.ufal.ic.myfood.exceptions.PedidoNaoEstaPronto;
-import br.ufal.ic.myfood.exceptions.UsuarioNaoExisteException;
+import br.ufal.ic.myfood.exceptions.*;
 import br.ufal.ic.myfood.models.database.DeliveryDataManeger;
 import br.ufal.ic.myfood.models.integrators.OrderIntegrator;
 import br.ufal.ic.myfood.models.integrators.UserIntegrator;
@@ -21,7 +18,7 @@ public class DeliveryValidator extends Validator<DeliveryDataManeger> {
     }
 
     public void validateDeliveryRequest(String orderId, String deliveryManId)
-    throws PedidoNaoEncontrado,PedidoNaoEstaPronto,NaoEUmEntregadorValido {
+    throws PedidoNaoEncontrado,PedidoNaoEstaPronto,NaoEUmEntregadorValido,EntregadorAindaEmEntrega {
 
         if(!orderIntegrator.orderIsReady(orderId)){
             throw new PedidoNaoEstaPronto();
@@ -33,6 +30,10 @@ public class DeliveryValidator extends Validator<DeliveryDataManeger> {
             }
         } catch (UsuarioNaoExisteException e) {
             throw new NaoEUmEntregadorValido();
+        }
+
+        if(dataBase.deliveryManIsbusy(deliveryManId)){
+            throw new EntregadorAindaEmEntrega();
         }
 
 

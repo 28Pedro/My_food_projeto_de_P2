@@ -221,7 +221,7 @@ public class Core {
     }
 
     public String createDelivery(String orderId, String deliveryManId, String destination)
-    throws PedidoNaoEstaPronto,PedidoNaoEncontrado,NaoEUmEntregadorValido{
+    throws PedidoNaoEstaPronto,PedidoNaoEncontrado,NaoEUmEntregadorValido,EntregadorAindaEmEntrega{
         return deliveryManeger.createDelivery(orderId,deliveryManId,destination);
     }
 
