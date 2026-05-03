@@ -166,13 +166,13 @@ public class Facade {
     }
 
     public String obterPedido(String entregador) throws UsuarioNaoEEntregador,UsuarioNaoExisteException,
-    EntregadorNaoTemEmpresa{
+    EntregadorNaoTemEmpresa,NaoExistePedidoParaEntrega{
        return core.getOrderByDeliveryMan(entregador);
     }
 
     public String criarEntrega(String pedido, String entregador, String destino)
             throws PedidoNaoEstaPronto,PedidoNaoEncontrado,NaoEUmEntregadorValido,
-    EntregadorAindaEmEntrega{
+    EntregadorAindaEmEntrega,NaoExistePedidoParaEntrega{
         return core.createDelivery(pedido,entregador,destino);
     }
 

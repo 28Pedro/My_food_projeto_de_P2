@@ -154,7 +154,8 @@ public class UserManager {
     }
 
     public String getOrderByDeliveryMan(String deliveryManId)
-    throws UsuarioNaoEEntregador,UsuarioNaoExisteException,EntregadorNaoTemEmpresa{
+    throws UsuarioNaoEEntregador,UsuarioNaoExisteException,EntregadorNaoTemEmpresa,
+            NaoExistePedidoParaEntrega{
 
         User user = userDataManage.getUserById(deliveryManId);
 

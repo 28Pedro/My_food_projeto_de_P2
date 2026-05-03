@@ -18,7 +18,12 @@ public class DeliveryValidator extends Validator<DeliveryDataManeger> {
     }
 
     public void validateDeliveryRequest(String orderId, String deliveryManId)
-    throws PedidoNaoEncontrado,PedidoNaoEstaPronto,NaoEUmEntregadorValido,EntregadorAindaEmEntrega {
+    throws PedidoNaoEncontrado,PedidoNaoEstaPronto,NaoEUmEntregadorValido,EntregadorAindaEmEntrega,
+            NaoExistePedidoParaEntrega{
+
+        if(!orderIntegrator.orderExists(orderId)){
+            throw new NaoExistePedidoParaEntrega();
+        }
 
         if(!orderIntegrator.orderIsReady(orderId)){
             throw new PedidoNaoEstaPronto();

@@ -216,12 +216,14 @@ public class Core {
     }
 
     public String getOrderByDeliveryMan(String deliveryManId)
-            throws UsuarioNaoEEntregador,UsuarioNaoExisteException, EntregadorNaoTemEmpresa{
+            throws UsuarioNaoEEntregador,UsuarioNaoExisteException, EntregadorNaoTemEmpresa,
+            NaoExistePedidoParaEntrega{
          return userManager.getOrderByDeliveryMan(deliveryManId);
     }
 
     public String createDelivery(String orderId, String deliveryManId, String destination)
-    throws PedidoNaoEstaPronto,PedidoNaoEncontrado,NaoEUmEntregadorValido,EntregadorAindaEmEntrega{
+    throws PedidoNaoEstaPronto,PedidoNaoEncontrado,NaoEUmEntregadorValido,EntregadorAindaEmEntrega,
+            NaoExistePedidoParaEntrega{
         return deliveryManeger.createDelivery(orderId,deliveryManId,destination);
     }
 

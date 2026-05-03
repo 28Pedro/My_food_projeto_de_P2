@@ -168,7 +168,11 @@ public class ShopingCartManeger {
 
     public List<String> getProntOrdersByEnterprise(String enterpriseId){
         return shopingCartDataManeger.getProntOrdersByEnterprise(enterpriseId);
-    } //!
+    }
+
+    public boolean orderExists(String orderId){
+        return shopingCartDataManeger.orderExists(orderId);
+    }
 
     private String generateId() {
         return UUID.randomUUID().toString();

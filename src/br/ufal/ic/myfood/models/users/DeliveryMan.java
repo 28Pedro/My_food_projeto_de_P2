@@ -1,6 +1,7 @@
 package br.ufal.ic.myfood.models.users;
 
 import br.ufal.ic.myfood.exceptions.AtributoInvalido;
+import br.ufal.ic.myfood.exceptions.NaoExistePedidoParaEntrega;
 import br.ufal.ic.myfood.records.PairKey;
 
 import java.util.ArrayList;
@@ -58,14 +59,14 @@ public class DeliveryMan extends User{
 
     }
 
-    public String getFirstOrder(){
+    public String getFirstOrder() throws NaoExistePedidoParaEntrega{
 
         if(!deliveryByIdPriorityList.isEmpty()){
            return deliveryByIdPriorityList.getFirst();
         } else if (!deliveryByIdList.isEmpty()) {
            return deliveryByIdList.getFirst();
         } else {
-           return "";
+           throw new NaoExistePedidoParaEntrega();
         }
     }
 

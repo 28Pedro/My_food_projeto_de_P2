@@ -56,4 +56,8 @@ public class OrderIntegrator {
         shopingCartManeger.finishDelivery(orderId);
     }
 
+    public boolean orderExists(String orderId){
+       return shopingCartManeger.orderExists(orderId);
+    }
+
 }

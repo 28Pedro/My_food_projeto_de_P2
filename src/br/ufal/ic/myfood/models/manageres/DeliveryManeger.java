@@ -29,7 +29,8 @@ public class DeliveryManeger{
     }
 
     public String createDelivery(String orderId, String deliveryManId, String destination)
-    throws PedidoNaoEstaPronto,PedidoNaoEncontrado, NaoEUmEntregadorValido,EntregadorAindaEmEntrega {
+    throws PedidoNaoEstaPronto,PedidoNaoEncontrado, NaoEUmEntregadorValido,EntregadorAindaEmEntrega,
+            NaoExistePedidoParaEntrega{
 
         deliveryValidator.validateDeliveryRequest(orderId,deliveryManId);
         OrderInfo orderInfo = orderIntegrator.getOrderInfo(orderId);
@@ -104,11 +105,10 @@ public class DeliveryManeger{
       try {
          Delivery delivery = deliveryDataManeger.getDeliverybyId(deliveryId);
          orderIntegrator.finishDelivery(delivery.getOrderId());
+         deliveryDataManeger.removeDeliveryToDeliveryMan(delivery.getDeliveryManId());
       } catch (NaoExisteEntregaId | PedidoNaoEncontrado e) {
           throw new NadaParaSerEntregue();
       }
-
-
 
     }
 
