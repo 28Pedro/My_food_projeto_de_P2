@@ -135,17 +135,20 @@ public class UserManager {
         }
     }
 
-    public void removeDeliveryManListOrder(List<String> deliverymanEmailList, String orderId, boolean priority)
+    public void removeDeliveryManListOrder(List<String> deliverymanEmailList, String orderId, boolean priority,
+                                           String deliveryManIdRecived)
             throws UsuarioNaoExisteException,UsuarioNaoEEntregador{
 
         for(String devireyManEmail : deliverymanEmailList){
 
             String deliveryManId = userDataManage.getIdByEmail(devireyManEmail);
+
+
             User user = userDataManage.getUserById(deliveryManId);
 
             userDataValidation.validateUserIsDeliveryMan(user);
 
-            ((DeliveryMan)user).removeOrder(orderId,priority);
+            ((DeliveryMan) user).removeOrder(orderId, priority);
 
         }
     }

@@ -41,6 +41,13 @@ public class DeliveryManeger{
                 orderInfo.productList()
         );
 
+        try {
+            orderIntegrator.makeDelivery(orderId, deliveryManId);
+
+        } catch (EmpresanaoCadastrada | UsuarioNaoEEntregador | UsuarioNaoExisteException e) {
+            throw new NaoEUmEntregadorValido();
+        }
+
         deliveryDataManeger.saveObject(delivery);
 
         return id;

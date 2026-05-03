@@ -1,6 +1,9 @@
 package br.ufal.ic.myfood.models.integrators;
 
+import br.ufal.ic.myfood.exceptions.EmpresanaoCadastrada;
 import br.ufal.ic.myfood.exceptions.PedidoNaoEncontrado;
+import br.ufal.ic.myfood.exceptions.UsuarioNaoEEntregador;
+import br.ufal.ic.myfood.exceptions.UsuarioNaoExisteException;
 import br.ufal.ic.myfood.models.manageres.ShopingCartManeger;
 import br.ufal.ic.myfood.models.shopingCart.Order;
 import br.ufal.ic.myfood.records.OrderInfo;
@@ -42,6 +45,11 @@ public class OrderIntegrator {
 
         return order.getState().equals("pronto");
 
+    }
+
+    public void makeDelivery(String orderId,String deliveryManId)
+    throws PedidoNaoEncontrado, EmpresanaoCadastrada, UsuarioNaoEEntregador, UsuarioNaoExisteException {
+        shopingCartManeger.MakeDelivery(orderId,deliveryManId);
     }
 
 }

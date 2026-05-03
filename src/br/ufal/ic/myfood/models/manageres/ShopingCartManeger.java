@@ -137,18 +137,19 @@ public class ShopingCartManeger {
 
     }
 
-    public void MakeDelivery(String orderId)
+    public void MakeDelivery(String orderId, String deliveryManId)
     throws PedidoNaoEncontrado,EmpresanaoCadastrada,UsuarioNaoEEntregador,
             UsuarioNaoExisteException{
-       Order order = shopingCartDataManeger.getOrderById(orderId);
-       order.setState("entregue");
+
+        Order order = shopingCartDataManeger.getOrderById(orderId);
+       order.setState("entregando");
 
        String enterpriseId = order.getEnterpriseId();
        List<String> deliveryManEmailList = enterpriseIntegrator.getDeliveryManList(enterpriseId);
 
        boolean priority = enterpriseIntegrator.enterpriseIsPharmacy(enterpriseId);
 
-       userIntegrator.removeDeliveryManListOrder(deliveryManEmailList,orderId,priority);
+       userIntegrator.removeDeliveryManListOrder(deliveryManEmailList,orderId,priority,deliveryManId);
 
     }
 

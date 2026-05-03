@@ -174,7 +174,6 @@ public class Facade {
             throws PedidoNaoEstaPronto,PedidoNaoEncontrado,NaoEUmEntregadorValido{
         return core.createDelivery(pedido,entregador,destino);
     }
-//# descrição: Cria um objeto de entrega, e muda o estado do pedido para "entregando".
-//            # retorno: Retorna o id do objeto de entrega.
+
 
 }
