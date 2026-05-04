@@ -3,18 +3,18 @@ package br.ufal.ic.myfood.models.validator;
 import br.ufal.ic.myfood.exceptions.*;
 import br.ufal.ic.myfood.models.integrators.ProductIntegrator;
 import br.ufal.ic.myfood.models.integrators.UserIntegrator;
-import br.ufal.ic.myfood.models.database.ShopingCartDataManeger;
-import br.ufal.ic.myfood.models.shopingCart.Order;
+import br.ufal.ic.myfood.models.database.OrderDataManeger;
+import br.ufal.ic.myfood.models.order.Order;
 
 import java.util.List;
 
-public class ShopingCartValidator extends Validator<ShopingCartDataManeger> {
+public class OrderValidator extends Validator<OrderDataManeger> {
 
     private final UserIntegrator userIntegrator;
     private final ProductIntegrator productIntegrator;
 
-    public ShopingCartValidator(ShopingCartDataManeger dataManager,
-           UserIntegrator userIntegrator, ProductIntegrator productIntegrator) {
+    public OrderValidator(OrderDataManeger dataManager,
+                          UserIntegrator userIntegrator, ProductIntegrator productIntegrator) {
         super(dataManager);
         this.userIntegrator = userIntegrator;
         this.productIntegrator = productIntegrator;

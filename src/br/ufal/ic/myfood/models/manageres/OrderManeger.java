@@ -1,45 +1,44 @@
 package br.ufal.ic.myfood.models.manageres;
 
 import br.ufal.ic.myfood.exceptions.*;
-import br.ufal.ic.myfood.models.database.ShopingCartDataManeger;
-import br.ufal.ic.myfood.models.enterprise.Enterprise;
+import br.ufal.ic.myfood.models.database.OrderDataManeger;
 import br.ufal.ic.myfood.models.integrators.EnterpriseIntegrator;
 import br.ufal.ic.myfood.models.integrators.ProductIntegrator;
 import br.ufal.ic.myfood.models.integrators.UserIntegrator;
-import br.ufal.ic.myfood.models.shopingCart.Order;
-import br.ufal.ic.myfood.models.validator.ShopingCartValidator;
+import br.ufal.ic.myfood.models.order.Order;
+import br.ufal.ic.myfood.models.validator.OrderValidator;
 import br.ufal.ic.myfood.records.PairKey;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class ShopingCartManeger {
+public class OrderManeger {
 
-    private ShopingCartDataManeger shopingCartDataManeger;
-    private ShopingCartValidator shopingCartValidator;
+    private OrderDataManeger orderDataManeger;
+    private OrderValidator orderValidator;
     private ProductIntegrator productIntegrator;
     private UserIntegrator userIntegrator;
     private EnterpriseIntegrator enterpriseIntegrator;
 
-    public ShopingCartManeger(UserIntegrator userIntegrator, ProductIntegrator productIntegrator,
-                            EnterpriseIntegrator enterpriseIntegrator)
+    public OrderManeger(UserIntegrator userIntegrator, ProductIntegrator productIntegrator,
+                        EnterpriseIntegrator enterpriseIntegrator)
     throws FileError {
         this.productIntegrator = productIntegrator;
         this.userIntegrator = userIntegrator;
         this.enterpriseIntegrator = enterpriseIntegrator;
-        shopingCartDataManeger = new ShopingCartDataManeger();
-        shopingCartValidator = new ShopingCartValidator(shopingCartDataManeger, userIntegrator,
+        orderDataManeger = new OrderDataManeger();
+        orderValidator = new OrderValidator(orderDataManeger, userIntegrator,
                 productIntegrator);
     }
 
     public String createOrder(String ClientId, String enterpiseId)
         throws DoisPedidosMesmaEmpresa, DonoNaoPodeFazerPedido {
-        shopingCartValidator.validateOrder(ClientId,enterpiseId);
+        orderValidator.validateOrder(ClientId,enterpiseId);
 
         String id = generateId();
         Order order = new Order(id, ClientId, enterpiseId, "aberto", new ArrayList<>());
-        shopingCartDataManeger.saveObject(order);
+        orderDataManeger.saveObject(order);
 
         return id;
     }
@@ -47,10 +46,10 @@ public class ShopingCartManeger {
     public void addProduct(String orderId, String productId) throws NaoExistePedidoEmAberto,
             AdicionarEmPedidoFechado, ProdutoNaoPertenceAEmpresa{
 
-        shopingCartValidator.validateAddProduct(orderId,productId);
+        orderValidator.validateAddProduct(orderId,productId);
 
         try {
-            Order order = shopingCartDataManeger.getOrderById(orderId);
+            Order order = orderDataManeger.getOrderById(orderId);
             PairKey<String,Float> key = productIntegrator.getProductInfo(productId);
             order.addProduct(key);
         }catch (Exception e){
@@ -63,12 +62,12 @@ public class ShopingCartManeger {
             PedidoNaoEncontrado, AtributoNaoExiste, UsuarioNaoExisteException,
             EmpresanaoCadastrada {
 
-        shopingCartValidator.validadateGetAtribute(orderId, atribute);
+        orderValidator.validadateGetAtribute(orderId, atribute);
 
         try {
             String result = "";
 
-            Order order = shopingCartDataManeger.getOrderById(orderId);
+            Order order = orderDataManeger.getOrderById(orderId);
             if("cliente".equalsIgnoreCase(atribute)) {
                 result = userIntegrator.getUserNameById(order.getClientId());
             } else if("empresa".equalsIgnoreCase(atribute)) {
@@ -89,29 +88,29 @@ public class ShopingCartManeger {
     }
 
     public Order getOrderById(String orderId) throws PedidoNaoEncontrado{
-        return shopingCartDataManeger.getOrderById(orderId);
+        return orderDataManeger.getOrderById(orderId);
     }
 
     public void closeOrder(String orderId) throws PedidoNaoEncontrado {
-        Order order = shopingCartDataManeger.getOrderById(orderId);
+        Order order = orderDataManeger.getOrderById(orderId);
 
         order.setState("preparando");
-        shopingCartDataManeger.changeOrderState(order.getClientId(), order.getEnterpriseId());
+        orderDataManeger.changeOrderState(order.getClientId(), order.getEnterpriseId());
     }
 
     public void removeProduct(String orderId, String productName) throws ProdutoInvalido,
             RemoverEmPedidoFechado, ProdutoNaoEncontrado, PedidoNaoEncontrado {
 
-        shopingCartValidator.validateRemoveProduct(orderId,productName);
+        orderValidator.validateRemoveProduct(orderId,productName);
 
-        Order order = shopingCartDataManeger.getOrderById(orderId);
+        Order order = orderDataManeger.getOrderById(orderId);
         order.removeProductByName(productName);
 
     }
 
     public String getOrderNumber(String clientId, String enterpriseId, int index) throws IndiceMaiorQueEsperado {
-        List<String> allOrders = shopingCartDataManeger.getAllOrdersByClientEnterprise(clientId, enterpriseId);
-        shopingCartValidator.getOrderNumberValidator(allOrders,index);
+        List<String> allOrders = orderDataManeger.getAllOrdersByClientEnterprise(clientId, enterpriseId);
+        orderValidator.getOrderNumberValidator(allOrders,index);
         return allOrders.get(index);
     }
 
@@ -119,14 +118,14 @@ public class ShopingCartManeger {
     throws PedidoNaoEncontrado,EmpresanaoCadastrada,LiberarPedidoAberto,PedidoJaLiberado,
             UsuarioNaoEEntregador, UsuarioNaoExisteException{
 
-        Order order = shopingCartDataManeger.getOrderById(orderId);
-        shopingCartValidator.validateReleaseOrder(order);
+        Order order = orderDataManeger.getOrderById(orderId);
+        orderValidator.validateReleaseOrder(order);
 
         String enterpriseId = order.getEnterpriseId();
 
         order.setState("pronto");
 
-        shopingCartDataManeger.addprontOrder(enterpriseId,orderId);
+        orderDataManeger.addprontOrder(enterpriseId,orderId);
 
 
         List<String> deliveryManEmailList = enterpriseIntegrator.getDeliveryManList(enterpriseId);
@@ -141,7 +140,7 @@ public class ShopingCartManeger {
     throws PedidoNaoEncontrado,EmpresanaoCadastrada,UsuarioNaoEEntregador,
             UsuarioNaoExisteException{
 
-        Order order = shopingCartDataManeger.getOrderById(orderId);
+        Order order = orderDataManeger.getOrderById(orderId);
        order.setState("entregando");
 
        String enterpriseId = order.getEnterpriseId();
@@ -154,24 +153,24 @@ public class ShopingCartManeger {
     }
 
     public void finishDelivery(String orderId) throws PedidoNaoEncontrado{
-       Order order = shopingCartDataManeger.getOrderById(orderId);
+       Order order = orderDataManeger.getOrderById(orderId);
        order.setState("entregue");
     }
 
     public void saveData() throws SaveError {
-        shopingCartDataManeger.saveData();
+        orderDataManeger.saveData();
     }
 
     public void resetData(){
-        shopingCartDataManeger.resetData();
+        orderDataManeger.resetData();
     }
 
     public List<String> getProntOrdersByEnterprise(String enterpriseId){
-        return shopingCartDataManeger.getProntOrdersByEnterprise(enterpriseId);
+        return orderDataManeger.getProntOrdersByEnterprise(enterpriseId);
     }
 
     public boolean orderExists(String orderId){
-        return shopingCartDataManeger.orderExists(orderId);
+        return orderDataManeger.orderExists(orderId);
     }
 
     private String generateId() {

@@ -17,7 +17,7 @@ public class Core {
     private EnterpriseIntegrator enterpriseIntegrator;
     private ProductManager productManager;
     private ProductIntegrator productIntegrator;
-    private ShopingCartManeger shopingCartManeger;
+    private OrderManeger orderManeger;
     private OrderIntegrator orderIntegrator;
     private DeliveryManeger deliveryManeger;
 
@@ -29,8 +29,8 @@ public class Core {
         this.enterpriseIntegrator = new EnterpriseIntegrator(enterpriseManager);
         this.productManager = new ProductManager(enterpriseIntegrator);
         this.productIntegrator = new ProductIntegrator(productManager);
-        this.shopingCartManeger = new ShopingCartManeger(userIntegrator, productIntegrator, enterpriseIntegrator);
-        this.orderIntegrator = new OrderIntegrator(shopingCartManeger);
+        this.orderManeger = new OrderManeger(userIntegrator, productIntegrator, enterpriseIntegrator);
+        this.orderIntegrator = new OrderIntegrator(orderManeger);
         this.deliveryManeger = new DeliveryManeger(userIntegrator,orderIntegrator,enterpriseIntegrator);
 
         this.userManager.setEnterpriseIntegrator(enterpriseIntegrator);
@@ -40,7 +40,7 @@ public class Core {
        userManager.resetData();
        enterpriseManager.resetData();
        productManager.resetData();
-       shopingCartManeger.resetData();
+       orderManeger.resetData();
        deliveryManeger.resetData();
     }
 
@@ -48,7 +48,7 @@ public class Core {
         userManager.saveData();
         enterpriseManager.saveData();
         productManager.saveData();
-        shopingCartManeger.saveData();
+        orderManeger.saveData();
         deliveryManeger.saveData();
     }
 
@@ -89,7 +89,7 @@ public class Core {
         userManager.addDeliveryManEnterprise(enterpriseId,userId);
         enterpriseManager.addDeliveryMan(enterpriseId,userId);
 
-        List<String> prontOrders = shopingCartManeger.getProntOrdersByEnterprise(enterpriseId);
+        List<String> prontOrders = orderManeger.getProntOrdersByEnterprise(enterpriseId);
         String deliveryManEmail = userIntegrator.getUserEmailbyId(userId);
         boolean isPharmacy = enterpriseManager.enterpriseIsPharmacy(enterpriseId);
 
@@ -181,38 +181,38 @@ public class Core {
 
     public String createOrder(String clientId, String enterpise)
             throws DoisPedidosMesmaEmpresa, DonoNaoPodeFazerPedido {
-        return shopingCartManeger.createOrder(clientId,enterpise);
+        return orderManeger.createOrder(clientId,enterpise);
     }
 
     public void addProductToOrder(String orderId, String productId) throws NaoExistePedidoEmAberto,
             AdicionarEmPedidoFechado, ProdutoNaoPertenceAEmpresa{
-        shopingCartManeger.addProduct(orderId, productId);
+        orderManeger.addProduct(orderId, productId);
     }
 
     public String getOrderAttribute(String orderId, String atributo) throws AtributoInvalido,
             PedidoNaoEncontrado, AtributoNaoExiste, UsuarioNaoExisteException,
             EmpresanaoCadastrada {
-        return shopingCartManeger.getOrderAtribute(orderId, atributo);
+        return orderManeger.getOrderAtribute(orderId, atributo);
     }
 
     public void closeOrder(String orderId) throws PedidoNaoEncontrado {
-        shopingCartManeger.closeOrder(orderId);
+        orderManeger.closeOrder(orderId);
     }
 
     public void removeProductFromOrder(String orderId, String productName) throws ProdutoInvalido,
             RemoverEmPedidoFechado, ProdutoNaoEncontrado,
             PedidoNaoEncontrado {
-        shopingCartManeger.removeProduct(orderId, productName);
+        orderManeger.removeProduct(orderId, productName);
     }
 
     public String getOrderNumber(String clientId, String enterpriseId, int index) throws IndiceMaiorQueEsperado {
-        return shopingCartManeger.getOrderNumber(clientId, enterpriseId, index);
+        return orderManeger.getOrderNumber(clientId, enterpriseId, index);
     }
 
     public void releaseOrder(String orderId)
             throws PedidoNaoEncontrado,EmpresanaoCadastrada,LiberarPedidoAberto,
             UsuarioNaoEEntregador, UsuarioNaoExisteException,PedidoJaLiberado{
-        shopingCartManeger.releaseOrder(orderId);
+        orderManeger.releaseOrder(orderId);
     }
 
     public String getOrderByDeliveryMan(String deliveryManId)

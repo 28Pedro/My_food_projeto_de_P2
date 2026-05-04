@@ -1,6 +1,5 @@
-package br.ufal.ic.myfood.models.shopingCart;
+package br.ufal.ic.myfood.models.order;
 
-import br.ufal.ic.myfood.exceptions.AtributoInvalido;
 import br.ufal.ic.myfood.exceptions.AtributoNaoExiste;
 import br.ufal.ic.myfood.exceptions.ProdutoNaoEncontrado;
 import br.ufal.ic.myfood.records.PairKey;

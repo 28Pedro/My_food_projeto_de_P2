@@ -4,8 +4,8 @@ import br.ufal.ic.myfood.exceptions.EmpresanaoCadastrada;
 import br.ufal.ic.myfood.exceptions.PedidoNaoEncontrado;
 import br.ufal.ic.myfood.exceptions.UsuarioNaoEEntregador;
 import br.ufal.ic.myfood.exceptions.UsuarioNaoExisteException;
-import br.ufal.ic.myfood.models.manageres.ShopingCartManeger;
-import br.ufal.ic.myfood.models.shopingCart.Order;
+import br.ufal.ic.myfood.models.manageres.OrderManeger;
+import br.ufal.ic.myfood.models.order.Order;
 import br.ufal.ic.myfood.records.OrderInfo;
 import br.ufal.ic.myfood.records.PairKey;
 
@@ -14,16 +14,16 @@ import java.util.List;
 
 public class OrderIntegrator {
 
-    private final ShopingCartManeger shopingCartManeger;
+    private final OrderManeger orderManeger;
 
-    public OrderIntegrator(ShopingCartManeger shopingCartManeger ){
-        this.shopingCartManeger = shopingCartManeger;
+    public OrderIntegrator(OrderManeger orderManeger){
+        this.orderManeger = orderManeger;
     }
 
     public OrderInfo getOrderInfo(String orderId)
     throws PedidoNaoEncontrado {
 
-        Order order = shopingCartManeger.getOrderById(orderId);
+        Order order = orderManeger.getOrderById(orderId);
 
         List<PairKey<String,Float>> orderProductList = order.getProducts();
         List<String> deliveryProductList = new ArrayList<>();
@@ -41,7 +41,7 @@ public class OrderIntegrator {
 
     public boolean orderIsReady(String orderId) throws PedidoNaoEncontrado{
 
-        Order order = shopingCartManeger.getOrderById(orderId);
+        Order order = orderManeger.getOrderById(orderId);
 
         return order.getState().equals("pronto");
 
@@ -49,15 +49,15 @@ public class OrderIntegrator {
 
     public void makeDelivery(String orderId,String deliveryManId)
     throws PedidoNaoEncontrado, EmpresanaoCadastrada, UsuarioNaoEEntregador, UsuarioNaoExisteException {
-        shopingCartManeger.MakeDelivery(orderId,deliveryManId);
+        orderManeger.MakeDelivery(orderId,deliveryManId);
     }
 
     public void finishDelivery(String orderId) throws PedidoNaoEncontrado {
-        shopingCartManeger.finishDelivery(orderId);
+        orderManeger.finishDelivery(orderId);
     }
 
     public boolean orderExists(String orderId){
-       return shopingCartManeger.orderExists(orderId);
+       return orderManeger.orderExists(orderId);
     }
 
 }

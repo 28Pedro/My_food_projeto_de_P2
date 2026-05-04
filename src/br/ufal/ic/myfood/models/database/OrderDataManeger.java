@@ -3,14 +3,14 @@ package br.ufal.ic.myfood.models.database;
 import br.ufal.ic.myfood.exceptions.FileError;
 import br.ufal.ic.myfood.exceptions.PedidoNaoEncontrado;
 import br.ufal.ic.myfood.exceptions.SaveError;
-import br.ufal.ic.myfood.models.shopingCart.Order;
+import br.ufal.ic.myfood.models.order.Order;
 import br.ufal.ic.myfood.records.PairKey;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ShopingCartDataManeger extends DataManger<Order> {
+public class OrderDataManeger extends DataManger<Order> {
 
     private final String ORDER_BY_ID_FILE = getFILE_PATH() + "shoping_cart_by_Id.xml";
     private final String OPEN_ORDER_ID_BY_CLIENT_ENTERPIRSE_FILE = getFILE_PATH() + "open_shoping_cart_by_client_enterprise.xml";
@@ -22,7 +22,7 @@ public class ShopingCartDataManeger extends DataManger<Order> {
     private Map<PairKey<String,String>, List<String>> allordersIdsByClientEnterprise;
     private Map<String, List<String>> prontOrdersByEnterpriseId;
 
-    public ShopingCartDataManeger() throws FileError {
+    public OrderDataManeger() throws FileError {
 
         orderById = loadMapFromXML(ORDER_BY_ID_FILE);
         openOrderIdByClientEnterprise = loadMapFromXML(OPEN_ORDER_ID_BY_CLIENT_ENTERPIRSE_FILE);
