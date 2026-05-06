@@ -56,5 +56,9 @@ public class UserIntegrator {
         return userManager.userIsDeliveryMan(userId);
     }
 
+    public String getuserAdress(String userId) throws AtributoInvalido,UsuarioNaoExisteException{
+        return userManager.getAtributebyId(userId,"endereco");
+    }
+
 
 }

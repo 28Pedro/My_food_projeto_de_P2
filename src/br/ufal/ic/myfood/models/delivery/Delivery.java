@@ -24,11 +24,7 @@ public class Delivery {
         this.orderId = orderId;
         this.deliveryManId = deliveryManId;
 
-        this.destination = (destination == null) ? "Rua Exemplo N 123" : destination;
-        /* erro na linha 167 do teste Us8_1:
-           en1=criarEntrega pedido=${epe1} entregador=${id3} destino=
-           valor de destino não colocado
-        */
+        this.destination = destination;
         this.itensList = itensList;
     }
 

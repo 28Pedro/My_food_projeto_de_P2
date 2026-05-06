@@ -37,8 +37,18 @@ public class DeliveryManeger{
 
         String id = generateId();
 
+        String clientId = orderInfo.client();
+
+        if (destination == null){
+            try {
+               destination = userIntegrator.getuserAdress(clientId);
+            } catch (UsuarioNaoExisteException | AtributoInvalido e) {
+                throw new NaoExistePedidoParaEntrega();
+            }
+        }
+
         Delivery delivery = new Delivery(id,
-                orderInfo.client(),
+                clientId,
                 orderInfo.enterpriseId(),
                 orderInfo.orderId(),
                 deliveryManId,
