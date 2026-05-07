@@ -3,7 +3,9 @@ package br.ufal.ic.myfood.models.manageres;
 import br.ufal.ic.myfood.exceptions.*;
 import br.ufal.ic.myfood.models.database.EnterpriseDataManeger;
 import br.ufal.ic.myfood.models.enterprise.Enterprise;
+import br.ufal.ic.myfood.models.enterprise.Pharmacy;
 import br.ufal.ic.myfood.models.enterprise.Restaurant;
+import br.ufal.ic.myfood.models.enterprise.SuperMarket;
 import br.ufal.ic.myfood.models.integrators.UserIntegrator;
 import br.ufal.ic.myfood.models.validator.EnterpriseValidator;
 
@@ -24,15 +26,52 @@ public class EnterpriseManager {
 
     public String createEnterprise(String entrepriseType, String ownerId, String name, String adress,
                                  String kitchenType) throws UsuarioNaoPodeCriarEmpresa, NomeDeEmpresaJaExiste,
-                                EmpresaComMesmoNomeeLocal, NomeInvalido{
+                                EmpresaComMesmoNomeeLocal, NomeInvalido, EnderecoEmpresaInvalido,
+                                TipoEmpresaInvalido{
 
-       enterpriseValidator.validateCreateEnterprise(ownerId, name, adress);
+       enterpriseValidator.validateCreateEnterprise(ownerId, name, adress,entrepriseType);
 
         String enterpiseId = generateId();
 
         Enterprise newRestaurant = new Restaurant(entrepriseType,ownerId,name,adress,enterpiseId,kitchenType);
 
         enterpriseDataManeger.saveObject(newRestaurant);
+
+        return enterpiseId;
+    }
+
+    public String createEnterprise(String entrepriseType, String ownerId, String name, String adress,
+                                   String open, String closes, String supermarketType)
+            throws UsuarioNaoPodeCriarEmpresa, NomeDeEmpresaJaExiste, EmpresaComMesmoNomeeLocal,
+            NomeInvalido,EnderecoEmpresaInvalido,TipoEmpresaInvalido, FormatoDeHoraInvalido,
+            HorarioInvalido,TipoMercadoInvalido{
+
+        enterpriseValidator.validateSupermarketRequests(ownerId, name, adress,entrepriseType,open,closes,
+                                                        supermarketType);
+
+        String enterpiseId = generateId();
+
+        Enterprise newRestaurant = new SuperMarket(entrepriseType,ownerId,name,adress,
+                enterpiseId,closes,open,supermarketType);
+
+        enterpriseDataManeger.saveObject(newRestaurant);
+
+        return enterpiseId;
+    }
+
+    public String createEnterprise(String entrepriseType, String ownerId, String name, String adress,
+                                   boolean open24Hours, int numberOfEmploys) throws UsuarioNaoPodeCriarEmpresa,
+            NomeDeEmpresaJaExiste, EmpresaComMesmoNomeeLocal, NomeInvalido, EnderecoEmpresaInvalido,
+            TipoEmpresaInvalido{
+
+        enterpriseValidator.validateCreateEnterprise(ownerId, name, adress,entrepriseType);
+
+        String enterpiseId = generateId();
+
+        Enterprise newPharmacy = new Pharmacy(entrepriseType,ownerId,name,adress,enterpiseId,
+                                                open24Hours,numberOfEmploys);
+
+        enterpriseDataManeger.saveObject(newPharmacy);
 
         return enterpiseId;
     }
@@ -68,6 +107,24 @@ public class EnterpriseManager {
         return sb.toString();
     }
 
+    public void addDeliveryMan(String enterpiseId, String deliveryManId)
+    throws EmpresanaoCadastrada,UsuarioNaoExisteException{
+
+       Enterprise enterprise = enterpriseDataManeger.getEnterpriseByID(enterpiseId);
+
+       String deliveryManEmail = userIntegrator.getUserEmailbyId(deliveryManId);
+
+       enterprise.addDeliveryMan(deliveryManEmail);
+
+    }
+
+    public String getDeviveryMensList(String enterpriseId)
+    throws EmpresanaoCadastrada{
+       Enterprise enterprise = enterpriseDataManeger.getEnterpriseByID(enterpriseId);
+
+       return enterprise.getDeliveryManList();
+    }
+
     public String getIdEmpresa(String ownerId, String name, int index)
             throws NomeInvalido, IndiceMaiorQueEsperado,
             UsuarioNaoPodeCriarEmpresa, IndiceInvalido, NaoExisteEmpresaComEsseNome {
@@ -75,6 +132,27 @@ public class EnterpriseManager {
         enterpriseValidator.validateRequestGetIdEnterprise(ownerId,name,index);
 
         return enterpriseDataManeger.getIdEnterpriseByOwnerNameIndex(ownerId,name,index);
+    }
+
+    public void supermarketChangeOperation(String id, String open, String closes)
+    throws FormatoDeHoraInvalido, HorarioInvalido, MercadoInvalido{
+
+        enterpriseValidator.GeneralTimeValidation(open,closes);
+
+        try {
+            Enterprise supermarket = enterpriseDataManeger.getEnterpriseByID(id);
+
+            if (!(supermarket instanceof SuperMarket)) {
+                throw new MercadoInvalido();
+            }
+
+            ((SuperMarket) supermarket).setOpen(open);
+            ((SuperMarket) supermarket).setCloses(closes);
+
+        }catch (EmpresanaoCadastrada e){
+            throw new MercadoInvalido();
+        }
+
     }
 
     public void saveData() throws SaveError {
@@ -89,14 +167,15 @@ public class EnterpriseManager {
             throws EmpresanaoCadastrada, AtributoInvalido {
 
         Enterprise enterprise = enterpriseDataManeger.getEnterpriseByID(id);
-        enterpriseValidator.validateAtribute(atribute);
+        enterpriseValidator.validateAtribute(atribute); // precisa para garantir que não será null
 
-        if(atribute.equalsIgnoreCase("dono")) {
+        if(atribute.equals("dono")) {
             try {
                 return userIntegrator.getUserNameById(enterprise.getAtribute(atribute));
-            } catch (Exception e) {
+            } catch (UsuarioNaoExisteException | AtributoInvalido e){
                 throw new EmpresanaoCadastrada();
             }
+
         }else{
             return enterprise.getAtribute(atribute);
         }
@@ -109,6 +188,19 @@ public class EnterpriseManager {
         }catch (Exception e){
             throw  new EmpresanaoCadastrada();
         }
+    }
+
+    public List<String> GetDeliveryManList(String id) throws EmpresanaoCadastrada{
+        Enterprise enterprise = enterpriseDataManeger.getEnterpriseByID(id);
+        return enterprise.getDeliveryManEmailList();
+    }
+
+    public boolean enterpriseIsPharmacy(String enterpriseId)
+    throws EmpresanaoCadastrada{
+
+        Enterprise enterprise = enterpriseDataManeger.getEnterpriseByID(enterpriseId);
+
+        return enterprise instanceof Pharmacy;
     }
 
     private String generateId() {

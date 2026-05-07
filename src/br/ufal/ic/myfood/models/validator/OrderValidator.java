@@ -3,17 +3,18 @@ package br.ufal.ic.myfood.models.validator;
 import br.ufal.ic.myfood.exceptions.*;
 import br.ufal.ic.myfood.models.integrators.ProductIntegrator;
 import br.ufal.ic.myfood.models.integrators.UserIntegrator;
-import br.ufal.ic.myfood.models.database.ShopingCartDataManeger;
+import br.ufal.ic.myfood.models.database.OrderDataManeger;
+import br.ufal.ic.myfood.models.order.Order;
 
 import java.util.List;
 
-public class ShopingCartValidator extends Validator<ShopingCartDataManeger> {
+public class OrderValidator extends Validator<OrderDataManeger> {
 
     private final UserIntegrator userIntegrator;
     private final ProductIntegrator productIntegrator;
 
-    public ShopingCartValidator(ShopingCartDataManeger dataManager,
-           UserIntegrator userIntegrator, ProductIntegrator productIntegrator) {
+    public OrderValidator(OrderDataManeger dataManager,
+                          UserIntegrator userIntegrator, ProductIntegrator productIntegrator) {
         super(dataManager);
         this.userIntegrator = userIntegrator;
         this.productIntegrator = productIntegrator;
@@ -61,14 +62,10 @@ public class ShopingCartValidator extends Validator<ShopingCartDataManeger> {
     }
 
     public void validadateGetAtribute(String orderId, String atribute)
-        throws AtributoInvalido,PedidoNaoEncontrado,AtributoNaoExiste{
+        throws AtributoInvalido,PedidoNaoEncontrado{
 
         if(!fildExists(atribute)) {
             throw new AtributoInvalido();
-        }
-
-        if(!isValidAttribute(atribute)) {
-            throw new AtributoNaoExiste();
         }
 
         if(!dataBase.orderExists(orderId)){
@@ -93,6 +90,10 @@ public class ShopingCartValidator extends Validator<ShopingCartDataManeger> {
 
     }
 
+    public boolean orderIsClosed(Order order){
+        return order.getState().equals("preparando");
+    }
+
     public void getOrderNumberValidator(List<String> allOrders, int index)
         throws IndiceMaiorQueEsperado{
         if(allOrders == null || index >= allOrders.size()) {
@@ -100,10 +101,14 @@ public class ShopingCartValidator extends Validator<ShopingCartDataManeger> {
         }
     }
 
-    private boolean isValidAttribute(String atribute) {
-        String lower = atribute.toLowerCase();
-        return lower.equals("cliente") || lower.equals("empresa") ||
-                lower.equals("estado") || lower.equals("produtos") || lower.equals("valor");
+    public void validateReleaseOrder(Order order) throws
+            PedidoJaLiberado,LiberarPedidoAberto{
+
+        if(order.getState().equals("pronto")){
+            throw new PedidoJaLiberado();
+        }else if(!orderIsClosed(order)){
+            throw new LiberarPedidoAberto();
+        }
     }
 
 }

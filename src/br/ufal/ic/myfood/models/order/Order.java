@@ -1,6 +1,5 @@
-package br.ufal.ic.myfood.models.shopingCart;
+package br.ufal.ic.myfood.models.order;
 
-import br.ufal.ic.myfood.exceptions.AtributoInvalido;
 import br.ufal.ic.myfood.exceptions.AtributoNaoExiste;
 import br.ufal.ic.myfood.exceptions.ProdutoNaoEncontrado;
 import br.ufal.ic.myfood.records.PairKey;
@@ -29,14 +28,14 @@ public class Order {
         this.subtotal = 0;
     }
 
-    public String getAtribute(String atribute) {;
-        return switch (atribute.toLowerCase()) {
+    public String getAtribute(String atribute) throws AtributoNaoExiste {;
+        return switch (atribute) {
             case "cliente"     -> getClientId();
             case "empresa"    -> getEnterpriseId();
-            case "estado"   -> isState();
+            case "estado"   -> getState();
             case "produtos" -> this.toString();
             case "valor"    -> String.format(Locale.US, "%.2f",this.getSubtotal());
-            default -> "";
+            default -> throw new AtributoNaoExiste();
         };
     }
 
@@ -105,10 +104,6 @@ public class Order {
 
     public void setEnterpriseId(String enterprise) {
         this.enterpriseId = enterprise;
-    }
-
-    public String isState() {
-        return state;
     }
 
     public String getState() {

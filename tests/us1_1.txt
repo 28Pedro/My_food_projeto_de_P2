@@ -17,7 +17,7 @@
 ###################
 # Os métodos que são utilizados nos testes podem ser vistos a seguir:
 ###################
-#
+# zerarSistema
 # descrição: Apaga todos os dados no banco de dados do sistema.
 # retorno: Sem retorno
 #

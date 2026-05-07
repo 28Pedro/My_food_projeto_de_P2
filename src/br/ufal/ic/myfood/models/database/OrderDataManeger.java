@@ -3,28 +3,32 @@ package br.ufal.ic.myfood.models.database;
 import br.ufal.ic.myfood.exceptions.FileError;
 import br.ufal.ic.myfood.exceptions.PedidoNaoEncontrado;
 import br.ufal.ic.myfood.exceptions.SaveError;
-import br.ufal.ic.myfood.models.shopingCart.Order;
+import br.ufal.ic.myfood.models.order.Order;
 import br.ufal.ic.myfood.records.PairKey;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ShopingCartDataManeger extends DataManger<Order> {
+public class OrderDataManeger extends DataManger<Order> {
 
     private final String ORDER_BY_ID_FILE = getFILE_PATH() + "shoping_cart_by_Id.xml";
     private final String OPEN_ORDER_ID_BY_CLIENT_ENTERPIRSE_FILE = getFILE_PATH() + "open_shoping_cart_by_client_enterprise.xml";
     private final String ALL_ORDER_ID_BY_CLIENT_ENTERPIRSE_FILE = getFILE_PATH() + "all_shoping_cart_by_client_enterprise.xml";
+    private final String PRONT_ORDERS_BY_ENTERPRISE_ID = getFILE_PATH() + "pront_orders_by_enterprise.xml";
 
     private Map<String, Order> orderById;
     private Map<PairKey<String,String>, String> openOrderIdByClientEnterprise;
-    private Map<PairKey<String,String>, java.util.List<String>> allordersIdsByClientEnterprise;
+    private Map<PairKey<String,String>, List<String>> allordersIdsByClientEnterprise;
+    private Map<String, List<String>> prontOrdersByEnterpriseId;
 
-    public ShopingCartDataManeger() throws FileError {
+    public OrderDataManeger() throws FileError {
 
         orderById = loadMapFromXML(ORDER_BY_ID_FILE);
         openOrderIdByClientEnterprise = loadMapFromXML(OPEN_ORDER_ID_BY_CLIENT_ENTERPIRSE_FILE);
         allordersIdsByClientEnterprise = loadMapFromXML(ALL_ORDER_ID_BY_CLIENT_ENTERPIRSE_FILE);
+        prontOrdersByEnterpriseId = loadMapFromXML(PRONT_ORDERS_BY_ENTERPRISE_ID);
+
     }
 
     public void saveObject(Order order){
@@ -50,7 +54,7 @@ public class ShopingCartDataManeger extends DataManger<Order> {
         }
 
         Order order = getOrderById(id);
-        return "aberto".equals(order.isState());
+        return "aberto".equals(order.getState());
     }
 
     public Order getOrderById(String id)
@@ -85,6 +89,7 @@ public class ShopingCartDataManeger extends DataManger<Order> {
         saveMapToXML(orderById, ORDER_BY_ID_FILE);
         saveMapToXML(openOrderIdByClientEnterprise, OPEN_ORDER_ID_BY_CLIENT_ENTERPIRSE_FILE);
         saveMapToXML(allordersIdsByClientEnterprise, ALL_ORDER_ID_BY_CLIENT_ENTERPIRSE_FILE);
+        saveMapToXML(prontOrdersByEnterpriseId, PRONT_ORDERS_BY_ENTERPRISE_ID);
     }
 
     @Override
@@ -92,9 +97,10 @@ public class ShopingCartDataManeger extends DataManger<Order> {
         orderById.clear();
         openOrderIdByClientEnterprise.clear();
         allordersIdsByClientEnterprise.clear();
+        prontOrdersByEnterpriseId.clear();
 
         resetFiles(ORDER_BY_ID_FILE, OPEN_ORDER_ID_BY_CLIENT_ENTERPIRSE_FILE,
-                ALL_ORDER_ID_BY_CLIENT_ENTERPIRSE_FILE);
+                ALL_ORDER_ID_BY_CLIENT_ENTERPIRSE_FILE,PRONT_ORDERS_BY_ENTERPRISE_ID);
     }
 
     private void fillShopingCartById(Order order, String Id){
@@ -114,12 +120,29 @@ public class ShopingCartDataManeger extends DataManger<Order> {
         allordersIdsByClientEnterprise.get(key).add(orderId);
     }
 
+    public void addprontOrder(String entrerpriseId, String orderId){
+        if(!prontOrdersByEnterpriseId.containsKey(entrerpriseId)){
+            prontOrdersByEnterpriseId.put(entrerpriseId,new ArrayList<String>());
+        }
+
+        List<String> prontOrderList = prontOrdersByEnterpriseId.get(entrerpriseId);
+        prontOrderList.add(orderId);
+    }
+
     public List<String> getAllOrdersByClientEnterprise(String clientId, String enterpriseId){
         PairKey<String,String> key = makeKey(clientId, enterpriseId);
         List<String> orders = allordersIdsByClientEnterprise.getOrDefault(key, new java.util.ArrayList<>());
         return new java.util.ArrayList<>(orders);
     }
 
+    public List<String> getProntOrdersByEnterprise(String enterpriseId){
+
+        if(prontOrdersByEnterpriseId.containsKey(enterpriseId)){
+            return prontOrdersByEnterpriseId.get(enterpriseId);
+        }
+
+        return null;
+    } //!
 
 }
 

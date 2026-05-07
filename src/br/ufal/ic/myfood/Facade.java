@@ -42,26 +42,74 @@ public class Facade {
         core.criarUsuario(nome,email,senha,endereco,cpf);
     }
 
+    public void criarUsuario(String nome, String email, String senha, String endereco, String veiculo,
+                             String placa) throws UsuarioJaExisteException, NomeInvalido, EmailInvalido, EnderecoInvalido,
+            SenhaInvalida,VeiculoInvalido,PlacaInvalido{
+
+        core.criarUsuario(nome,email,senha,endereco,veiculo,placa);
+    }
+
     public String login(String email, String senha) throws LoginError {
        return core.login(email, senha);
     }
 
+    public void cadastrarEntregador(String empresa, String entregador)
+    throws EmpresanaoCadastrada,UsuarioNaoEEntregador,UsuarioNaoExisteException{
+        core.addDeliveryMan(empresa,entregador);
+    }
+
     public String criarEmpresa (String tipoEmpresa, String dono, String nome, String endereco, String tipoCozinha)
                             throws UsuarioNaoPodeCriarEmpresa, NomeDeEmpresaJaExiste,
-                            EmpresaComMesmoNomeeLocal, NomeInvalido, UsuarioNaoExisteException{
+                            EmpresaComMesmoNomeeLocal, NomeInvalido, EnderecoEmpresaInvalido,
+                            TipoEmpresaInvalido{
+
         return core.createEnterprise(tipoEmpresa,dono,nome,endereco,tipoCozinha);
+    }
+
+    public String criarEmpresa(String tipoEmpresa, String dono, String nome, String endereco,
+                                String abre, String fecha, String tipoMercado)  throws UsuarioNaoPodeCriarEmpresa, NomeDeEmpresaJaExiste,
+            EmpresaComMesmoNomeeLocal, FormatoDeHoraInvalido, HorarioInvalido, NomeInvalido,
+            TipoEmpresaInvalido,EnderecoEmpresaInvalido,TipoMercadoInvalido {
+
+        return core.createEnterprise(tipoEmpresa,dono,nome,endereco,abre,fecha,tipoMercado);
+    }
+
+    public String criarEmpresa(String tipoEmpresa, String dono, String nome, String endereco, boolean aberto24Horas,
+                               int numeroFuncionarios) throws UsuarioNaoPodeCriarEmpresa, NomeDeEmpresaJaExiste,
+            EmpresaComMesmoNomeeLocal,NomeInvalido, TipoEmpresaInvalido,EnderecoEmpresaInvalido {
+
+        return core.createEnterprise(tipoEmpresa,dono,nome,endereco,aberto24Horas,numeroFuncionarios);
     }
 
     public String getEmpresasDoUsuario(String IdDono) throws EmpresanaoCadastrada, UsuarioNaoPodeCriarEmpresa, UsuarioNaoExisteException {
         return core.getEnterprizesOfUser(IdDono);
     }
 
-    public String getAtributoEmpresa(String empresaId, String atributo) throws EmpresanaoCadastrada, AtributoInvalido, UsuarioNaoExisteException {
+    public String getEmpresas(String entregador) throws
+            UsuarioNaoExisteException,UsuarioNaoEEntregador{
+
+        return core.getEnterprisesByDeliveryMan(entregador);
+    }
+
+    public String getAtributoEmpresa(String empresaId, String atributo) throws EmpresanaoCadastrada,
+            AtributoInvalido, UsuarioNaoExisteException {
         return core.getAtributoEmpresa(empresaId, atributo);
     }
 
-    public String getIdEmpresa(String ownerId, String nome, int indice) throws EmpresanaoCadastrada, NomeInvalido, IndiceMaiorQueEsperado, UsuarioNaoExisteException, UsuarioNaoPodeCriarEmpresa, IndiceInvalido, NaoExisteEmpresaComEsseNome {
+    public String getIdEmpresa(String ownerId, String nome, int indice) throws EmpresanaoCadastrada,
+            NomeInvalido, IndiceMaiorQueEsperado, UsuarioNaoExisteException,
+            UsuarioNaoPodeCriarEmpresa, IndiceInvalido, NaoExisteEmpresaComEsseNome {
         return core.getIdEmpresa(ownerId, nome, indice);
+    }
+
+    public String getEntregadores(String empresa) throws EmpresanaoCadastrada{
+       return core.getDelivryManListByEnterprise(empresa);
+    }
+
+
+    public void alterarFuncionamento(String mercado, String abre, String fecha)
+    throws MercadoInvalido,HorarioInvalido,FormatoDeHoraInvalido{
+        core.supermarketChangeOperation(mercado,abre,fecha);
     }
 
     public String criarProduto(String empresa, String nome, float valor, String categoria)
@@ -111,5 +159,36 @@ public class Facade {
             throws IndiceMaiorQueEsperado {
         return core.getOrderNumber(cliente, empresa, indice);
     }
+
+    public void liberarPedido(String numero) throws PedidoNaoEncontrado,EmpresanaoCadastrada,LiberarPedidoAberto,
+    UsuarioNaoEEntregador, UsuarioNaoExisteException, PedidoJaLiberado{
+        core.releaseOrder(numero);
+    }
+
+    public String obterPedido(String entregador) throws UsuarioNaoEEntregador,UsuarioNaoExisteException,
+    EntregadorNaoTemEmpresa,NaoExistePedidoParaEntrega{
+       return core.getOrderByDeliveryMan(entregador);
+    }
+
+    public String criarEntrega(String pedido, String entregador, String destino)
+            throws PedidoNaoEstaPronto,PedidoNaoEncontrado,NaoEUmEntregadorValido,
+    EntregadorAindaEmEntrega,NaoExistePedidoParaEntrega{
+        return core.createDelivery(pedido,entregador,destino);
+    }
+
+    public String getEntrega(String id, String atributo) throws
+            AtributoInvalido,AtributoNaoExiste, NaoExisteEntregaId {
+        return core.getDeliveryAtributeById(id,atributo);
+    }
+// erro na linha 167 do teste Us8_1 do easyacept
+
+    public String getIdEntrega(String pedido) throws NaoExisteEntregaId{
+        return core.getDeliveryIdbyOrderId(pedido);
+    }
+
+    public void entregar(String entrega) throws NadaParaSerEntregue{
+        core.finishDelivery(entrega);
+    }
+
 
 }

@@ -1,8 +1,11 @@
 package br.ufal.ic.myfood.models.integrators;
 
 import br.ufal.ic.myfood.exceptions.AtributoInvalido;
+import br.ufal.ic.myfood.exceptions.UsuarioNaoEEntregador;
 import br.ufal.ic.myfood.exceptions.UsuarioNaoExisteException;
 import br.ufal.ic.myfood.models.manageres.UserManager;
+
+import java.util.List;
 
 public class UserIntegrator {
 
@@ -17,9 +20,45 @@ public class UserIntegrator {
     }
 
     public String getUserNameById(String id)
-            throws UsuarioNaoExisteException, AtributoInvalido {
+            throws UsuarioNaoExisteException{
+        try {
+            return userManager.getAtributebyId(id, "nome");
+        } catch (AtributoInvalido e) {
+           throw new UsuarioNaoExisteException();
+        }
 
-        return userManager.getAtributebyId(id, "nome");
     }
+
+    public String getUserEmailbyId(String id) throws UsuarioNaoExisteException
+     {
+
+        try {
+            return userManager.getAtributebyId(id,"email");
+
+        } catch (AtributoInvalido e) {
+
+            throw new UsuarioNaoExisteException();
+        }
+    }
+
+    public void addDeliveryManListOrder(List<String> deliveryManEmailList, String orderId, boolean priority)
+    throws UsuarioNaoEEntregador,UsuarioNaoExisteException {
+        userManager.addDeliveryManListOrder(deliveryManEmailList,orderId,priority);
+    }
+
+    public void removeDeliveryManListOrder(List<String> deliveryManEmailList, String orderId, boolean priority,
+                                           String deliveryManId)
+            throws UsuarioNaoEEntregador,UsuarioNaoExisteException {
+        userManager.removeDeliveryManListOrder(deliveryManEmailList,orderId,priority,deliveryManId);
+    }
+
+    public boolean userIsDeliveryMan(String userId) throws UsuarioNaoExisteException{
+        return userManager.userIsDeliveryMan(userId);
+    }
+
+    public String getuserAdress(String userId) throws AtributoInvalido,UsuarioNaoExisteException{
+        return userManager.getAtributebyId(userId,"endereco");
+    }
+
 
 }
