@@ -1,5 +1,6 @@
 package br.ufal.ic.myfood.models.products;
 
+import br.ufal.ic.myfood.enums.ProductType;
 import br.ufal.ic.myfood.exceptions.AtributoNaoExiste;
 
 public class RestaurantProduct extends Product{
@@ -11,7 +12,7 @@ public class RestaurantProduct extends Product{
     }
 
     public RestaurantProduct(String id, String name, float value, String category, String enterpriseID) {
-        super(id, name, value, enterpriseID);
+        super(id, name, value, enterpriseID, ProductType.RESTAURANT_PRODUCT);
         this.category = category;
     }
 

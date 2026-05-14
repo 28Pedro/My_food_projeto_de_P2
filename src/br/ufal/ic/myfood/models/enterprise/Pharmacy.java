@@ -1,5 +1,6 @@
 package br.ufal.ic.myfood.models.enterprise;
 
+import br.ufal.ic.myfood.enums.EnterpriseType;
 import br.ufal.ic.myfood.exceptions.AtributoInvalido;
 
 public class Pharmacy extends Enterprise{
@@ -11,7 +12,7 @@ public class Pharmacy extends Enterprise{
 
     public Pharmacy(String type, String ownerId, String name, String adress, String id,
                     boolean open24Hours, int numberOfEmploys) {
-        super(type, ownerId, name, adress, id);
+        super(type, ownerId, name, adress, id, EnterpriseType.PHARMACY);
         this.open24Hours = open24Hours;
         this.numberOfEmploys = numberOfEmploys;
     }

@@ -1,5 +1,6 @@
 package br.ufal.ic.myfood.models.users;
 
+import br.ufal.ic.myfood.enums.UserType;
 import br.ufal.ic.myfood.exceptions.AtributoInvalido;
 import br.ufal.ic.myfood.exceptions.NaoExistePedidoParaEntrega;
 import br.ufal.ic.myfood.records.PairKey;
@@ -22,7 +23,7 @@ public class DeliveryMan extends User{
     }
 
     public DeliveryMan(String id, String name, String email, String password, String adress, String vehicle, String licensePlate) {
-        super(id, name, email, password, adress);
+        super(id, name, email, password, adress, UserType.DELIVERY_MAN);
         this.vehicle = vehicle;
         this.licensePlate = licensePlate;
         enterprises_Name_Address = new ArrayList<PairKey<String, String>>();

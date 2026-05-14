@@ -1,11 +1,11 @@
 package br.ufal.ic.myfood.models.validator;
+import br.ufal.ic.myfood.enums.UserType;
 import br.ufal.ic.myfood.exceptions.*;
 import br.ufal.ic.myfood.models.database.UserDataManage;
 import br.ufal.ic.myfood.models.users.DeliveryMan;
 import br.ufal.ic.myfood.models.users.User;
 import br.ufal.ic.myfood.records.PairKey;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserValidator extends Validator<UserDataManage> {
@@ -77,7 +77,7 @@ public class UserValidator extends Validator<UserDataManage> {
     public void validateUserIsDeliveryMan(User user)
     throws UsuarioNaoEEntregador{
 
-         if(!(user instanceof DeliveryMan)){
+         if(!(user.getUserType() == UserType.DELIVERY_MAN)){
              throw new UsuarioNaoEEntregador();
          }
     }

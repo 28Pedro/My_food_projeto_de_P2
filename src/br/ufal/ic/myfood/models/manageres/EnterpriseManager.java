@@ -1,5 +1,6 @@
 package br.ufal.ic.myfood.models.manageres;
 
+import br.ufal.ic.myfood.enums.EnterpriseType;
 import br.ufal.ic.myfood.exceptions.*;
 import br.ufal.ic.myfood.models.database.EnterpriseDataManeger;
 import br.ufal.ic.myfood.models.enterprise.Enterprise;
@@ -142,7 +143,7 @@ public class EnterpriseManager {
         try {
             Enterprise supermarket = enterpriseDataManeger.getEnterpriseByID(id);
 
-            if (!(supermarket instanceof SuperMarket)) {
+            if (supermarket.getEnterpriseType() != EnterpriseType.SUPERMARKET) {
                 throw new MercadoInvalido();
             }
 
@@ -200,7 +201,7 @@ public class EnterpriseManager {
 
         Enterprise enterprise = enterpriseDataManeger.getEnterpriseByID(enterpriseId);
 
-        return enterprise instanceof Pharmacy;
+        return enterprise.getEnterpriseType() == EnterpriseType.PHARMACY;
     }
 
     private String generateId() {

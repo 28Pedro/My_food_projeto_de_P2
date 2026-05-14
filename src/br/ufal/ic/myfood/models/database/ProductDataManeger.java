@@ -1,5 +1,6 @@
 package br.ufal.ic.myfood.models.database;
 
+import br.ufal.ic.myfood.enums.ProductType;
 import br.ufal.ic.myfood.exceptions.*;
 import br.ufal.ic.myfood.models.products.Product;
 import br.ufal.ic.myfood.models.products.RestaurantProduct;
@@ -39,7 +40,7 @@ public class ProductDataManeger extends DataManger<Product> {
          String oldName = product.getName();
          String enterpriseId = product.getEnterpriseId();
 
-         if(product instanceof RestaurantProduct) {
+         if(product.getProductType() == ProductType.RESTAURANT_PRODUCT) {
              ((RestaurantProduct) product).editProduct(name, value, category);
          }
 

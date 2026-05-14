@@ -1,5 +1,6 @@
 package br.ufal.ic.myfood.models.manageres;
 
+import br.ufal.ic.myfood.enums.UserType;
 import br.ufal.ic.myfood.exceptions.*;
 import br.ufal.ic.myfood.models.database.UserDataManage;
 import br.ufal.ic.myfood.models.integrators.EnterpriseIntegrator;
@@ -100,12 +101,7 @@ public class UserManager {
     public boolean userIsOwner(String id) throws UsuarioNaoExisteException{
 
         User user = userDataManage.getUserById(id);
-        return user instanceof Owner;
-    }
-
-    public boolean userIsClient(String id) throws UsuarioNaoExisteException{
-        User user = userDataManage.getUserById(id);
-        return user instanceof Client;
+        return user.getUserType() == UserType.OWNER;
     }
 
     public void addDeliveryManListOrder(List<String> deliverymanEmailList, String orderId, boolean priority)
@@ -173,7 +169,7 @@ public class UserManager {
     public boolean userIsDeliveryMan(String userId) throws
             UsuarioNaoExisteException{
         User user  = userDataManage.getUserById(userId);
-        return user instanceof DeliveryMan;
+        return user.getUserType() == UserType.DELIVERY_MAN;
     }
 
     public void resetData(){
