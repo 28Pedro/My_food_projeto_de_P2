@@ -1,5 +1,6 @@
 package br.ufal.ic.myfood.models.products;
 
+import br.ufal.ic.myfood.enums.ProductType;
 import br.ufal.ic.myfood.exceptions.AtributoNaoExiste;
 import java.util.Locale;
 
@@ -9,15 +10,17 @@ public abstract class Product {
     private String enterpriseId;
     private String name;
     private float value;
+    private ProductType productType;
 
     public Product() {
     }
 
-    public Product(String id, String name, float value, String enterpriseId){
+    public Product(String id, String name, float value, String enterpriseId, ProductType productType){
         this.id = id;
         this.name = name;
         this.value = value;
         this.enterpriseId = enterpriseId;
+        this.productType = productType;
     }
 
     public void editProduct(String name, float value){
@@ -64,6 +67,14 @@ public abstract class Product {
 
     public void setEnterpriseId(String enterpriseId) {
         this.enterpriseId = enterpriseId;
+    }
+
+    public ProductType getProductType() {
+        return productType;
+    }
+
+    public void setProductType(ProductType productType) {
+        this.productType = productType;
     }
 
     @Override

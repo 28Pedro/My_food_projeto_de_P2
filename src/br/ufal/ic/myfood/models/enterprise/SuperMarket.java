@@ -1,5 +1,6 @@
 package br.ufal.ic.myfood.models.enterprise;
 
+import br.ufal.ic.myfood.enums.EnterpriseType;
 import br.ufal.ic.myfood.exceptions.AtributoInvalido;
 
 public class SuperMarket extends Enterprise {
@@ -12,7 +13,7 @@ public class SuperMarket extends Enterprise {
     }
 
     public SuperMarket(String type, String ownerId, String name, String adress, String id, String closes, String open, String supermarketType) {
-        super(type, ownerId, name, adress, id);
+        super(type, ownerId, name, adress, id, EnterpriseType.SUPERMARKET);
         this.closes = closes;
         this.open = open;
         this.supermarketType = supermarketType;

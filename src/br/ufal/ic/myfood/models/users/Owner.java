@@ -1,5 +1,6 @@
 package br.ufal.ic.myfood.models.users;
 
+import br.ufal.ic.myfood.enums.UserType;
 import br.ufal.ic.myfood.exceptions.AtributoInvalido;
 
 public class Owner extends User {
@@ -9,7 +10,7 @@ public class Owner extends User {
     public Owner(){}
 
     public Owner(String id, String name, String email, String password, String adress, String cpf) {
-        super(id, name, email, password, adress);
+        super(id, name, email, password, adress, UserType.OWNER);
         this.cpf = cpf;
     }
 

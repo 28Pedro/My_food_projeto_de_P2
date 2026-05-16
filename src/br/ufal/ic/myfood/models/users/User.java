@@ -1,5 +1,6 @@
 package br.ufal.ic.myfood.models.users;
 
+import br.ufal.ic.myfood.enums.UserType;
 import br.ufal.ic.myfood.exceptions.AtributoInvalido;
 
 public abstract class User {
@@ -8,15 +9,17 @@ public abstract class User {
     private String email;
     private String password;
     private String adress;
+    private UserType userType;
 
     public User(){}
 
-    public User(String id, String name, String email, String password, String adress) {
+    public User(String id, String name, String email, String password, String adress, UserType userType) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.adress = adress;
+        this.userType = userType;
     }
 
     public String getAtribute(String atribute) throws AtributoInvalido {
@@ -68,6 +71,14 @@ public abstract class User {
 
     public void setAdress(String adress) {
         this.adress = adress;
+    }
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
     }
 
     @Override

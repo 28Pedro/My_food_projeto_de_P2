@@ -1,5 +1,6 @@
 package br.ufal.ic.myfood.models.enterprise;
 
+import br.ufal.ic.myfood.enums.EnterpriseType;
 import br.ufal.ic.myfood.exceptions.AtributoInvalido;
 
 import java.util.ArrayList;
@@ -13,19 +14,21 @@ public abstract class Enterprise {
     private String ownerId;
     private String id;
     private List<String> deliveryManEmailList;
+    private EnterpriseType enterpriseType;
 
 
     public Enterprise() {
         this.deliveryManEmailList = new ArrayList<>();
     }
 
-    public Enterprise(String type,String ownerId, String name, String adress, String id) {
+    public Enterprise(String type,String ownerId, String name, String adress, String id, EnterpriseType enterpriseType) {
 
         this.type = type;
         this.name = name;
         this.adress = adress;
         this.ownerId = ownerId;
         this.id = id;
+        this.enterpriseType = enterpriseType;
         this.deliveryManEmailList = new ArrayList<>();
 
     }
@@ -113,6 +116,14 @@ public abstract class Enterprise {
 
     public void setDeliveryManEmailList(List<String> deliveryManEmailList) {
         this.deliveryManEmailList = deliveryManEmailList;
+    }
+
+    public EnterpriseType getEnterpriseType() {
+        return enterpriseType;
+    }
+
+    public void setEnterpriseType(EnterpriseType enterpriseType) {
+        this.enterpriseType = enterpriseType;
     }
 
     @Override
